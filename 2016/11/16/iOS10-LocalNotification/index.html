@@ -6,18 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>哈哈 | Royce’s Blog</title>
+  <title>iOS10-LocalNotification | Royce’s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="风雨一夜花满楼😁">
+  <meta name="description" content="iOS10-LocalNotification
+  NotificationManager.scheduleNotification(id: &amp;quot;标识&amp;quot;, title: &amp;quot;通知测试&amp;quot;, subtitle: &amp;quot;子标题&amp;quot;, body: &amp;quot;风雨一夜花满楼&amp;quot;, badgeCount: 10)
+NotificationManage">
 <meta property="og:type" content="article">
-<meta property="og:title" content="哈哈">
-<meta property="og:url" content="http://yoursite.com/2016/11/16/哈哈/index.html">
+<meta property="og:title" content="iOS10-LocalNotification">
+<meta property="og:url" content="http://yoursite.com/2016/11/16/iOS10-LocalNotification/index.html">
 <meta property="og:site_name" content="Royce’s Blog">
-<meta property="og:description" content="风雨一夜花满楼😁">
-<meta property="og:updated_time" content="2016-11-16T04:10:31.000Z">
+<meta property="og:description" content="iOS10-LocalNotification
+  NotificationManager.scheduleNotification(id: &amp;quot;标识&amp;quot;, title: &amp;quot;通知测试&amp;quot;, subtitle: &amp;quot;子标题&amp;quot;, body: &amp;quot;风雨一夜花满楼&amp;quot;, badgeCount: 10)
+NotificationManage">
+<meta property="og:updated_time" content="2016-11-16T04:15:21.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="哈哈">
-<meta name="twitter:description" content="风雨一夜花满楼😁">
+<meta name="twitter:title" content="iOS10-LocalNotification">
+<meta name="twitter:description" content="iOS10-LocalNotification
+  NotificationManager.scheduleNotification(id: &amp;quot;标识&amp;quot;, title: &amp;quot;通知测试&amp;quot;, subtitle: &amp;quot;子标题&amp;quot;, body: &amp;quot;风雨一夜花满楼&amp;quot;, badgeCount: 10)
+NotificationManage">
   
     <link rel="alternative" href="/atom.xml" title="Royce’s Blog" type="application/atom+xml">
   
@@ -134,7 +140,7 @@
 </nav>
 
       <div class="body-wrap">
-        <article id="[]-哈哈" class="article article-type-[]" itemscope itemprop="blogPost">
+        <article id="[]-iOS10-LocalNotification" class="article article-type-[]" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -144,7 +150,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      哈哈
+      iOS10-LocalNotification
     </h1>
   
 
@@ -152,13 +158,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="风雨一夜花满楼😁"><a href="#风雨一夜花满楼😁" class="headerlink" title="风雨一夜花满楼😁"></a>风雨一夜花满楼😁</h1>
+        <p>iOS10-LocalNotification</p>
+<pre><code>  NotificationManager.scheduleNotification(id: &quot;标识&quot;, title: &quot;通知测试&quot;, subtitle: &quot;子标题&quot;, body: &quot;风雨一夜花满楼&quot;, badgeCount: 10)
+NotificationManager.pending { [weak self] value in
+    print(&quot;\(value)未发送&quot;)
+    self?.showAlert(title: &quot;通知&quot;, message: &quot;\(value)未发送&quot;)
+}
+
+NotificationManager.delivered{ [weak self] value in
+      self?.showAlert(title: &quot;通知&quot;, message: &quot;\(value)已发送&quot;)
+} 
+</code></pre>
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/16/哈哈/" class="archive-article-date">
-  	<time datetime="2016-11-16T04:05:34.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-16</time>
+      <a href="/2016/11/16/iOS10-LocalNotification/" class="archive-article-date">
+  	<time datetime="2016-11-16T04:13:52.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-16</time>
 </a>
       
       
@@ -171,15 +187,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/11/16/iOS10-LocalNotification/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          iOS10-LocalNotification
-        
-      </div>
-    </a>
   
+    <a href="/2016/11/16/哈哈/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">哈哈</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -211,7 +223,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="哈哈" data-title="哈哈" data-url="http://yoursite.com/2016/11/16/哈哈/"></div>
+	<div class="ds-thread" data-thread-key="iOS10-LocalNotification" data-title="iOS10-LocalNotification" data-url="http://yoursite.com/2016/11/16/iOS10-LocalNotification/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

@@ -132,6 +132,60 @@
       <div class="body-wrap">
         
   
+    <article id="[]-iOS10-LocalNotification" class="article article-type-[]" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/16/iOS10-LocalNotification/">iOS10-LocalNotification</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>iOS10-LocalNotification</p>
+<pre><code>  NotificationManager.scheduleNotification(id: &quot;标识&quot;, title: &quot;通知测试&quot;, subtitle: &quot;子标题&quot;, body: &quot;风雨一夜花满楼&quot;, badgeCount: 10)
+NotificationManager.pending { [weak self] value in
+    print(&quot;\(value)未发送&quot;)
+    self?.showAlert(title: &quot;通知&quot;, message: &quot;\(value)未发送&quot;)
+}
+
+NotificationManager.delivered{ [weak self] value in
+      self?.showAlert(title: &quot;通知&quot;, message: &quot;\(value)已发送&quot;)
+} 
+</code></pre>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/16/iOS10-LocalNotification/" class="archive-article-date">
+  	<time datetime="2016-11-16T04:13:52.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-16</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="[]-哈哈" class="article article-type-[]" itemscope itemprop="blogPost">
   <div class="article-inner">
     

@@ -6,24 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>iOS10-LocalNotification | Royce’s Blog</title>
+  <title>iOS10-LocalNotification 封装 | Royce’s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="iOS10-LocalNotification
-  NotificationManager.scheduleNotification(id: &amp;quot;标识&amp;quot;, title: &amp;quot;通知测试&amp;quot;, subtitle: &amp;quot;子标题&amp;quot;, body: &amp;quot;风雨一夜花满楼&amp;quot;, badgeCount: 10)
-NotificationManage">
+授权Authorization123456789101112131415161718class func requestAuthorization(completion: ((_ granted: Bool)-&amp;gt;())? = nil) &amp;#123;        let center = UNUserNotificationCenter.cur">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS10-LocalNotification">
+<meta property="og:title" content="iOS10-LocalNotification 封装">
 <meta property="og:url" content="http://yoursite.com/2016/11/16/iOS10-LocalNotification/index.html">
 <meta property="og:site_name" content="Royce’s Blog">
 <meta property="og:description" content="iOS10-LocalNotification
-  NotificationManager.scheduleNotification(id: &amp;quot;标识&amp;quot;, title: &amp;quot;通知测试&amp;quot;, subtitle: &amp;quot;子标题&amp;quot;, body: &amp;quot;风雨一夜花满楼&amp;quot;, badgeCount: 10)
-NotificationManage">
-<meta property="og:updated_time" content="2016-11-16T04:15:21.000Z">
+授权Authorization123456789101112131415161718class func requestAuthorization(completion: ((_ granted: Bool)-&amp;gt;())? = nil) &amp;#123;        let center = UNUserNotificationCenter.cur">
+<meta property="og:updated_time" content="2016-11-16T05:19:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS10-LocalNotification">
+<meta name="twitter:title" content="iOS10-LocalNotification 封装">
 <meta name="twitter:description" content="iOS10-LocalNotification
-  NotificationManager.scheduleNotification(id: &amp;quot;标识&amp;quot;, title: &amp;quot;通知测试&amp;quot;, subtitle: &amp;quot;子标题&amp;quot;, body: &amp;quot;风雨一夜花满楼&amp;quot;, badgeCount: 10)
-NotificationManage">
+授权Authorization123456789101112131415161718class func requestAuthorization(completion: ((_ granted: Bool)-&amp;gt;())? = nil) &amp;#123;        let center = UNUserNotificationCenter.cur">
   
     <link rel="alternative" href="/atom.xml" title="Royce’s Blog" type="application/atom+xml">
   
@@ -150,7 +147,7 @@ NotificationManage">
         
   
     <h1 class="article-title" itemprop="name">
-      iOS10-LocalNotification
+      iOS10-LocalNotification 封装
     </h1>
   
 
@@ -159,7 +156,10 @@ NotificationManage">
     <div class="article-entry" itemprop="articleBody">
       
         <p>iOS10-LocalNotification</p>
-<pre><code>  NotificationManager.scheduleNotification(id: &quot;标识&quot;, title: &quot;通知测试&quot;, subtitle: &quot;子标题&quot;, body: &quot;风雨一夜花满楼&quot;, badgeCount: 10)
+<h2 id="授权Authorization"><a href="#授权Authorization" class="headerlink" title="授权Authorization"></a>授权Authorization</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class func requestAuthorization(completion: ((_ granted: Bool)-&gt;())? = nil) &#123;</div><div class="line">        let center = UNUserNotificationCenter.current()</div><div class="line">        center.requestAuthorization(options: [.badge, .alert, .sound]) &#123; (granted, error) in</div><div class="line">            if granted &#123;</div><div class="line">                completion?(true)</div><div class="line">            &#125; else &#123;</div><div class="line">                center.getNotificationSettings(completionHandler: &#123; settings in</div><div class="line">                    if settings.authorizationStatus != .authorized &#123;</div><div class="line">                        //User has not authorized notifications</div><div class="line">                    &#125;</div><div class="line">                    if settings.lockScreenSetting != .enabled &#123;</div><div class="line">                        //User has either disabled notifications on the lock screen for this app or it is not supported</div><div class="line">                    &#125;</div><div class="line">                    completion?(false)</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="通知的内容"><a href="#通知的内容" class="headerlink" title="通知的内容"></a>通知的内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private class func createNotificationContent(title: String, subtitle: String, body: String, badgeCount: NSNumber?, userInfo: [AnyHashable: Any] = [:]) -&gt; UNNotificationContent &#123;</div><div class="line">        let content = UNMutableNotificationContent()</div><div class="line">        content.title = title</div><div class="line">        content.subtitle = subtitle</div><div class="line">        content.body = body</div><div class="line">        content.sound = UNNotificationSound.default()</div><div class="line">        content.badge = badgeCount</div><div class="line">        content.userInfo = userInfo</div><div class="line">        content.attachments = createSampleAttachments()</div><div class="line">        </div><div class="line">        return content</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="通知触发条件"><a href="#通知触发条件" class="headerlink" title="通知触发条件"></a>通知触发条件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">  </div><div class="line">private class func createTimeIntervalNotificationTrigger() -&gt; UNTimeIntervalNotificationTrigger &#123;</div><div class="line">    return UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)</div><div class="line">&#125;</div><div class="line">//MARK:触发日期 </div><div class="line"></div><div class="line">private class func createCalendarNotificationTrigger() -&gt; UNCalendarNotificationTrigger &#123;</div><div class="line">    var dateComponents = DateComponents()</div><div class="line">    dateComponents.hour = 4</div><div class="line">    dateComponents.minute = 45</div><div class="line">    return UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)</div><div class="line">&#125;</div><div class="line">//MARK:触发位置 </div><div class="line">   </div><div class="line">private class func createLocationNotificationTrigger() -&gt; UNLocationNotificationTrigger &#123;</div><div class="line">    let winnipegOfficeRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 49.878510, longitude: -97.145480), radius: 10, identifier: &quot;R&amp;P Winnipeg&quot;)</div><div class="line">    return UNLocationNotificationTrigger(region: winnipegOfficeRegion, repeats: false)</div><div class="line">&#125;</div><div class="line">//MARK:通知图片附件</div><div class="line"></div><div class="line"></div><div class="line">private class func createSampleAttachments() -&gt; [UNNotificationAttachment] &#123;</div><div class="line">    if let urlPath = Bundle.main.path(forResource: &quot;20100617172406530&quot;, ofType: &quot;png&quot;) &#123;</div><div class="line">        let attachmentURL = NSURL.fileURL(withPath: urlPath)</div><div class="line">        if let attachment = try? UNNotificationAttachment(identifier: &quot;attachment&quot;, url: attachmentURL, options: nil) &#123;</div><div class="line">            return [attachment]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return []</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><pre><code>  NotificationManager.scheduleNotification(id: &quot;标识&quot;, title: &quot;通知测试&quot;, subtitle: &quot;子标题&quot;, body: &quot;风雨一夜花满楼&quot;, badgeCount: 10)
 NotificationManager.pending { [weak self] value in
     print(&quot;\(value)未发送&quot;)
     self?.showAlert(title: &quot;通知&quot;, message: &quot;\(value)未发送&quot;)
@@ -223,7 +223,7 @@ NotificationManager.delivered{ [weak self] value in
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="iOS10-LocalNotification" data-title="iOS10-LocalNotification" data-url="http://yoursite.com/2016/11/16/iOS10-LocalNotification/"></div>
+	<div class="ds-thread" data-thread-key="iOS10-LocalNotification" data-title="iOS10-LocalNotification 封装" data-url="http://yoursite.com/2016/11/16/iOS10-LocalNotification/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

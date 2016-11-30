@@ -6,33 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Swift 的Guard | Royce’s Blog</title>
+  <title>用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟. | Royce’s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。if let
-func doSomething(str: String?) {
-    let v :String! = str
-    if v != nil
-    {
-        // use v to do something">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Swift 的Guard">
-<meta property="og:url" content="http://yoursite.com/2016/11/24/Swift-的Guard/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.">
+<meta property="og:url" content="http://yoursite.com/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/index.html">
 <meta property="og:site_name" content="Royce’s Blog">
-<meta property="og:description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。if let
-func doSomething(str: String?) {
-    let v :String! = str
-    if v != nil
-    {
-        // use v to do something">
-<meta property="og:updated_time" content="2016-11-24T08:12:00.000Z">
+<meta property="og:updated_time" content="2016-11-30T06:26:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 的Guard">
-<meta name="twitter:description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。if let
-func doSomething(str: String?) {
-    let v :String! = str
-    if v != nil
-    {
-        // use v to do something">
+<meta name="twitter:title" content="用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.">
   
     <link rel="alternative" href="/atom.xml" title="Royce’s Blog" type="application/atom+xml">
   
@@ -149,7 +131,7 @@ func doSomething(str: String?) {
 </nav>
 
       <div class="body-wrap">
-        <article id="[default]-Swift-的Guard" class="article article-type-[default]" itemscope itemprop="blogPost">
+        <article id="[default]-用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟" class="article article-type-[default]" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -159,7 +141,7 @@ func doSomething(str: String?) {
         
   
     <h1 class="article-title" itemprop="name">
-      Swift 的Guard
+      用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.
     </h1>
   
 
@@ -167,45 +149,13 @@ func doSomething(str: String?) {
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。<br>if let</p>
-<pre><code>func doSomething(str: String?) {
-    let v :String! = str
-    if v != nil
-    {
-        // use v to do something
-    }
-}
-</code></pre><p>Swift 中因为有optional, 经常需要判断是否为空。假如没有if let，大致写成上面的样子，有了if let, 可以改写成</p>
-<pre><code>func doSomething(str: String?) {
-    if let v = str
-    {
-        // use v to do something
-    }
-}
-</code></pre><p>上面两段代码的控制流是一样的。对照着，可以看出if let的写法更加简洁方便。</p>
-<p>guard</p>
-<p>假如if中出现的代码很长，我们写代码时可以将错误情况先返回。比如：</p>
-<pre><code>func doSomething(str: String?) {
-    let v:String! = str
-    if v == nil
-    {
-        return
-    }
-    // use v to do something
-}
-</code></pre><p>这样做可以避免过多的嵌套。上面代码实在太常见了，swift也提供一个guard这个语法糖，用guard可以改写成：</p>
-<pre><code>func doSomething(str: String?) {
-    guard let v = str else { return }
-    // use v to do something
-}
-</code></pre><p>上面两段代码的控制流是一样的。也可以看出guard的写法更加简洁方便。<br>至于if let 和 guard 语法中出现的where，只是附加一些条件。相当于逻辑运算 &amp;&amp; 和 ||。SQL中的条件语法也是用where这个关键字。<br>假如还不理解，动手将一段代码，不用if let 和 guard 进行改写。试多几次，就会发觉很自然了。</p>
-
+        
       
     </div>
     <div class="article-info article-info-index">
       
-      <a href="/2016/11/24/Swift-的Guard/" class="archive-article-date">
-  	<time datetime="2016-11-24T08:10:46.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-24</time>
+      <a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/" class="archive-article-date">
+  	<time datetime="2016-11-30T06:26:08.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-30</time>
 </a>
       
       
@@ -218,18 +168,18 @@ func doSomething(str: String?) {
   
 <nav id="article-nav">
   
-    <a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.
+          手把手教你, Jenkins构建iOS项目
         
       </div>
     </a>
   
   
-    <a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在xib或者storyboard 利用runtime给layer添加属性的坑</div>
+    <a href="/2016/11/24/Swift-的Guard/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Swift 的Guard</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -244,7 +194,7 @@ func doSomething(str: String?) {
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="Swift-的Guard" data-title="Swift 的Guard" data-url="http://yoursite.com/2016/11/24/Swift-的Guard/"></div>
+	<div class="ds-thread" data-thread-key="用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟" data-title="用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟." data-url="http://yoursite.com/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

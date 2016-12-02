@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://yoursite.com">
+  <title>iOS Keychain原理和APP之间共享信息 | Royce’s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Keychain 介绍Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Keychain原理和APP之间共享信息">
+<meta property="og:url" content="http://yoursite.com/2016/12/02/iOS-Keychain原理和APP之间共享信息/index.html">
+<meta property="og:site_name" content="Royce’s Blog">
+<meta property="og:description" content="Keychain 介绍Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201612/02111137_MbnO.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201612/02111211_v1lj.png">
+<meta property="og:updated_time" content="2016-12-02T07:04:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS Keychain原理和APP之间共享信息">
+<meta name="twitter:description" content="Keychain 介绍Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Royce’s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/assets/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/main.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="http://upload.ct.youth.cn/youxi/uploadfile/allimg/120314/7-120314132052.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Royce_he</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/photos">相册</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/litten" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/litten225" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Royce_he</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="http://upload.ct.youth.cn/youxi/uploadfile/allimg/120314/7-120314132052.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Royce_he</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/photos">相册</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/litten" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/litten225" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="[default]-iOS-Keychain原理和APP之间共享信息" class="article article-type-[default]" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS Keychain原理和APP之间共享信息
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Keychain-介绍"><a href="#Keychain-介绍" class="headerlink" title="Keychain 介绍"></a>Keychain 介绍</h2><p>Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个安全容器。<br><em>PS:在iOS中keychian 依赖用于签名的provisioning profile描述文件,确保发布不同版本的时候使用同一个pp文件</em><br><img src="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<h2 id="Keychain-的结构"><a href="#Keychain-的结构" class="headerlink" title="Keychain 的结构"></a>Keychain 的结构</h2><p>Keychain 可以包含任意数量的 keychain item。每一个 keychain item 包含数据和一组属性。对于一个需要保护的 keychain item，比如密码或者私钥（用于加密或者解密的string字节）数据是加密的，会被 keychain 保护起来的；对于无需保护的 keychain item，例如，证书，数据未被加密。</p>
+<p>跟keychain item有关系的取决于item的类型；应用程序中最常用的是网络密码（Internet passwrods）和普通的密码。正如你所想的，网络密码像安全域（security domain）、协议、和路径等一些属性。在OSX中，当keychain被锁的时候加密的item没办法访问，如果你想要该问被锁的item，就会弹出一个对话框，需要你输入对应keychain的密码。当然，未有密码的keychain你可以随时访问。但在iOS中，你只可以访问你自已的keychain items;</p>
+<h2 id="Keychain的特点"><a href="#Keychain的特点" class="headerlink" title="Keychain的特点"></a>Keychain的特点</h2><ul>
+<li>数据并不存放在App的Sanbox中，即使删除了App，资料依然保存在keychain中。如果重新安装了app，还可以从keychain获取数据。</li>
+<li>keychain的数据可以用过group方式，让程序可以在App间共享。不过得要相同TeamID</li>
+<li><p>keychain的数据是经过加密的<br>##Keychain的使用<br>大多数iOS应用需要用到Keychain， 都用来添加一个密码，修改一个已存在Keychain item或者取回密码。Keychain提供了以下的操作</p>
+</li>
+<li><p>SecItemAdd 添加一个item</p>
+</li>
+<li>SecItemUpdate 更新已存在的item</li>
+<li>SecItemCopyMatching 搜索一个已存在的item</li>
+<li>SecItemDelete 删除一个keychain item</li>
+</ul>
+<p>####读取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">func readPassword() throws -&gt; String  &#123;</div><div class="line">       /*</div><div class="line">           查找 对应 service, account and</div><div class="line">           access group 的keychainItem.</div><div class="line">       */</div><div class="line">       var query = KeychainPasswordItem.keychainQuery(withService: service, account: account, accessGroup: accessGroup)</div><div class="line">       query[kSecMatchLimit as String] = kSecMatchLimitOne</div><div class="line">       query[kSecReturnAttributes as String] = kCFBooleanTrue</div><div class="line">       query[kSecReturnData as String] = kCFBooleanTrue</div><div class="line">       </div><div class="line">       // 查找已经存在的item</div><div class="line">       var queryResult: AnyObject?</div><div class="line">       let status = withUnsafeMutablePointer(to: &amp;queryResult) &#123;</div><div class="line">           SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       // 检查插入或更新是否成功</div><div class="line">       guard status != errSecItemNotFound else &#123; throw KeychainError.noPassword &#125;</div><div class="line">       guard status == noErr else &#123; throw KeychainError.unhandledError(status: status) &#125;</div><div class="line">       </div><div class="line">       // 读取item中的密码信息</div><div class="line">       guard let existingItem = queryResult as? [String : AnyObject],</div><div class="line">           let passwordData = existingItem[kSecValueData as String] as? Data,</div><div class="line">           let password = String(data: passwordData, encoding: String.Encoding.utf8)</div><div class="line">       else &#123;</div><div class="line">           throw KeychainError.unexpectedPasswordData</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       return password</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>####写入</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">func savePassword(_ password: String) throws &#123;</div><div class="line">        // 编码Encoding-&gt;data</div><div class="line">        let encodedPassword = password.data(using: String.Encoding.utf8)!</div><div class="line">        </div><div class="line">        do &#123;</div><div class="line">            // 查找是否存在item.</div><div class="line">            try _ = readPassword()</div><div class="line"></div><div class="line">            // 如果存在更新item中的密码</div><div class="line">            var attributesToUpdate = [String : AnyObject]()</div><div class="line">            attributesToUpdate[kSecValueData as String] = encodedPassword as AnyObject?</div><div class="line"></div><div class="line">            let query = KeychainPasswordItem.keychainQuery(withService: service, account: account, accessGroup: accessGroup)</div><div class="line">            let status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)</div><div class="line">            </div><div class="line">          </div><div class="line">            guard status == noErr else &#123; throw KeychainError.unhandledError(status: status) &#125;</div><div class="line">        &#125;</div><div class="line">        catch KeychainError.noPassword &#123;</div><div class="line">            /*</div><div class="line">                如果不存在 创建一个dictionary 作为item 存入keychain</div><div class="line">            */</div><div class="line">            var newItem = KeychainPasswordItem.keychainQuery(withService: service, account: account, accessGroup: accessGroup)</div><div class="line">            newItem[kSecValueData as String] = encodedPassword as AnyObject?</div><div class="line">   </div><div class="line">            let status = SecItemAdd(newItem as CFDictionary, nil)</div><div class="line">            </div><div class="line">            guard status == noErr else &#123; throw KeychainError.unhandledError(status: status) &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</code></pre><p>##关于共享<br>Keychain的数据可以透过Group Access的方式，让资料可以在App间共享，Google系列的App (Gmail、Google+、日历…)就是通过这样的方式来记录使用者登入信息，只要使用者在其中一个App中完成登入了，其他的App也可以读取到同相的登入咨询进行登录。</p>
+<p>###进入Capabilities，将Keychain打开<br><img src="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>开启Keychain后，会自动新增一个Keychain Group，使用的是Bundle Identifier。<br>同时也会自动新增一个entitlements文件，里面也会有一个Access Group，名为<br>$(AppIdentifierPrefix)+你的bundleID<br><img src="https://static.oschina.net/uploads/img/201612/02111137_MbnO.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>(AppIdentifierPrefix)可以是开发者的代号需要登录才会有，也就是开发者证书后小括号的内的英文数字组合。使用$(AppIdentifierPrefix)只能被同一个开发者账号的app来存取，以防被有心人盜取。<br><img src="https://static.oschina.net/uploads/img/201612/02111211_v1lj.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>若其他的App也要存取当前Keychain的数据，就必需在Keychain开启后，新增相同的Keychain Group (Access Group会根据Keychain Group自动新增)。<br><em>PS: 需要Info.plist新增一对键值<br>Key: AppIdentifierPrefix<br>Value: $(AppIdentifierPrefix)<br>方便取得 Identifier Prefix</em></p>
+<p><a href="https://developer.apple.com/library/prerelease/content/samplecode/GenericKeychain/Introduction/Intro.html#//apple_ref/doc/uid/DTS40007797" target="_blank" rel="external">官方sampleCode</a></p>
+<p>如有疑问可以加我QQ451912132</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/" class="archive-article-date">
+  	<time datetime="2016-12-02T07:01:20.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-12-02</time>
+</a>
+      
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">手把手教你, Jenkins构建iOS项目</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="iOS-Keychain原理和APP之间共享信息" data-title="iOS Keychain原理和APP之间共享信息" data-url="http://yoursite.com/2016/12/02/iOS-Keychain原理和APP之间共享信息/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"litten-hexo"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Royce_he
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: false,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;毕业于华科，就职于鹅厂&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚移动前端&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>

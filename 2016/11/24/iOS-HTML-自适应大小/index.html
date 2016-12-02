@@ -1,364 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>iOS HTML 自适应大小 | Royce’s Blog</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&amp;lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了所有这是 我们">
-<meta property="og:type" content="article">
-<meta property="og:title" content="iOS HTML 自适应大小">
-<meta property="og:url" content="http://yoursite.com/2016/11/24/iOS-HTML-自适应大小/index.html">
-<meta property="og:site_name" content="Royce’s Blog">
-<meta property="og:description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&amp;lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了所有这是 我们">
-<meta property="og:updated_time" content="2016-11-24T07:12:21.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS HTML 自适应大小">
-<meta name="twitter:description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&amp;lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了所有这是 我们">
-  
-    <link rel="alternative" href="/atom.xml" title="Royce’s Blog" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/assets/img/favicon.ico">
-  
-  <link rel="stylesheet" href="/main.css">
-  
+extends base
 
-</head>
+block title
+  title= page.title + ' | ' + config.title
 
-<body>
-  <div id="container">
-    <div class="left-col">
-      <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img src="http://upload.ct.youth.cn/youxi/uploadfile/allimg/120314/7-120314132052.jpg" class="js-avatar">
-			
-		</a>
-
-		<hgroup>
-		  <h1 class="header-author"><a href="/">Royce_he</a></h1>
-		</hgroup>
-
-		
-
-		<nav class="header-menu">
-			<ul>
-			
-				<li><a href="/">主页</a></li>
-	        
-				<li><a href="/photos">相册</a></li>
-	        
-			</ul>
-		</nav>
-		<nav class="header-smart-menu">
-	        
-    		
-    			
-    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
-    			
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
-    			
-    			
-            
-    			
-            
-    			
-    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
-    			
-    			
-            
-		</nav>
-		<nav class="header-nav">
-			<div class="social">
-				
-					<a class="github" target="_blank" href="https://github.com/litten" title="github">github</a>
-		        
-					<a class="weibo" target="_blank" href="http://weibo.com/litten225" title="weibo">weibo</a>
-		        
-					<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-		        
-			</div>
-		</nav>
-	</header>		
-</div>
-
-    </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"><i class="icon-list"></i></div>
-  		<h1 class="header-author js-mobile-header hide">Royce_he</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				
-					<img src="http://upload.ct.youth.cn/youxi/uploadfile/allimg/120314/7-120314132052.jpg" class="js-avatar">
-				
-			</div>
-			<hgroup>
-			  <h1 class="header-author">Royce_he</h1>
-			</hgroup>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">主页</a></li>
-		        
-					<li><a href="/photos">相册</a></li>
-		        
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-						<a class="github" target="_blank" href="https://github.com/litten" title="github">github</a>
-			        
-						<a class="weibo" target="_blank" href="http://weibo.com/litten225" title="weibo">weibo</a>
-			        
-						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-			        
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-
-      <div class="body-wrap">
-        <article id="[default]-iOS-HTML-自适应大小" class="article article-type-[default]" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      iOS HTML 自适应大小
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小<br>这是 我们就需要去修改img的CSS样式<br>但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了<br>所有这是 我们需要把img 标签里面的style样式给替换掉<br>具体代码如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)autoWebAutoImageSize:(NSString *)html&#123;</div><div class="line">     </div><div class="line">    NSString * regExpStr = @&quot;&lt;img\\s+.*?\\s+(style\\s*=\\s*.+?\&quot;)&quot;;</div><div class="line">    NSRegularExpression *regex=[NSRegularExpression regularExpressionWithPattern:regExpStr options:NSRegularExpressionCaseInsensitive error:nil];</div><div class="line">     </div><div class="line">    NSArray *matches=[regex matchesInString:html</div><div class="line">                                    options:0</div><div class="line">                                      range:NSMakeRange(0, [html length])];</div><div class="line">     </div><div class="line">     </div><div class="line">    NSMutableArray * mutArray = [NSMutableArray array];</div><div class="line">    for (NSTextCheckingResult *match in matches) &#123;</div><div class="line">        NSString* group1 = [html substringWithRange:[match rangeAtIndex:1]];</div><div class="line">        [mutArray addObject: group1];</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    NSUInteger len = [mutArray count];</div><div class="line">    for (int i = 0; i &lt; len; ++ i) &#123;</div><div class="line">        html = [html stringByReplacingOccurrencesOfString:mutArray[i] withString: @&quot;style=\&quot;width:90%; height:auto;\&quot;&quot;];</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    return html;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/24/iOS-HTML-自适应大小/" class="archive-article-date">
-  	<time datetime="2016-11-24T07:08:38.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-24</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          在xib或者storyboard 利用runtime给layer添加属性的坑
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2016/11/16/iOS10-LocalNotification/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">iOS10-LocalNotification 封装</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-
-
-
-<div class="duoshuo">
-	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="iOS-HTML-自适应大小" data-title="iOS HTML 自适应大小" data-url="http://yoursite.com/2016/11/24/iOS-HTML-自适应大小/"></div>
-	<!-- 多说评论框 end -->
-	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-	<script type="text/javascript">
-	var duoshuoQuery = {short_name:"litten-hexo"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-	<!-- 多说公共JS代码 end -->
-</div>
-
-
-
-
-
-      </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-    	<div class="footer-left">
-    		&copy; 2016 Royce_he
-    	</div>
-      	<div class="footer-right">
-      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
-      	</div>
-    </div>
-  </div>
-</footer>
-    </div>
-    <script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: false,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: true,
-		root: "/",
-		innerArchive: true
-	}
-</script>
-
-<script src="/./main.js"></script>
-
-
-    
-<div class="tools-col">
-  <ul class="btn-wrap">
-    
-      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
-    
-    
-      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
-    
-    
-    
-      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
-    
-  </ul>
-  <div class="tools-wrap">
-    
-    	<section class="tools-section tools-section-all chose">
-    	</section>
-    
-
-    
-    	<section class="tools-section tools-section-tag">
-    			<div class="widget tagcloud" id="js-tagcloud">
-    				
-    			</div>
-    	</section>
-    
-
-    
-
-    
-    	<section class="tools-section tools-section-me">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">Litten，&lt;br&gt;毕业于华科，就职于鹅厂&lt;br&gt;&lt;br&gt;热爱大海与冷笑话，&lt;br/&gt;目前是一枚移动前端&lt;br/&gt;&lt;br/&gt;胆小认生，不易相处，&lt;br&gt;年轻无为，卖马为生。</div>
-  	  	
-    	</section>
-    
-  </div>
-  
-</div>
-    <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-  </div>
-</body>
-</html>
+block content
+  .post
+    h1.post-title= page.title
+    .post-meta= page.date.format('ll')
+      if page.categories.length > 0
+        span= ' | '
+        span.category
+          for category in page.categories.toArray()
+            a(href=url_for(category.path))= category.name
+      if theme.busuanzi == true
+        script(src='https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js', async)
+        span#busuanzi_container_page_pv= ' | '
+          span#busuanzi_value_page_pv
+          span= ' ' + __('Hits')
+    if theme.duoshuo
+      a.ds-thread-count(data-thread-key=page.path, href=url_for(page.path) + '#comments')
+    if theme.disqus
+      a.disqus-comment-count(data-disqus-identifier=page.path, href=url_for(page.path) + '#disqus_thread')
+    if page.toc
+      div(class='clear')
+        div(id='toc' class='toc-article')
+          div(class='toc-title')= __('contents')
+          != toc(page.content)
+    .post-content
+      != page.content
+    if theme.shareto == true
+      script(type='text/javascript', src=url_for(theme.js) + '/share.js' + '?v=' + theme.version, async)
+      a.article-share-link(data-url='#{page.permalink}', data-id='#{page._id}')= __('shareto')
+    include _partial/tag
+    include _partial/post_nav
+    if theme.duoshuo
+      div(class='ds-share flat' data-thread-key=page.path, data-title=page.title, data-url=page.permalink)
+         .ds-share-inline
+            ul.ds-share-icons-16
+              li(data-toggle='ds-share-icons-more')
+                a(class='ds-more' href='javascript:void(0);') 分享到：
+              li
+                a(class='ds-weibo' href='javascript:void(0);' data-service='weibo') 微博
+              li
+                a(class='ds-qzone' href='javascript:void(0);' data-service='qzone') QQ空间
+              li
+                a(class='ds-qqt' href='javascript:void(0);' data-service='qqt') 腾讯微博
+              li
+                a(class='ds-wechat' href='javascript:void(0);' data-service='wechat') 微信
+            .ds-share-icons-more
+    include _partial/comments

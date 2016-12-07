@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&amp;lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了所有这是 我们">
+<meta name="description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS HTML 自适应大小">
 <meta property="og:url" content="http://yoursite.com/2016/11/24/iOS-HTML-自适应大小/index.html">
 <meta property="og:site_name" content="Royce’s blog">
-<meta property="og:description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&amp;lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了所有这是 我们">
-<meta property="og:updated_time" content="2016-11-24T07:12:21.000Z">
+<meta property="og:description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种">
+<meta property="og:updated_time" content="2016-12-07T03:33:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS HTML 自适应大小">
-<meta name="twitter:description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&amp;lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了所有这是 我们">
+<meta name="twitter:description" content="我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小这是 我们就需要去修改img的CSS样式但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种">
 
 
 
@@ -311,7 +311,7 @@
       
 
       
-        <p> 我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小<br>这是 我们就需要去修改img的CSS样式<br>但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了<br>所有这是 我们需要把img 标签里面的style样式给替换掉<br>具体代码如下</p>
+        <p> 我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小<br>这是 我们就需要去修改img的CSS样式<br>但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种<img style="width = ;height= px" 这种的话="" 我们就没办法进行控制了="" 所有这是="" 我们需要把img="" 标签里面的style样式给替换掉="" 具体代码如下="" <a="" id="more"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)autoWebAutoImageSize:(NSString *)html&#123;</div><div class="line">     </div><div class="line">    NSString * regExpStr = @&quot;&lt;img\\s+.*?\\s+(style\\s*=\\s*.+?\&quot;)&quot;;</div><div class="line">    NSRegularExpression *regex=[NSRegularExpression regularExpressionWithPattern:regExpStr options:NSRegularExpressionCaseInsensitive error:nil];</div><div class="line">     </div><div class="line">    NSArray *matches=[regex matchesInString:html</div><div class="line">                                    options:0</div><div class="line">                                      range:NSMakeRange(0, [html length])];</div><div class="line">     </div><div class="line">     </div><div class="line">    NSMutableArray * mutArray = [NSMutableArray array];</div><div class="line">    for (NSTextCheckingResult *match in matches) &#123;</div><div class="line">        NSString* group1 = [html substringWithRange:[match rangeAtIndex:1]];</div><div class="line">        [mutArray addObject: group1];</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    NSUInteger len = [mutArray count];</div><div class="line">    for (int i = 0; i &lt; len; ++ i) &#123;</div><div class="line">        html = [html stringByReplacingOccurrencesOfString:mutArray[i] withString: @&quot;style=\&quot;width:90%; height:auto;\&quot;&quot;];</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    return html;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       

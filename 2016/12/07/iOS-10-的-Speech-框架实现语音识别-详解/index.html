@@ -1,0 +1,686 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="iOS 10 的 Speech 框架实现语音识别 (详解)在 2016 年的 WWDC 上，Apple 介绍了一个十分有用的语音识别 API，分分钟秒杀科大讯飞的
+早在2011年iPhone4s 的上,iOS 5系统就有了语音识别.有以下缺陷
+
+需要- 弹出键盘
+只支持实时语音
+无法自定义录音
+单一的输出结果
+在 2016 年的 WWDC 上，Apple 终于开发了语音识别 API，那就是 Spe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 10 的 Speech 框架实现语音识别 (详解)">
+<meta property="og:url" content="http://yoursite.com/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/index.html">
+<meta property="og:site_name" content="Royce’s blog">
+<meta property="og:description" content="iOS 10 的 Speech 框架实现语音识别 (详解)在 2016 年的 WWDC 上，Apple 介绍了一个十分有用的语音识别 API，分分钟秒杀科大讯飞的
+早在2011年iPhone4s 的上,iOS 5系统就有了语音识别.有以下缺陷
+
+需要- 弹出键盘
+只支持实时语音
+无法自定义录音
+单一的输出结果
+在 2016 年的 WWDC 上，Apple 终于开发了语音识别 API，那就是 Spe">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201612/05145117_5OMv.png">
+<meta property="og:updated_time" content="2016-12-07T03:35:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 10 的 Speech 框架实现语音识别 (详解)">
+<meta name="twitter:description" content="iOS 10 的 Speech 框架实现语音识别 (详解)在 2016 年的 WWDC 上，Apple 介绍了一个十分有用的语音识别 API，分分钟秒杀科大讯飞的
+早在2011年iPhone4s 的上,iOS 5系统就有了语音识别.有以下缺陷
+
+需要- 弹出键盘
+只支持实时语音
+无法自定义录音
+单一的输出结果
+在 2016 年的 WWDC 上，Apple 终于开发了语音识别 API，那就是 Spe">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201612/05145117_5OMv.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/"/>
+
+
+
+
+
+  <title> iOS 10 的 Speech 框架实现语音识别 (详解) | Royce’s blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Royce’s blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Share something about coding</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS 10 的 Speech 框架实现语音识别 (详解)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-07T11:34:55+08:00">
+                2016-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="iOS-10-的-Speech-框架实现语音识别-详解"><a href="#iOS-10-的-Speech-框架实现语音识别-详解" class="headerlink" title="iOS 10 的 Speech 框架实现语音识别 (详解)"></a>iOS 10 的 Speech 框架实现语音识别 (详解)</h1><p>在 2016 年的 WWDC 上，Apple 介绍了一个十分有用的语音识别 API，分分钟秒杀科大讯飞的</p>
+<p>早在2011年iPhone4s 的上,iOS 5系统就有了语音识别.<br>有以下缺陷</p>
+<ul>
+<li>需要- 弹出键盘</li>
+<li>只支持实时语音</li>
+<li>无法自定义录音</li>
+<li><p>单一的输出结果</p>
+<p>在 2016 年的 WWDC 上，Apple 终于开发了语音识别 API，那就是 Speech 框架。事实上，Siri 的语音识别正是由 Speech Kit 提供支持。</p>
+</li>
+<li><p>超过50种语言获得支持</p>
+</li>
+<li>任何运行iOS10的设备都可用</li>
+<li>加入用户授权使其更安全</li>
+<li>可以转化音频文件和实时语音</li>
+</ul>
+<p><img src="https://static.oschina.net/uploads/img/201612/05145117_5OMv.png" alt="输入图片说明" title="在这里输入图片标题"><br><a id="more"></a></p>
+<p>下面通过一个语音转换为文本介绍Speech 框架的使用</p>
+<p>##界面设计<br>首先，让我们来创建一个 iOS Single View Application 工程。然后在 Main.storyboard 上添加<br>UILabel用于标题<br>UITextView用于显示识别内容<br>UIButton 用于触发</p>
+<p>下一步，连线 textView变量,Button变量和事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@IBOutlet weak var textView: UITextView!</div><div class="line"></div><div class="line">@IBOutlet weak var speakerBtn: UIButton!</div><div class="line">@IBAction func speakAction(_ sender: Any) &#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##使用 Speech 框架<br>import这个框架，并遵循 SFSpeechRecognizerDelegate 协议。</p>
+<p>##用户权限<br>在使用 Speech 框架进行语音识别之前，你必须先请求用户许可，原因是识别不仅发生在 iOS 设备本地，还需要依赖 Apple 的服务器。具体来说，所有音频数据都会被传输到苹果后台进行处理。因此需要获取用户的权限,其中包括用户必须允许应用使用的音频输入和语音识别权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//用于apple语言识别的变量</div><div class="line">    private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: &quot;zh-CN&quot;))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">// MARK: - *** 获取用户权限 ***</div><div class="line">   func authRequest()&#123;</div><div class="line">       </div><div class="line">       speakerBtn.isEnabled = false</div><div class="line">       </div><div class="line">       speechRecognizer?.delegate = self</div><div class="line">       </div><div class="line">       SFSpeechRecognizer.requestAuthorization &#123; (authStatus) in</div><div class="line">           var isBtnEndable = false</div><div class="line">           </div><div class="line">           switch authStatus&#123;</div><div class="line">           case.authorized:</div><div class="line">               isBtnEndable = true</div><div class="line">           case .denied:</div><div class="line">               isBtnEndable = false</div><div class="line">               print(&quot;User denied access to speech recognition&quot;)</div><div class="line">               </div><div class="line">           case .restricted:</div><div class="line">               isBtnEndable = false</div><div class="line">               print(&quot;Speech recognition restricted on this device&quot;)</div><div class="line">               </div><div class="line">           case .notDetermined:</div><div class="line">               isBtnEndable = false</div><div class="line">               </div><div class="line">               </div><div class="line">               </div><div class="line">           &#125;</div><div class="line">           </div><div class="line">           OperationQueue.main.addOperation &#123;</div><div class="line">               self.speakerBtn.isEnabled = isBtnEndable</div><div class="line">           &#125;</div><div class="line">           </div><div class="line">       &#125;</div><div class="line">   </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>创建一个区域标志符 (locale identifier) 为 zh-CN 的 SFSpeechRecognizer 实例，这时候语音识别就会知道用户录入的语种。简单说，这就是语音识别的处理对象。</li>
+<li>在语音识别被激活之前，默认设置麦克风按钮为禁用状态。</li>
+<li>然后，将语音识别的 delegate 设置为 ViewController 中的 self。</li>
+<li>之后，就到了请求语音识别权限的阶段了，这时我们通过调用 SFSpeechRecognizer.requestAuthorization 来达到目的。</li>
+<li>最后，检查验证状态，如果得到了授权，则启用麦克风按钮。否则，打印错误信息，继续禁用麦克风按钮。<br>你可能会认为，现在我们启动应用将会看到一个授权提示框，很遗憾你错了。运行应用带来的是崩溃。你可能会想问，这是为什么？</li>
+</ul>
+<h2 id="提供授权信息"><a href="#提供授权信息" class="headerlink" title="提供授权信息"></a>提供授权信息</h2><p>Apple 要求应用为所有请求的权限提供自定义消息，对于语音权限的情况，我们必须为两个行为请求授权：<br>麦克风的使用<br>语音的识别<br>要自定义消息，你需要在 info.plist 文件中定义这些消息。<br>让我们打开 info.plist 文件的源代码。方法是在 info.plist 上点击右键。然后选择 Open As &gt; Source Code。最后，复制下面的 XML 代码并将它们插入到  标签前。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt;  </div><div class="line">&lt;string&gt;麦克风输入请求信息&lt;/string&gt;</div><div class="line"> </div><div class="line">&lt;key&gt;NSSpeechRecognitionUsageDescription&lt;/key&gt;</div><div class="line">&lt;string&gt;语音识别请求信息&lt;/string&gt;</div></pre></td></tr></table></figure>
+<p><em>注意：务必在IPhone真机上运行测试,iOS 模拟器并不会连接 Mac 的麦克风。</em></p>
+<p>处理语音识别</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 可以将识别请求的结果返回给你，它带来了极大的便利，必要时，可以取消或停止任务。</div><div class="line">private var recognitionTask: SFSpeechRecognitionTask?</div><div class="line">//对象用于处理语音识别请求，为语音识别提供音频输入</div><div class="line">private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?</div><div class="line"></div><div class="line">// 音频引擎 用于进行音频输入</div><div class="line">private let audioEngine = AVAudioEngine()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><figcaption><span>MARK: - *** 处理语音识别 ***</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">    func startRecording()&#123;</div><div class="line">    </div><div class="line">        if recognitionTask != nil&#123;</div><div class="line">            recognitionTask?.cancel()</div><div class="line">            recognitionTask = nil</div><div class="line"> </div><div class="line">        &#125;</div><div class="line">    let audioSession = AVAudioSession.sharedInstance()</div><div class="line">        </div><div class="line">        do &#123;</div><div class="line">            try audioSession.setCategory(AVAudioSessionCategoryRecord)</div><div class="line">            try audioSession.setMode(AVAudioSessionModeMeasurement)</div><div class="line">            try audioSession.setActive(true, with: .notifyOthersOnDeactivation)</div><div class="line"></div><div class="line">        </div><div class="line">        &#125;catch&#123;</div><div class="line">        </div><div class="line">        fatalError(&quot;会话创建失败&quot;)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        recognitionRequest = SFSpeechAudioBufferRecognitionRequest()</div><div class="line">        </div><div class="line">        guard let inputNode = audioEngine.inputNode else &#123;</div><div class="line">            fatalError(&quot;音频引擎 没有输入节点&quot;)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        guard let recognitionRequest = recognitionRequest else &#123;</div><div class="line">            fatalError(&quot;创建音频缓存失败&quot;)</div><div class="line">        &#125;</div><div class="line">        //结果报告</div><div class="line">        recognitionRequest.shouldReportPartialResults = true</div><div class="line">        </div><div class="line">        //开启授权任务</div><div class="line">        recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: &#123; (result, error) in</div><div class="line">            </div><div class="line">            var isFinal = false</div><div class="line">            </div><div class="line">            if result != nil &#123;</div><div class="line">                </div><div class="line">                self.textView.text = result?.bestTranscription.formattedString</div><div class="line">                isFinal = (result?.isFinal)!</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            if error != nil || isFinal &#123;</div><div class="line">                self.audioEngine.stop()</div><div class="line">                inputNode.removeTap(onBus: 0)</div><div class="line">                </div><div class="line">                self.recognitionRequest = nil</div><div class="line">                self.recognitionTask = nil</div><div class="line">                </div><div class="line">                self.speakerBtn.isEnabled = true</div><div class="line">            &#125;</div><div class="line">        &#125;)</div><div class="line">        let recordingFormat = inputNode.outputFormat(forBus: 0)</div><div class="line">        inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) &#123; (buffer, when) in</div><div class="line">            self.recognitionRequest?.append(buffer)</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        audioEngine.prepare()</div><div class="line">        </div><div class="line">        do &#123;</div><div class="line">            try audioEngine.start()</div><div class="line">        &#125; catch &#123;</div><div class="line">            print(&quot;audioEngine couldn&apos;t start because of an error.&quot;)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">//        textView.text = &quot;说点啥......&quot;</div><div class="line">        </div><div class="line">    </div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>检查 recognitionTask 的运行状态，如果正在运行，取消任务。</li>
+<li>创建一个 AVAudioSession 对象为音频录制做准备。这里我们将录音分类设置为 Record，模式设为 Measurement，然后启动。注意，设置这些属性有可能会抛出异常，因此你必须将其置于 try catch 语句中。</li>
+<li>实例化 recognitionResquest。创建 SFSpeechAudioBufferRecognitionRequest 对象，然后我们就可以利用它将音频数据传输到 Apple 的服务器。</li>
+<li>检查 audioEngine (你的设备)是否支持音频输入以录音。如果不支持，报一个 fatal error。</li>
+<li>检查 recognitionRequest 对象是否已被实例化，并且值不为 nil。</li>
+<li>告诉 recognitionRequest 不要等到录音完成才发送请求，而是在用户说话时一部分一部分发送语音识别数据。</li>
+<li>在调用 speechRecognizer 的 recognitionTask 函数时开始识别。该函数有一个完成回调函数，每次识别引擎收到输入时都会调用它，在修改当前识别结果，亦或是取消或停止时，返回一个最终记录。</li>
+<li>定义一个 boolean 变量来表示识别是否已结束。</li>
+<li>倘若结果非空，则设置 textView.text 属性为结果中的最佳记录。同时若为最终结果，将 isFinal 置为 true。</li>
+<li>如果请求没有错误或已经收到最终结果，停止 audioEngine (音频输入)，recognitionRequest 和 recognitionTask。同时，将开始录音按钮的状态切换为可用。</li>
+<li>向 recognitionRequest 添加一个音频输入。值得留意的是，在 recognitionTask 启动后再添加音频输入完全没有问题。Speech 框架会在添加了音频输入之后立即开始识别任务。</li>
+<li>将 audioEngine 设为准备就绪状态，并启动引擎。</li>
+</ul>
+<h2 id="触发语音识别"><a href="#触发语音识别" class="headerlink" title="触发语音识别"></a>触发语音识别</h2><p>在创建语音识别任务时，我们首先得确保语音识别的可用性，需要实现delegate 方法。如果语音识别不可用，或是改变了状态，应随之设置 按钮的enable ,我们通过扩展来实现代理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// MARK: - *** delegate ***</div><div class="line">//这个方法会在按钮的可用性改变时被调用。如果语音识别可用，录音按钮也将被启用。</div><div class="line">extension ViewController: SFSpeechRecognizerDelegate&#123;</div><div class="line"></div><div class="line">    func speechRecognizer(_ speechRecognizer: SFSpeechRecognizer, availabilityDidChange available: Bool) &#123;</div><div class="line">        if available &#123;</div><div class="line">            speakerBtn.isEnabled = true</div><div class="line">        &#125; else &#123;</div><div class="line">            speakerBtn.isEnabled = false</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后，我们还需要更新一下 按钮的点击方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"> @IBAction func speakAction(_ sender: Any) &#123;</div><div class="line">        if audioEngine.isRunning &#123;</div><div class="line">            audioEngine.stop()</div><div class="line">            recognitionRequest?.endAudio()</div><div class="line">            speakerBtn.isEnabled = false</div><div class="line">            speakerBtn.setTitle(&quot;开始说话&quot;, for: .normal)</div><div class="line">//            textView.text = &quot;说点啥&quot;</div><div class="line">        &#125; else &#123;</div><div class="line">            startRecording()</div><div class="line">            speakerBtn.setTitle(&quot;说完了&quot;, for: .normal)</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>Apple忠告</strong></p>
+<ul>
+<li>确保使用语音之别之前,通过UI界面告知用户</li>
+<li>在涉及密码或者敏感信息时,请勿使用</li>
+<li>在你操作识别结果之前,请先把结果展示给用户</li>
+<li>Apple 对每台设备的识别有限制。详情未知，不过你可以尝试联系 Apple 获得更多信息。</li>
+<li>Apple 对每个应用的识别也有限制。</li>
+<li>如果你总是遭遇限制，务必联系 Apple，他们或许可以解决这个问题。</li>
+<li>语音识别会消耗不少电量和流量。</li>
+<li>语音识别每次只能持续大概一分钟。<br>参考 <a href="https://developer.apple.com/videos/play/wwdc2016/509/" target="_blank" rel="external">WWDC 2016 - Session 509 - iOS</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/" rel="next" title="iOS Keychain原理和APP之间共享信息">
+                <i class="fa fa-chevron-left"></i> iOS Keychain原理和APP之间共享信息
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/IMG.jpg"
+               alt="Roycehe" />
+          <p class="site-author-name" itemprop="name">Roycehe</p>
+          <p class="site-description motion-element" itemprop="description">talk is cheap, show me the code</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS-10-的-Speech-框架实现语音识别-详解"><span class="nav-number">1.</span> <span class="nav-text">iOS 10 的 Speech 框架实现语音识别 (详解)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#提供授权信息"><span class="nav-number">1.1.</span> <span class="nav-text">提供授权信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发语音识别"><span class="nav-number">1.2.</span> <span class="nav-text">触发语音识别</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roycehe</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

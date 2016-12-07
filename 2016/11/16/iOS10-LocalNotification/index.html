@@ -85,21 +85,18 @@
 
 
 <meta name="description" content="iOS10-LocalNotification
-授权Authorization
-123456789101112131415161718class func requestAuthorization(completion: ((_ granted: Bool)-&amp;gt;())? = nil) &amp;#123;        let center = UNUserNotificationCenter.cu">
+授权Authorization">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS10-LocalNotification 封装">
 <meta property="og:url" content="http://yoursite.com/2016/11/16/iOS10-LocalNotification/index.html">
 <meta property="og:site_name" content="Royce’s blog">
 <meta property="og:description" content="iOS10-LocalNotification
-授权Authorization
-123456789101112131415161718class func requestAuthorization(completion: ((_ granted: Bool)-&amp;gt;())? = nil) &amp;#123;        let center = UNUserNotificationCenter.cu">
-<meta property="og:updated_time" content="2016-11-16T05:48:05.000Z">
+授权Authorization">
+<meta property="og:updated_time" content="2016-12-07T03:33:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS10-LocalNotification 封装">
 <meta name="twitter:description" content="iOS10-LocalNotification
-授权Authorization
-123456789101112131415161718class func requestAuthorization(completion: ((_ granted: Bool)-&amp;gt;())? = nil) &amp;#123;        let center = UNUserNotificationCenter.cu">
+授权Authorization">
 
 
 
@@ -318,7 +315,7 @@
 
       
         <p>iOS10-LocalNotification</p>
-<p>授权Authorization</p>
+<p>授权Authorization<br> <a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class func requestAuthorization(completion: ((_ granted: Bool)-&gt;())? = nil) &#123;</div><div class="line">        let center = UNUserNotificationCenter.current()</div><div class="line">        center.requestAuthorization(options: [.badge, .alert, .sound]) &#123; (granted, error) in</div><div class="line">            if granted &#123;</div><div class="line">                completion?(true)</div><div class="line">            &#125; else &#123;</div><div class="line">                center.getNotificationSettings(completionHandler: &#123; settings in</div><div class="line">                    if settings.authorizationStatus != .authorized &#123;</div><div class="line">                        //User has not authorized notifications</div><div class="line">                    &#125;</div><div class="line">                    if settings.lockScreenSetting != .enabled &#123;</div><div class="line">                        //User has either disabled notifications on the lock screen for this app or it is not supported</div><div class="line">                    &#125;</div><div class="line">                    completion?(false)</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>通知的内容</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private class func createNotificationContent(title: String, subtitle: String, body: String, badgeCount: NSNumber?, userInfo: [AnyHashable: Any] = [:]) -&gt; UNNotificationContent &#123;</div><div class="line">        let content = UNMutableNotificationContent()</div><div class="line">        content.title = title</div><div class="line">        content.subtitle = subtitle</div><div class="line">        content.body = body</div><div class="line">        content.sound = UNNotificationSound.default()</div><div class="line">        content.badge = badgeCount</div><div class="line">        content.userInfo = userInfo</div><div class="line">        content.attachments = createSampleAttachments()</div><div class="line">        </div><div class="line">        return content</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
@@ -353,10 +350,6 @@
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/11/16/哈哈/" rel="next" title="哈哈">
-                <i class="fa fa-chevron-left"></i> 哈哈
-              </a>
             
           </div>
 

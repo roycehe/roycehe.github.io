@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/index.html">
 <meta property="og:site_name" content="Royce’s blog">
 <meta property="og:description" content="我们都知道怎么用代码给layer设置圆角,描边,阴影等属性layer.borderWidthlayer.cornerRadiuslayer.borderUIColorlayer.masksToBounds在xib 或者 storyboard中同样可以设置只需在空间属性菜单下的”user defined runtime attributes”中添加以上字符串 并选择对应的Type和Value就可以了">
-<meta property="og:updated_time" content="2016-11-24T07:53:28.000Z">
+<meta property="og:updated_time" content="2016-12-07T03:32:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在xib或者storyboard 利用runtime给layer添加属性的坑">
 <meta name="twitter:description" content="我们都知道怎么用代码给layer设置圆角,描边,阴影等属性layer.borderWidthlayer.cornerRadiuslayer.borderUIColorlayer.masksToBounds在xib 或者 storyboard中同样可以设置只需在空间属性菜单下的”user defined runtime attributes”中添加以上字符串 并选择对应的Type和Value就可以了">
@@ -311,7 +311,7 @@
       
 
       
-        <p>我们都知道怎么用代码给layer设置圆角,描边,阴影等属性<br>layer.borderWidth<br>layer.cornerRadius<br>layer.borderUIColor<br>layer.masksToBounds<br>在xib 或者 storyboard中同样可以设置<br>只需在空间属性菜单下的”user defined runtime attributes”中添加以上字符串 并选择对应的Type和Value就可以了,<br>注意!这里有个坑,设置layer.borderUIColor的时候怎么说设置都是黑的 这里给CALayer添加一个分类 </p>
+        <p>我们都知道怎么用代码给layer设置圆角,描边,阴影等属性<br>layer.borderWidth<br>layer.cornerRadius<br>layer.borderUIColor<br>layer.masksToBounds<br>在xib 或者 storyboard中同样可以设置<br>只需在空间属性菜单下的”user defined runtime attributes”中添加以上字符串 并选择对应的Type和Value就可以了,<br>注意!这里有个坑,设置layer.borderUIColor的时候怎么说设置都是黑的 这里给CALayer添加一个分类<br><a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">CALayer+XibConfiguration.h</div><div class="line">import &lt;QuartzCore/QuartzCore.h&gt; </div><div class="line">import &lt;UIKit/UIKit.h&gt; </div><div class="line">@interface CALayer(XibConfiguration) </div><div class="line">@property(nonatomic, assign) UIColor* borderUIColor; </div><div class="line">@end</div><div class="line"></div><div class="line">CALayer+XibConfiguration.m</div><div class="line">import &quot;CALayer+XibConfiguration.h&quot;</div><div class="line">@implementation CALayer(XibConfiguration)</div><div class="line">-(void)setBorderUIColor:(UIColor*)color</div><div class="line">&#123;</div><div class="line">    self.borderColor = color.CGColor;</div><div class="line">&#125;</div><div class="line">-(UIColor*)borderUIColor</div><div class="line">&#123;</div><div class="line">    return [UIColor colorWithCGColor:self.borderColor];</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
 
       

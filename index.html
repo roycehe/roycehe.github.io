@@ -1,24 +1,90 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-    
 
-    <title>
-      Royce’s blog 
-    </title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    
-      <meta name="author" content="Roycehe">
-    
-    
-      <meta name="description" content="talk is cheap, show me the code">
-    
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <meta name="description" content="talk is cheap, show me the code">
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="talk is cheap, show me the code">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Royce’s blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
@@ -27,329 +93,1408 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Royce’s blog">
 <meta name="twitter:description" content="talk is cheap, show me the code">
-    
-    
-    
-      <link rel="icon" type="image/x-icon" href="/favicon.png">
-    
-    <link rel="stylesheet" href="/css/uno.css">
-    <link rel="stylesheet" href="/css/highlight.css">
-    <link rel="stylesheet" href="/css/archive.css">
-    <link rel="stylesheet" href="/css/china-social-icon.css">
 
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/"/>
+
+
+
+
+
+  <title> Royce’s blog </title>
 </head>
-<body>
 
-    <span class="mobile btn-mobile-menu">
-        <i class="icon icon-list btn-mobile-menu__icon"></i>
-        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
-    </span>
-
-    
- 
-<header class="panel-cover">
-
-
-  <div class="panel-main">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
-    <div class="panel-main__inner panel-inverted">
-    <div class="panel-main__content">
-
-        
-
-        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Royce’s blog</a></h1>
-        <hr class="panel-cover__divider" />
-
-        
-        <p class="panel-cover__description">
-          Share something about coding
-        </p>
-        <hr class="panel-cover__divider panel-cover__divider--secondary" />
-        
-
-        <div class="navigation-wrapper">
-
-          <nav class="cover-navigation cover-navigation--primary">
-            <ul class="navigation">
-
-              
-                
-                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
-              
-                
-                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
-              
-                
-                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
-              
-
-            </ul>
-          </nav>
-
-          <!-- ----------------------------
-To add a new social icon simply duplicate one of the list items from below
-and change the class in the <i> tag to match the desired social network
-and then add your link to the <a>. Here is a full list of social network
-classes that you can use:
-
-    icon-social-500px
-    icon-social-behance
-    icon-social-delicious
-    icon-social-designer-news
-    icon-social-deviant-art
-    icon-social-digg
-    icon-social-dribbble
-    icon-social-facebook
-    icon-social-flickr
-    icon-social-forrst
-    icon-social-foursquare
-    icon-social-github
-    icon-social-google-plus
-    icon-social-hi5
-    icon-social-instagram
-    icon-social-lastfm
-    icon-social-linkedin
-    icon-social-medium
-    icon-social-myspace
-    icon-social-path
-    icon-social-pinterest
-    icon-social-rdio
-    icon-social-reddit
-    icon-social-skype
-    icon-social-spotify
-    icon-social-stack-overflow
-    icon-social-steam
-    icon-social-stumbleupon
-    icon-social-treehouse
-    icon-social-tumblr
-    icon-social-twitter
-    icon-social-vimeo
-    icon-social-xbox
-    icon-social-yelp
-    icon-social-youtube
-    icon-social-zerply
-    icon-mail
-
--------------------------------->
-
-<!-- add social info here -->
 
 
 
-        </div>
 
-      </div>
 
-    </div>
 
-    <div class="panel-cover--overlay"></div>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Royce’s blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
   </div>
-</header>
+  <p class="site-subtitle">Share something about coding</p>
+</div>
 
-    <div class="content-wrapper">
-        <div class="content-wrapper__inner entry">
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
             
-
-
-   <!-- do nothing -->
-
-
-<div class="main-post-list">
-    <ol class="post-list">
-    
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/" title="link to iOS Keychain原理和APP之间共享信息">iOS Keychain原理和APP之间共享信息</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-12-02" class="post-list__meta--date date">2016-12-02</time> 
-      </div>
-
-      <div class="excerpt">
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
         
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/" title="link to 手把手教你, Jenkins构建iOS项目">手把手教你, Jenkins构建iOS项目</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-30" class="post-list__meta--date date">2016-11-30</time> 
-      </div>
-
-      <div class="excerpt">
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
         
-      </div>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
 
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
+      
+    </ul>
+  
 
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/" title="link to 用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.">用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-30" class="post-list__meta--date date">2016-11-30</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/24/Swift-的Guard/" title="link to Swift 的Guard">Swift 的Guard</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-24" class="post-list__meta--date date">2016-11-24</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/" title="link to 在xib或者storyboard 利用runtime给layer添加属性的坑">在xib或者storyboard 利用runtime给layer添加属性的坑</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-24" class="post-list__meta--date date">2016-11-24</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/24/iOS-HTML-自适应大小/" title="link to iOS HTML 自适应大小">iOS HTML 自适应大小</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-24" class="post-list__meta--date date">2016-11-24</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/16/iOS10-LocalNotification/" title="link to iOS10-LocalNotification 封装">iOS10-LocalNotification 封装</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-16" class="post-list__meta--date date">2016-11-16</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-
-      <h2 class="post-list__post-title post-title">
-        <a href="/2016/11/16/哈哈/" title="link to 哈哈">哈哈</a>
-      </h2>
-
-      <div class="post-list__meta">
-
-        <time datetime="2016-11-16" class="post-list__meta--date date">2016-11-16</time> 
-      </div>
-
-      <div class="excerpt">
-        
-      </div>
-
-      <hr class="post-list__divider" />
-    </li>
-    
-  </ol>
-
-  <hr class="post-list__divider " />
-
-<nav class="pagination" role="navigation">
-    
-
-    <span class="pagination__page-number"> 1 / 1</span>
-    
-    
+  
 </nav>
 
 
-</div>
-            <footer class="footer">
 
-    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
     
-</footer>
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/12/02/iOS-Keychain原理和APP之间共享信息/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/" itemprop="url">
+                  iOS Keychain原理和APP之间共享信息
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-02T15:01:20+08:00">
+                2016-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Keychain-介绍"><a href="#Keychain-介绍" class="headerlink" title="Keychain 介绍"></a>Keychain 介绍</h2><p>Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个安全容器。<br><em>PS:在iOS中keychian 依赖用于签名的provisioning profile描述文件,确保发布不同版本的时候使用同一个pp文件</em><br><img src="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<h2 id="Keychain-的结构"><a href="#Keychain-的结构" class="headerlink" title="Keychain 的结构"></a>Keychain 的结构</h2><p>Keychain 可以包含任意数量的 keychain item。每一个 keychain item 包含数据和一组属性。对于一个需要保护的 keychain item，比如密码或者私钥（用于加密或者解密的string字节）数据是加密的，会被 keychain 保护起来的；对于无需保护的 keychain item，例如，证书，数据未被加密。</p>
+<p>跟keychain item有关系的取决于item的类型；应用程序中最常用的是网络密码（Internet passwrods）和普通的密码。正如你所想的，网络密码像安全域（security domain）、协议、和路径等一些属性。在OSX中，当keychain被锁的时候加密的item没办法访问，如果你想要该问被锁的item，就会弹出一个对话框，需要你输入对应keychain的密码。当然，未有密码的keychain你可以随时访问。但在iOS中，你只可以访问你自已的keychain items;</p>
+<h2 id="Keychain的特点"><a href="#Keychain的特点" class="headerlink" title="Keychain的特点"></a>Keychain的特点</h2><ul>
+<li>数据并不存放在App的Sanbox中，即使删除了App，资料依然保存在keychain中。如果重新安装了app，还可以从keychain获取数据。</li>
+<li>keychain的数据可以用过group方式，让程序可以在App间共享。不过得要相同TeamID</li>
+<li><p>keychain的数据是经过加密的<br>##Keychain的使用<br>大多数iOS应用需要用到Keychain， 都用来添加一个密码，修改一个已存在Keychain item或者取回密码。Keychain提供了以下的操作</p>
+</li>
+<li><p>SecItemAdd 添加一个item</p>
+</li>
+<li>SecItemUpdate 更新已存在的item</li>
+<li>SecItemCopyMatching 搜索一个已存在的item</li>
+<li>SecItemDelete 删除一个keychain item</li>
+</ul>
+<p>####读取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">func readPassword() throws -&gt; String  &#123;</div><div class="line">       /*</div><div class="line">           查找 对应 service, account and</div><div class="line">           access group 的keychainItem.</div><div class="line">       */</div><div class="line">       var query = KeychainPasswordItem.keychainQuery(withService: service, account: account, accessGroup: accessGroup)</div><div class="line">       query[kSecMatchLimit as String] = kSecMatchLimitOne</div><div class="line">       query[kSecReturnAttributes as String] = kCFBooleanTrue</div><div class="line">       query[kSecReturnData as String] = kCFBooleanTrue</div><div class="line">       </div><div class="line">       // 查找已经存在的item</div><div class="line">       var queryResult: AnyObject?</div><div class="line">       let status = withUnsafeMutablePointer(to: &amp;queryResult) &#123;</div><div class="line">           SecItemCopyMatching(query as CFDictionary, UnsafeMutablePointer($0))</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       // 检查插入或更新是否成功</div><div class="line">       guard status != errSecItemNotFound else &#123; throw KeychainError.noPassword &#125;</div><div class="line">       guard status == noErr else &#123; throw KeychainError.unhandledError(status: status) &#125;</div><div class="line">       </div><div class="line">       // 读取item中的密码信息</div><div class="line">       guard let existingItem = queryResult as? [String : AnyObject],</div><div class="line">           let passwordData = existingItem[kSecValueData as String] as? Data,</div><div class="line">           let password = String(data: passwordData, encoding: String.Encoding.utf8)</div><div class="line">       else &#123;</div><div class="line">           throw KeychainError.unexpectedPasswordData</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       return password</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>####写入</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">func savePassword(_ password: String) throws &#123;</div><div class="line">        // 编码Encoding-&gt;data</div><div class="line">        let encodedPassword = password.data(using: String.Encoding.utf8)!</div><div class="line">        </div><div class="line">        do &#123;</div><div class="line">            // 查找是否存在item.</div><div class="line">            try _ = readPassword()</div><div class="line"></div><div class="line">            // 如果存在更新item中的密码</div><div class="line">            var attributesToUpdate = [String : AnyObject]()</div><div class="line">            attributesToUpdate[kSecValueData as String] = encodedPassword as AnyObject?</div><div class="line"></div><div class="line">            let query = KeychainPasswordItem.keychainQuery(withService: service, account: account, accessGroup: accessGroup)</div><div class="line">            let status = SecItemUpdate(query as CFDictionary, attributesToUpdate as CFDictionary)</div><div class="line">            </div><div class="line">          </div><div class="line">            guard status == noErr else &#123; throw KeychainError.unhandledError(status: status) &#125;</div><div class="line">        &#125;</div><div class="line">        catch KeychainError.noPassword &#123;</div><div class="line">            /*</div><div class="line">                如果不存在 创建一个dictionary 作为item 存入keychain</div><div class="line">            */</div><div class="line">            var newItem = KeychainPasswordItem.keychainQuery(withService: service, account: account, accessGroup: accessGroup)</div><div class="line">            newItem[kSecValueData as String] = encodedPassword as AnyObject?</div><div class="line">   </div><div class="line">            let status = SecItemAdd(newItem as CFDictionary, nil)</div><div class="line">            </div><div class="line">            guard status == noErr else &#123; throw KeychainError.unhandledError(status: status) &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</code></pre><p>##关于共享<br>Keychain的数据可以透过Group Access的方式，让资料可以在App间共享，Google系列的App (Gmail、Google+、日历…)就是通过这样的方式来记录使用者登入信息，只要使用者在其中一个App中完成登入了，其他的App也可以读取到同相的登入咨询进行登录。</p>
+<p>###进入Capabilities，将Keychain打开<br><img src="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>开启Keychain后，会自动新增一个Keychain Group，使用的是Bundle Identifier。<br>同时也会自动新增一个entitlements文件，里面也会有一个Access Group，名为<br>$(AppIdentifierPrefix)+你的bundleID<br><img src="https://static.oschina.net/uploads/img/201612/02111137_MbnO.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>(AppIdentifierPrefix)可以是开发者的代号需要登录才会有，也就是开发者证书后小括号的内的英文数字组合。使用$(AppIdentifierPrefix)只能被同一个开发者账号的app来存取，以防被有心人盜取。<br><img src="https://static.oschina.net/uploads/img/201612/02111211_v1lj.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>若其他的App也要存取当前Keychain的数据，就必需在Keychain开启后，新增相同的Keychain Group (Access Group会根据Keychain Group自动新增)。<br><em>PS: 需要Info.plist新增一对键值<br>Key: AppIdentifierPrefix<br>Value: $(AppIdentifierPrefix)<br>方便取得 Identifier Prefix</em></p>
+<p><a href="https://developer.apple.com/library/prerelease/content/samplecode/GenericKeychain/Introduction/Intro.html#//apple_ref/doc/uid/DTS40007797" target="_blank" rel="external">官方sampleCode</a></p>
+<p>如有疑问可以加我QQ451912132</p>
+
+          
+        
+      
     </div>
 
-    <!-- js files -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/scale.fix.js"></script>
-    
+    <div>
+      
+    </div>
 
-    
-
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript"> 
-        $(document).ready(function(){
-            MathJax.Hub.Config({ 
-                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
-            });
-        });
-    </script>
+    <div>
+      
+    </div>
 
 
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/30/手把手教你-Jenkins构建iOS项目/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/30/手把手教你-Jenkins构建iOS项目/" itemprop="url">
+                  手把手教你, Jenkins构建iOS项目
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-30T14:27:08+08:00">
+                2016-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-    <!--kill ie6 -->
-<!--[if IE 6]>
-  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
-<![endif]-->
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.<br>下面是我今天早上研究的成果,由于Jenkins是基于java开发的先要安装JDK<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external"> java官网</a>直接下载安装.</p>
+<p>###1安装Jenkins</p>
+<p>1.1方法一：直接下载安装</p>
+<p><a href="http://jenkins-ci.org" target="_blank" rel="external">http://jenkins-ci.org</a></p>
+<p>下载好安装包后打开安装</p>
+<p>PS:</p>
+<p>安装完成后在终端中输入,即可打开Jenkins。</p>
+<p>1.2方法二：使用命令行安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install jenkins</div></pre></td></tr></table></figure></p>
+<p>若brew无效,先安装homebrew<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure></p>
+<p>切换到 cd /usr/local/Cellar/jenkins/版本号/libexec/jenkins.war</p>
+<p>执行启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar ./jenkins.war</div></pre></td></tr></table></figure></p>
+<p>显示下图即启动成功 并给出了安装密码和密码文件路径<br><img src="https://static.oschina.net/uploads/img/201611/30131809_2tVu.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>1.3初始化Jenkins<br>用浏览器打开：<a href="http://localhost:8080/开始初始化Jenkins" target="_blank" rel="external">http://localhost:8080/开始初始化Jenkins</a></p>
+<p>###2管理插件</p>
+<p>系统管理-&gt;插件管理－&gt;可选插件中安装以下插件</p>
+<p><img src="https://static.oschina.net/uploads/img/201611/30132045_P8bi.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>下载以下插件</p>
+<ul>
+<li>Subversion Plug-in（svn）</li>
+<li>Xcode integration（Xcode）</li>
+<li>Environment Injector Plugin（自定义全局变量）</li>
+<li>Email Extension Plugin（邮件）</li>
+</ul>
+<p>fir.im插件 <a href="http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin-1.9.5.hpi" target="_blank" rel="external">下载地址</a>需要手动配置<br>点击高级选项卡</p>
+<p>然后在页面找到上传插件，选择已下载好的fir.im jenkins 插件文件路径，并点击上传等待安装成功。<br><img src="https://static.oschina.net/uploads/img/201611/30132321_FEkT.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>安装成功后，如果没有创建 Jenkins 项目，请先创建项目。如果需要配置已存在的项目，请进入在配置中找到增加构建后操作步骤，并选择Upload to fir.im添加到 Jenkins 项目中。<br><img src="https://static.oschina.net/uploads/img/201611/30132347_No5G.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>fir.im Token 查看方法：直接点击<a href="http://fir.im/apps/apitoken" target="_blank" rel="external">API token</a>进行查看</p>
+<p>2.2系统管理-&gt;系统设置中可以进行全局配置</p>
+<p>比如Xcode Builder（钥匙串设置）<br><img src="https://static.oschina.net/uploads/img/201611/30132543_zBlx.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>需填写的内容：</p>
+<ul>
+<li>Keychain Name：iPhone Distribution:*（dis证书常用名）</li>
+<li>Keychain path：${HOME}/Library/Keychains/login.keychain（dis证书路径）</li>
+<li>Keychain password：*</li>
+<li>Add to keychain search path after build：Yes</li>
+<li>Default keychain:iPhone Distribution:*</li>
+</ul>
+<h3 id="3新建一个项目"><a href="#3新建一个项目" class="headerlink" title="3新建一个项目"></a>3新建一个项目</h3><p>3.1基本信息</p>
+<p>点击左侧工具栏”新建”，选择第一项”构建一个自由风格的软件项目” OK</p>
+<p>3.2源码管理信息<br>填写svn地址和账号密码<br><img src="https://static.oschina.net/uploads/img/201611/30132735_314g.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>如果你是用的是Git，那就请选择Git,然后输入你的仓库地址<br><img src="https://static.oschina.net/uploads/img/201611/30132735_314g.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>3.3构建触发时机</p>
+<p>这里就是告诉jenkins什么时候自动构建,这里我同时设置了每周一到周五在每天的8点到9点之间执行一次,当然也可以不设置</p>
+<p><img src="https://static.oschina.net/uploads/img/201611/30132901_RWEz.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>3.4 构建<br><img src="https://static.oschina.net/uploads/img/201611/30132942_xxw6.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<ul>
+<li>Target Xcode项目中Target的名字对应</li>
+<li>Clean before build设置为YES</li>
+<li>Configuration我选择了Release（在Release的时候Archive）</li>
+<li>.ipa filename pattern 随便起个.ipa的名字</li>
+<li>Output directory为.ipa的输出路径，我这里设置为 ${WORKSPACE}/build/</li>
+</ul>
+<p>PS:如果集成了CocoaPods<br><img src="https://static.oschina.net/uploads/img/201611/30133015_jdjr.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>3.5 构建后操作<br>添加构建后操作步骤</p>
+<ul>
+<li>Execute a set of scripts</li>
+<li>Add build step</li>
+<li>Execute shell</li>
+<li>在Commad中输入</li>
+<li>fir p ${WORKSPACE}/build/你的项目包 -T #API Token#</li>
+<li>其中${WORKSPACE}/build/为ipa的输出路径，#API Token#为fir.im的API Token。</li>
+</ul>
+<p>或者直接使用插件添加该步骤<br><img src="https://static.oschina.net/uploads/img/201611/30133217_Huem.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p><img src="https://static.oschina.net/uploads/img/201611/30133231_O45u.png" alt="输入图片说明" title="在这里输入图片标题"><br>3.6 完成，点击保存</p>
+<h3 id="4点击立即构建。"><a href="#4点击立即构建。" class="headerlink" title="4点击立即构建。"></a>4点击立即构建。</h3><p><img src="https://static.oschina.net/uploads/img/201611/30133421_3upv.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/" itemprop="url">
+                  用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-30T14:26:08+08:00">
+                2016-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/24/Swift-的Guard/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/24/Swift-的Guard/" itemprop="url">
+                  Swift 的Guard
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T16:10:46+08:00">
+                2016-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。<br>if let</p>
+<pre><code>func doSomething(str: String?) {
+    let v :String! = str
+    if v != nil
+    {
+        // use v to do something
+    }
+}
+</code></pre><p>Swift 中因为有optional, 经常需要判断是否为空。假如没有if let，大致写成上面的样子，有了if let, 可以改写成</p>
+<pre><code>func doSomething(str: String?) {
+    if let v = str
+    {
+        // use v to do something
+    }
+}
+</code></pre><p>上面两段代码的控制流是一样的。对照着，可以看出if let的写法更加简洁方便。</p>
+<p>guard</p>
+<p>假如if中出现的代码很长，我们写代码时可以将错误情况先返回。比如：</p>
+<pre><code>func doSomething(str: String?) {
+    let v:String! = str
+    if v == nil
+    {
+        return
+    }
+    // use v to do something
+}
+</code></pre><p>这样做可以避免过多的嵌套。上面代码实在太常见了，swift也提供一个guard这个语法糖，用guard可以改写成：</p>
+<pre><code>func doSomething(str: String?) {
+    guard let v = str else { return }
+    // use v to do something
+}
+</code></pre><p>上面两段代码的控制流是一样的。也可以看出guard的写法更加简洁方便。<br>至于if let 和 guard 语法中出现的where，只是附加一些条件。相当于逻辑运算 &amp;&amp; 和 ||。SQL中的条件语法也是用where这个关键字。<br>假如还不理解，动手将一段代码，不用if let 和 guard 进行改写。试多几次，就会发觉很自然了。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/" itemprop="url">
+                  在xib或者storyboard 利用runtime给layer添加属性的坑
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T15:43:18+08:00">
+                2016-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们都知道怎么用代码给layer设置圆角,描边,阴影等属性<br>layer.borderWidth<br>layer.cornerRadius<br>layer.borderUIColor<br>layer.masksToBounds<br>在xib 或者 storyboard中同样可以设置<br>只需在空间属性菜单下的”user defined runtime attributes”中添加以上字符串 并选择对应的Type和Value就可以了,<br>注意!这里有个坑,设置layer.borderUIColor的时候怎么说设置都是黑的 这里给CALayer添加一个分类 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">CALayer+XibConfiguration.h</div><div class="line">import &lt;QuartzCore/QuartzCore.h&gt; </div><div class="line">import &lt;UIKit/UIKit.h&gt; </div><div class="line">@interface CALayer(XibConfiguration) </div><div class="line">@property(nonatomic, assign) UIColor* borderUIColor; </div><div class="line">@end</div><div class="line"></div><div class="line">CALayer+XibConfiguration.m</div><div class="line">import &quot;CALayer+XibConfiguration.h&quot;</div><div class="line">@implementation CALayer(XibConfiguration)</div><div class="line">-(void)setBorderUIColor:(UIColor*)color</div><div class="line">&#123;</div><div class="line">    self.borderColor = color.CGColor;</div><div class="line">&#125;</div><div class="line">-(UIColor*)borderUIColor</div><div class="line">&#123;</div><div class="line">    return [UIColor colorWithCGColor:self.borderColor];</div><div class="line">&#125;</div><div class="line">@end</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/24/iOS-HTML-自适应大小/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/24/iOS-HTML-自适应大小/" itemprop="url">
+                  iOS HTML 自适应大小
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T15:08:38+08:00">
+                2016-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p> 我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小<br>这是 我们就需要去修改img的CSS样式<br>但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种&lt;img style =”width = ;height= px” 这种的话 我们就没办法进行控制了<br>所有这是 我们需要把img 标签里面的style样式给替换掉<br>具体代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">+ (NSString *)autoWebAutoImageSize:(NSString *)html&#123;</div><div class="line">     </div><div class="line">    NSString * regExpStr = @&quot;&lt;img\\s+.*?\\s+(style\\s*=\\s*.+?\&quot;)&quot;;</div><div class="line">    NSRegularExpression *regex=[NSRegularExpression regularExpressionWithPattern:regExpStr options:NSRegularExpressionCaseInsensitive error:nil];</div><div class="line">     </div><div class="line">    NSArray *matches=[regex matchesInString:html</div><div class="line">                                    options:0</div><div class="line">                                      range:NSMakeRange(0, [html length])];</div><div class="line">     </div><div class="line">     </div><div class="line">    NSMutableArray * mutArray = [NSMutableArray array];</div><div class="line">    for (NSTextCheckingResult *match in matches) &#123;</div><div class="line">        NSString* group1 = [html substringWithRange:[match rangeAtIndex:1]];</div><div class="line">        [mutArray addObject: group1];</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    NSUInteger len = [mutArray count];</div><div class="line">    for (int i = 0; i &lt; len; ++ i) &#123;</div><div class="line">        html = [html stringByReplacingOccurrencesOfString:mutArray[i] withString: @&quot;style=\&quot;width:90%; height:auto;\&quot;&quot;];</div><div class="line">    &#125;</div><div class="line">     </div><div class="line">    return html;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/16/iOS10-LocalNotification/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/16/iOS10-LocalNotification/" itemprop="url">
+                  iOS10-LocalNotification 封装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-16T12:13:52+08:00">
+                2016-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>iOS10-LocalNotification</p>
+<p>授权Authorization</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">class func requestAuthorization(completion: ((_ granted: Bool)-&gt;())? = nil) &#123;</div><div class="line">        let center = UNUserNotificationCenter.current()</div><div class="line">        center.requestAuthorization(options: [.badge, .alert, .sound]) &#123; (granted, error) in</div><div class="line">            if granted &#123;</div><div class="line">                completion?(true)</div><div class="line">            &#125; else &#123;</div><div class="line">                center.getNotificationSettings(completionHandler: &#123; settings in</div><div class="line">                    if settings.authorizationStatus != .authorized &#123;</div><div class="line">                        //User has not authorized notifications</div><div class="line">                    &#125;</div><div class="line">                    if settings.lockScreenSetting != .enabled &#123;</div><div class="line">                        //User has either disabled notifications on the lock screen for this app or it is not supported</div><div class="line">                    &#125;</div><div class="line">                    completion?(false)</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>通知的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">private class func createNotificationContent(title: String, subtitle: String, body: String, badgeCount: NSNumber?, userInfo: [AnyHashable: Any] = [:]) -&gt; UNNotificationContent &#123;</div><div class="line">        let content = UNMutableNotificationContent()</div><div class="line">        content.title = title</div><div class="line">        content.subtitle = subtitle</div><div class="line">        content.body = body</div><div class="line">        content.sound = UNNotificationSound.default()</div><div class="line">        content.badge = badgeCount</div><div class="line">        content.userInfo = userInfo</div><div class="line">        content.attachments = createSampleAttachments()</div><div class="line">        </div><div class="line">        return content</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>通知触发条件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">  </div><div class="line">private class func createTimeIntervalNotificationTrigger() -&gt; UNTimeIntervalNotificationTrigger &#123;</div><div class="line">    return UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)</div><div class="line">&#125;</div><div class="line">//MARK:触发日期 </div><div class="line"></div><div class="line">private class func createCalendarNotificationTrigger() -&gt; UNCalendarNotificationTrigger &#123;</div><div class="line">    var dateComponents = DateComponents()</div><div class="line">    dateComponents.hour = 4</div><div class="line">    dateComponents.minute = 45</div><div class="line">    return UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)</div><div class="line">&#125;</div><div class="line">//MARK:触发位置 </div><div class="line">   </div><div class="line">private class func createLocationNotificationTrigger() -&gt; UNLocationNotificationTrigger &#123;</div><div class="line">    let winnipegOfficeRegion = CLCircularRegion(center: CLLocationCoordinate2D(latitude: 49.878510, longitude: -97.145480), radius: 10, identifier: &quot;R&amp;P Winnipeg&quot;)</div><div class="line">    return UNLocationNotificationTrigger(region: winnipegOfficeRegion, repeats: false)</div><div class="line">&#125;</div><div class="line">//MARK:通知图片附件</div><div class="line"></div><div class="line"></div><div class="line">private class func createSampleAttachments() -&gt; [UNNotificationAttachment] &#123;</div><div class="line">    if let urlPath = Bundle.main.path(forResource: &quot;20100617172406530&quot;, ofType: &quot;png&quot;) &#123;</div><div class="line">        let attachmentURL = NSURL.fileURL(withPath: urlPath)</div><div class="line">        if let attachment = try? UNNotificationAttachment(identifier: &quot;attachment&quot;, url: attachmentURL, options: nil) &#123;</div><div class="line">            return [attachment]</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    return []</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>用法<br>      NotificationManager.scheduleNotification(id: “标识”, title: “通知测试”, subtitle: “子标题”, body: “风雨一夜花满楼”, badgeCount: 10)<br>    NotificationManager.pending { [weak self] value in<br>        print(“(value)未发送”)<br>        self?.showAlert(title: “通知”, message: “(value)未发送”)<br>    }</p>
+<pre><code>NotificationManager.delivered{ [weak self] value in
+      self?.showAlert(title: &quot;通知&quot;, message: &quot;\(value)已发送&quot;)
+} 
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/16/哈哈/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Roycehe">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Royce’s blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Royce’s blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/16/哈哈/" itemprop="url">
+                  哈哈
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-16T12:05:34+08:00">
+                2016-11-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="风雨一夜花满楼😁"><a href="#风雨一夜花满楼😁" class="headerlink" title="风雨一夜花满楼😁"></a>风雨一夜花满楼😁</h1>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/IMG.jpg"
+               alt="Roycehe" />
+          <p class="site-author-name" itemprop="name">Roycehe</p>
+          <p class="site-description motion-element" itemprop="description">talk is cheap, show me the code</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roycehe</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
 
 </body>
 </html>

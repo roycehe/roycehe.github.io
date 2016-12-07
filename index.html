@@ -457,74 +457,14 @@
 
       
         
-          
-            <p>用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.<br>下面是我今天早上研究的成果,由于Jenkins是基于java开发的先要安装JDK<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external"> java官网</a>直接下载安装.</p>
-<p>###1安装Jenkins</p>
-<p>1.1方法一：直接下载安装</p>
-<p><a href="http://jenkins-ci.org" target="_blank" rel="external">http://jenkins-ci.org</a></p>
-<p>下载好安装包后打开安装</p>
-<p>PS:</p>
-<p>安装完成后在终端中输入,即可打开Jenkins。</p>
-<p>1.2方法二：使用命令行安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install jenkins</div></pre></td></tr></table></figure></p>
-<p>若brew无效,先安装homebrew<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure></p>
-<p>切换到 cd /usr/local/Cellar/jenkins/版本号/libexec/jenkins.war</p>
-<p>执行启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar ./jenkins.war</div></pre></td></tr></table></figure></p>
-<p>显示下图即启动成功 并给出了安装密码和密码文件路径<br><img src="https://static.oschina.net/uploads/img/201611/30131809_2tVu.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>1.3初始化Jenkins<br>用浏览器打开：<a href="http://localhost:8080/开始初始化Jenkins" target="_blank" rel="external">http://localhost:8080/开始初始化Jenkins</a></p>
-<p>###2管理插件</p>
-<p>系统管理-&gt;插件管理－&gt;可选插件中安装以下插件</p>
-<p><img src="https://static.oschina.net/uploads/img/201611/30132045_P8bi.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>下载以下插件</p>
-<ul>
-<li>Subversion Plug-in（svn）</li>
-<li>Xcode integration（Xcode）</li>
-<li>Environment Injector Plugin（自定义全局变量）</li>
-<li>Email Extension Plugin（邮件）</li>
-</ul>
-<p>fir.im插件 <a href="http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin-1.9.5.hpi" target="_blank" rel="external">下载地址</a>需要手动配置<br>点击高级选项卡</p>
-<p>然后在页面找到上传插件，选择已下载好的fir.im jenkins 插件文件路径，并点击上传等待安装成功。<br><img src="https://static.oschina.net/uploads/img/201611/30132321_FEkT.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>安装成功后，如果没有创建 Jenkins 项目，请先创建项目。如果需要配置已存在的项目，请进入在配置中找到增加构建后操作步骤，并选择Upload to fir.im添加到 Jenkins 项目中。<br><img src="https://static.oschina.net/uploads/img/201611/30132347_No5G.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>fir.im Token 查看方法：直接点击<a href="http://fir.im/apps/apitoken" target="_blank" rel="external">API token</a>进行查看</p>
-<p>2.2系统管理-&gt;系统设置中可以进行全局配置</p>
-<p>比如Xcode Builder（钥匙串设置）<br><img src="https://static.oschina.net/uploads/img/201611/30132543_zBlx.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>需填写的内容：</p>
-<ul>
-<li>Keychain Name：iPhone Distribution:*（dis证书常用名）</li>
-<li>Keychain path：${HOME}/Library/Keychains/login.keychain（dis证书路径）</li>
-<li>Keychain password：*</li>
-<li>Add to keychain search path after build：Yes</li>
-<li>Default keychain:iPhone Distribution:*</li>
-</ul>
-<h3 id="3新建一个项目"><a href="#3新建一个项目" class="headerlink" title="3新建一个项目"></a>3新建一个项目</h3><p>3.1基本信息</p>
-<p>点击左侧工具栏”新建”，选择第一项”构建一个自由风格的软件项目” OK</p>
-<p>3.2源码管理信息<br>填写svn地址和账号密码<br><img src="https://static.oschina.net/uploads/img/201611/30132735_314g.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>如果你是用的是Git，那就请选择Git,然后输入你的仓库地址<br><img src="https://static.oschina.net/uploads/img/201611/30132735_314g.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>3.3构建触发时机</p>
-<p>这里就是告诉jenkins什么时候自动构建,这里我同时设置了每周一到周五在每天的8点到9点之间执行一次,当然也可以不设置</p>
-<p><img src="https://static.oschina.net/uploads/img/201611/30132901_RWEz.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>3.4 构建<br><img src="https://static.oschina.net/uploads/img/201611/30132942_xxw6.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<ul>
-<li>Target Xcode项目中Target的名字对应</li>
-<li>Clean before build设置为YES</li>
-<li>Configuration我选择了Release（在Release的时候Archive）</li>
-<li>.ipa filename pattern 随便起个.ipa的名字</li>
-<li>Output directory为.ipa的输出路径，我这里设置为 ${WORKSPACE}/build/</li>
-</ul>
-<p>PS:如果集成了CocoaPods<br><img src="https://static.oschina.net/uploads/img/201611/30133015_jdjr.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>3.5 构建后操作<br>添加构建后操作步骤</p>
-<ul>
-<li>Execute a set of scripts</li>
-<li>Add build step</li>
-<li>Execute shell</li>
-<li>在Commad中输入</li>
-<li>fir p ${WORKSPACE}/build/你的项目包 -T #API Token#</li>
-<li>其中${WORKSPACE}/build/为ipa的输出路径，#API Token#为fir.im的API Token。</li>
-</ul>
-<p>或者直接使用插件添加该步骤<br><img src="https://static.oschina.net/uploads/img/201611/30133217_Huem.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p><img src="https://static.oschina.net/uploads/img/201611/30133231_O45u.png" alt="输入图片说明" title="在这里输入图片标题"><br>3.6 完成，点击保存</p>
-<h3 id="4点击立即构建。"><a href="#4点击立即构建。" class="headerlink" title="4点击立即构建。"></a>4点击立即构建。</h3><p><img src="https://static.oschina.net/uploads/img/201611/30133421_3upv.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-
-          
+          <p>用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.<br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/30/手把手教你-Jenkins构建iOS项目/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

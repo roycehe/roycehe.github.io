@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="talk is cheap, show me the code"><title>手把手教你, Jenkins构建iOS项目 | Royce’s blog</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">手把手教你, Jenkins构建iOS项目</h1><a id="logo" href="/.">Royce’s blog</a><p class="description">Share something about coding</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">手把手教你, Jenkins构建iOS项目</h1><div class="post-meta">Nov 30, 2016<script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="post-content"><p>用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.<br><a id="more"></a><br>下面是我今天早上研究的成果,由于Jenkins是基于java开发的先要安装JDK<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external"> java官网</a>直接下载安装.</p>
+<p>###1安装Jenkins</p>
+<p>1.1方法一：直接下载安装</p>
+<p><a href="http://jenkins-ci.org" target="_blank" rel="external">http://jenkins-ci.org</a></p>
+<p>下载好安装包后打开安装</p>
+<p>PS:</p>
+<p>安装完成后在终端中输入,即可打开Jenkins。</p>
+<p>1.2方法二：使用命令行安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install jenkins</div></pre></td></tr></table></figure></p>
+<p>若brew无效,先安装homebrew<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div></pre></td></tr></table></figure></p>
+<p>切换到 cd /usr/local/Cellar/jenkins/版本号/libexec/jenkins.war</p>
+<p>执行启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">java -jar ./jenkins.war</div></pre></td></tr></table></figure></p>
+<p>显示下图即启动成功 并给出了安装密码和密码文件路径<br><img src="https://static.oschina.net/uploads/img/201611/30131809_2tVu.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>1.3初始化Jenkins<br>用浏览器打开：<a href="http://localhost:8080/开始初始化Jenkins" target="_blank" rel="external">http://localhost:8080/开始初始化Jenkins</a></p>
+<p>###2管理插件</p>
+<p>系统管理-&gt;插件管理－&gt;可选插件中安装以下插件</p>
+<p><img src="https://static.oschina.net/uploads/img/201611/30132045_P8bi.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>下载以下插件</p>
+<ul>
+<li>Subversion Plug-in（svn）</li>
+<li>Xcode integration（Xcode）</li>
+<li>Environment Injector Plugin（自定义全局变量）</li>
+<li>Email Extension Plugin（邮件）</li>
+</ul>
+<p>fir.im插件 <a href="http://7xju1s.com1.z0.glb.clouddn.com/fir-plugin-1.9.5.hpi" target="_blank" rel="external">下载地址</a>需要手动配置<br>点击高级选项卡</p>
+<p>然后在页面找到上传插件，选择已下载好的fir.im jenkins 插件文件路径，并点击上传等待安装成功。<br><img src="https://static.oschina.net/uploads/img/201611/30132321_FEkT.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>安装成功后，如果没有创建 Jenkins 项目，请先创建项目。如果需要配置已存在的项目，请进入在配置中找到增加构建后操作步骤，并选择Upload to fir.im添加到 Jenkins 项目中。<br><img src="https://static.oschina.net/uploads/img/201611/30132347_No5G.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>fir.im Token 查看方法：直接点击<a href="http://fir.im/apps/apitoken" target="_blank" rel="external">API token</a>进行查看</p>
+<p>2.2系统管理-&gt;系统设置中可以进行全局配置</p>
+<p>比如Xcode Builder（钥匙串设置）<br><img src="https://static.oschina.net/uploads/img/201611/30132543_zBlx.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>需填写的内容：</p>
+<ul>
+<li>Keychain Name：iPhone Distribution:*（dis证书常用名）</li>
+<li>Keychain path：${HOME}/Library/Keychains/login.keychain（dis证书路径）</li>
+<li>Keychain password：*</li>
+<li>Add to keychain search path after build：Yes</li>
+<li>Default keychain:iPhone Distribution:*</li>
+</ul>
+<h3 id="3新建一个项目"><a href="#3新建一个项目" class="headerlink" title="3新建一个项目"></a>3新建一个项目</h3><p>3.1基本信息</p>
+<p>点击左侧工具栏”新建”，选择第一项”构建一个自由风格的软件项目” OK</p>
+<p>3.2源码管理信息<br>填写svn地址和账号密码<br><img src="https://static.oschina.net/uploads/img/201611/30132735_314g.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>如果你是用的是Git，那就请选择Git,然后输入你的仓库地址<br><img src="https://static.oschina.net/uploads/img/201611/30132735_314g.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>3.3构建触发时机</p>
+<p>这里就是告诉jenkins什么时候自动构建,这里我同时设置了每周一到周五在每天的8点到9点之间执行一次,当然也可以不设置</p>
+<p><img src="https://static.oschina.net/uploads/img/201611/30132901_RWEz.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>3.4 构建<br><img src="https://static.oschina.net/uploads/img/201611/30132942_xxw6.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<ul>
+<li>Target Xcode项目中Target的名字对应</li>
+<li>Clean before build设置为YES</li>
+<li>Configuration我选择了Release（在Release的时候Archive）</li>
+<li>.ipa filename pattern 随便起个.ipa的名字</li>
+<li>Output directory为.ipa的输出路径，我这里设置为 ${WORKSPACE}/build/</li>
+</ul>
+<p>PS:如果集成了CocoaPods<br><img src="https://static.oschina.net/uploads/img/201611/30133015_jdjr.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>3.5 构建后操作<br>添加构建后操作步骤</p>
+<ul>
+<li>Execute a set of scripts</li>
+<li>Add build step</li>
+<li>Execute shell</li>
+<li>在Commad中输入</li>
+<li>fir p ${WORKSPACE}/build/你的项目包 -T #API Token#</li>
+<li>其中${WORKSPACE}/build/为ipa的输出路径，#API Token#为fir.im的API Token。</li>
+</ul>
+<p>或者直接使用插件添加该步骤<br><img src="https://static.oschina.net/uploads/img/201611/30133217_Huem.jpg" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p><img src="https://static.oschina.net/uploads/img/201611/30133231_O45u.png" alt="输入图片说明" title="在这里输入图片标题"><br>3.6 完成，点击保存</p>
+<h3 id="4点击立即构建。"><a href="#4点击立即构建。" class="headerlink" title="4点击立即构建。"></a>4点击立即构建。</h3><p><img src="https://static.oschina.net/uploads/img/201611/30133421_3upv.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/11/30/手把手教你-Jenkins构建iOS项目/" data-id="cixqt016l0008yuzxiymldcm6" class="article-share-link">Share</a><div class="tags"></div><div class="post-nav"><a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/" class="pre">iOS Keychain原理和APP之间共享信息</a><a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/" class="next">用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/">Swift3.0 通过 Core Graphics 绘制渐变颜色</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/">iOS 10 的 Speech 框架实现语音识别 (详解)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/">iOS Keychain原理和APP之间共享信息</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/30/手把手教你-Jenkins构建iOS项目/">手把手教你, Jenkins构建iOS项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/">用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/24/Swift-的Guard/">Swift 的Guard</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/">在xib或者storyboard 利用runtime给layer添加属性的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/24/iOS-HTML-自适应大小/">iOS HTML 自适应大小</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/16/iOS10-LocalNotification/">iOS10-LocalNotification 封装</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Royce’s blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

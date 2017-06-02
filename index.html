@@ -1,4 +1,339 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="talk is cheap, show me the code"><title>Royce’s blog | Share something about coding</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Royce’s blog</h1><a id="logo" href="/.">Royce’s blog</a><p class="description">Share something about coding</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h2 class="post-title"><a href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/">Swift3.0 通过 Core Graphics 绘制渐变颜色</a></h2><div class="post-meta">2017-01-06</div><div class="post-content"><p>Core Graphics 是一套非常强大的底层 API 接口集合。在这篇教程中，我们将借助 Core Graphics 来创建渐变颜色。出于简便起见，我们将创建线性渐变 (linear gradients)。所谓线性渐变，是从一个点到另外一个点颜色过渡的描述<br></div><p class="readmore"><a href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/">iOS 10 的 Speech 框架实现语音识别 (详解)</a></h2><div class="post-meta">2016-12-07</div><div class="post-content"><h1 id="iOS-10-的-Speech-框架实现语音识别-详解"><a href="#iOS-10-的-Speech-框架实现语音识别-详解" class="headerlink" title="iOS 10 的 Speech 框架实现语音识别 (详解)"></a>iOS 10 的 Speech 框架实现语音识别 (详解)</h1><p>在 2016 年的 WWDC 上，Apple 介绍了一个十分有用的语音识别 API，分分钟秒杀科大讯飞的</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="talk is cheap, show me the code">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="她吃_🍅">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="她吃_🍅 blog"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="talk is cheap, show me the code" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="她吃_🍅 blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>她吃_🍅 blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+            <h1 id="main-title" class="title">她吃_🍅 blog</h1>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/06/02/网络请求轮询-初级/">
+                网络请求轮询-(一)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h6 id="需求-实现一个请求轮询-每隔3秒发送一个请求-返回成功后停止"><a href="#需求-实现一个请求轮询-每隔3秒发送一个请求-返回成功后停止" class="headerlink" title="需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止"></a>需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止</h6><p>轮询的方法很多比如起一个Thread,设置一个Timer,或者使用GCD的Timer;</p>
+<h4 id="Thread写法"><a href="#Thread写法" class="headerlink" title="Thread写法"></a>Thread写法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">class ViewController: UIViewController &#123;</div><div class="line">    //停止标记</div><div class="line">    fileprivate var flag : Int = 0</div><div class="line">    //懒加载线程对象 创建一个子线程</div><div class="line">    lazy var myThread : Thread = &#123;</div><div class="line">        let myThread = Thread &#123;</div><div class="line">            let timer = Timer(timeInterval: 2, target: self, selector: #selector(self.requestTask), userInfo: nil, repeats: true)</div><div class="line">            //创建当前线程runloop</div><div class="line">            let runloop = RunLoop.current</div><div class="line">            runloop.add(timer, forMode: .commonModes)</div><div class="line">            runloop.run()</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    </div><div class="line">    return myThread</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    override func viewDidLoad() &#123;</div><div class="line">        super.viewDidLoad()</div><div class="line">        //开启线程</div><div class="line">         myThread.start()</div><div class="line">        </div><div class="line">  nib.</div><div class="line">    &#125;</div><div class="line">    //轮询请求</div><div class="line">    func requestTask()&#123;</div><div class="line">         print(flag);</div><div class="line">        flag += 1</div><div class="line">        //退出线程</div><div class="line">        if flag == 10 &#123;</div><div class="line">            Thread.exit()</div><div class="line">        &#125;</div><div class="line">       </div><div class="line">    </div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="GCD写法"><a href="#GCD写法" class="headerlink" title="GCD写法"></a>GCD写法</h4><p>Swift3.0之后GCD写法发生了改变,例如dispatch_source_create -&gt; DispatchSource 更加符合Swift语法<br><img src="http://upload-images.jianshu.io/upload_images/4135766-16d707d8342499f0.png?imageMogr2/auto-orient/strip" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">//创建timer</div><div class="line">lazy var gcdTimer : DispatchSourceTimer = &#123;</div><div class="line">    let gcdTimer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())</div><div class="line">    </div><div class="line">    gcdTimer.setEventHandler(handler: &#123;</div><div class="line">        </div><div class="line">        self.requestTask()</div><div class="line">        </div><div class="line">    &#125;)</div><div class="line">    //设置触发时间 和间隔</div><div class="line">    gcdTimer.scheduleRepeating(deadline: .now(), interval: 1)</div><div class="line">    </div><div class="line">    return gcdTimer</div><div class="line">&#125;()</div><div class="line"></div><div class="line"></div><div class="line"> </div><div class="line">override func viewDidLoad() &#123;</div><div class="line">    super.viewDidLoad()</div><div class="line">    </div><div class="line">  //GCD Timer</div><div class="line">    gcdTimer.resume()</div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div><div class="line">//轮询请求</div><div class="line">func requestTask()&#123;</div><div class="line">    print(flag);</div><div class="line">    flag += 1</div><div class="line">    if flag == 10 &#123;</div><div class="line">       gcdTimer.cancel()</div><div class="line">        print(&quot;结束任务&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/05/08/我架构师之路-一-简单工厂模式/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-05-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>###一句话简单封装系统弹框</p>
+<p>####用法 自由组合</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">AlertBuilder(context: self).title(&quot;提示&quot;).message(&quot;已经删除&quot;).cancelTitle(&quot;知道了&quot;).cancellAction (&#123; (UIAlertAction) in</div><div class="line">            print(&quot;取消&quot;)</div><div class="line">        &#125;).build().showController()</div><div class="line">        </div><div class="line">        </div><div class="line"> AlertBuilder(context: self).title(&quot;提示&quot;).message(&quot;确定删除么&quot;).cancelTitle(&quot;取消&quot;).confirmTitle(&quot;确定&quot;).cancellAction (&#123; (UIAlertAction) in</div><div class="line">            print(&quot;取消&quot;)</div><div class="line">        &#125;).confirmAction(&#123; (UIAlertAction) in</div><div class="line">             print(&quot;确定&quot;)</div><div class="line">        &#125;).build().showController()</div></pre></td></tr></table></figure>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/04/10/Native-react-navigation的使用/">
+                Native--react-navigation的使用
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-04-10</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/03/17/React-Native-iOS真机调试-新版/">
+                React-Native iOS真机调试(新版)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-17</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>React-Native iOS真机调试 看到网上很多以前的文章 找到两种方法</p>
+<h6 id="一"><a href="#一" class="headerlink" title="一"></a>一</h6><p>修改AppDelegate 把URL的替换成电脑ip</p>
+<h6 id="二"><a href="#二" class="headerlink" title="二"></a>二</h6><p>打开RCTWebSocketExecutor.m文件，然后将其中的”localhost”改为你的电脑的IP地址，最后启用开发者菜单中的”Debug JS Remotely”选项(这个是官网说的T_T)</p>
+<p>发现以上全部过时了</p>
+<h1 id="解决方法非常简单"><a href="#解决方法非常简单" class="headerlink" title="解决方法非常简单"></a>解决方法非常简单</h1><p>先说明开发环境</p>
+<ul>
+<li>macOS Sierra 10.12</li>
+<li>Xcode Version 8.3 Beta4</li>
+<li>React Native 0.42 </li>
+</ul>
+<p>在打开Target 在默认生成的Tests 设置开发者证书</p>
+<p><img src="https://static.oschina.net/uploads/img/201703/17113546_tLmZ.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>PS:也不需要手机和电脑在同一网络</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/03/16/MVVM简单使用/">
+                iOS开发-MVVM简单使用(初级①)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-16</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><p>任何一个正经开发过一阵子软件的人都熟悉MVC，它意思是Model View Controller, 是一个在复杂应用设计中组织代码的公认模式. 它也被证实在 iOS 开发中有着第二种含义: Massive View Controller(重量级视图控制器)。它让许多程序员绞尽脑汁如何去使代码被解耦和组织地让人满意. 总的来说, iOS 开发者已经得出结论: 他们需要给视图控制器瘦身, 并进一步分离事物;但该怎么做呢?</p>
+<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>Model - model 在 MVVM 中没有真正的变化. 取决于你的偏好, 你的 model 可能会或可能不会封装一些额外的业务逻辑工作. 我更倾向于把它当做一个容纳表现数据-模型对象信息的结构体, 并在一个单独的管理类中维护的创建/管理模型的统一逻辑。</p>
+        </div>
+        <a href="/2017/03/16/MVVM简单使用/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/">
+                Swift3.0 通过 Core Graphics 绘制渐变颜色
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-01-06</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>Core Graphics 是一套非常强大的底层 API 接口集合。在这篇教程中，我们将借助 Core Graphics 来创建渐变颜色。出于简便起见，我们将创建线性渐变 (linear gradients)。所谓线性渐变，是从一个点到另外一个点颜色过渡的描述<br>
+        </div>
+        <a href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/">
+                iOS 10 的 Speech 框架实现语音识别 (详解)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2016-12-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="iOS-10-的-Speech-框架实现语音识别-详解"><a href="#iOS-10-的-Speech-框架实现语音识别-详解" class="headerlink" title="iOS 10 的 Speech 框架实现语音识别 (详解)"></a>iOS 10 的 Speech 框架实现语音识别 (详解)</h1><p>在 2016 年的 WWDC 上，Apple 介绍了一个十分有用的语音识别 API，分分钟秒杀科大讯飞的</p>
 <p>早在2011年iPhone4s 的上,iOS 5系统就有了语音识别.<br>有以下缺陷</p>
 <ul>
 <li>需要- 弹出键盘</li>
@@ -13,7 +348,281 @@
 <li>加入用户授权使其更安全</li>
 <li>可以转化音频文件和实时语音</li>
 </ul>
-<p><img src="https://static.oschina.net/uploads/img/201612/05145117_5OMv.png" alt="输入图片说明" title="在这里输入图片标题"><br></div><p class="readmore"><a href="/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/">iOS Keychain原理和APP之间共享信息</a></h2><div class="post-meta">2016-12-02</div><div class="post-content"><h2 id="Keychain-介绍"><a href="#Keychain-介绍" class="headerlink" title="Keychain 介绍"></a>Keychain 介绍</h2><p>Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个安全容器。<br><em>PS:在iOS中keychian 依赖用于签名的provisioning profile描述文件,确保发布不同版本的时候使用同一个pp文件</em><br><img src="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png" alt="输入图片说明" title="在这里输入图片标题"><br></div><p class="readmore"><a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/">手把手教你, Jenkins构建iOS项目</a></h2><div class="post-meta">2016-11-30</div><div class="post-content"><p>用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.<br></div><p class="readmore"><a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/">用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.</a></h2><div class="post-meta">2016-11-30</div><p class="readmore"><a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/11/24/Swift-的Guard/">Swift 的Guard</a></h2><div class="post-meta">2016-11-24</div><div class="post-content"><p>if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。<br></div><p class="readmore"><a href="/2016/11/24/Swift-的Guard/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/">在xib或者storyboard 利用runtime给layer添加属性的坑</a></h2><div class="post-meta">2016-11-24</div><div class="post-content"><p>我们都知道怎么用代码给layer设置圆角,描边,阴影等属性<br>layer.borderWidth<br>layer.cornerRadius<br>layer.borderUIColor<br>layer.masksToBounds<br>在xib 或者 storyboard中同样可以设置<br>只需在空间属性菜单下的”user defined runtime attributes”中添加以上字符串 并选择对应的Type和Value就可以了,<br>注意!这里有个坑,设置layer.borderUIColor的时候怎么说设置都是黑的 这里给CALayer添加一个分类<br></div><p class="readmore"><a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/11/24/iOS-HTML-自适应大小/">iOS HTML 自适应大小</a></h2><div class="post-meta">2016-11-24</div><div class="post-content"><p> 我们接收数据的时候  后台给的数据室一串HTML 的字符串  但是 我们要显示出来  这是 我们会发现文字可以自适应大小，但是有些图片并不能自适应大小<br>这是 我们就需要去修改img的CSS样式<br>但是我们添加一个style 对所有的img标签 进行控制  是可以  但是 如果出现这种<img style ="width = ;height= px" 这种的话 我们就没办法进行控制了
-所有这是 我们需要把img 标签里面的style样式给替换掉 
-具体代码如下</div><p class="readmore"><a href="/2016/11/24/iOS-HTML-自适应大小/">Read More</a></p></div><div class="post"><h2 class="post-title"><a href="/2016/11/16/iOS10-LocalNotification/">iOS10-LocalNotification 封装</a></h2><div class="post-meta">2016-11-16</div><div class="post-content"><p>iOS10-LocalNotification</p>
-<p>授权Authorization<br></div><p class="readmore"><a href="/2016/11/16/iOS10-LocalNotification/">Read More</a></p></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/">Swift3.0 通过 Core Graphics 绘制渐变颜色</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/">iOS 10 的 Speech 框架实现语音识别 (详解)</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/">iOS Keychain原理和APP之间共享信息</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/30/手把手教你-Jenkins构建iOS项目/">手把手教你, Jenkins构建iOS项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/">用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/24/Swift-的Guard/">Swift 的Guard</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/">在xib或者storyboard 利用runtime给layer添加属性的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/24/iOS-HTML-自适应大小/">iOS HTML 自适应大小</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/16/iOS10-LocalNotification/">iOS10-LocalNotification 封装</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">Royce’s blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<p><img src="https://static.oschina.net/uploads/img/201612/05145117_5OMv.png" alt="输入图片说明" title="在这里输入图片标题"><br>
+        </div>
+        <a href="/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/">
+                iOS Keychain原理和APP之间共享信息
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2016-12-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="Keychain-介绍"><a href="#Keychain-介绍" class="headerlink" title="Keychain 介绍"></a>Keychain 介绍</h2><p>Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个安全容器。<br><em>PS:在iOS中keychian 依赖用于签名的provisioning profile描述文件,确保发布不同版本的时候使用同一个pp文件</em><br><img src="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png" alt="输入图片说明" title="在这里输入图片标题"><br>
+        </div>
+        <a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/">
+                手把手教你, Jenkins构建iOS项目
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2016-11-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.<br>
+        </div>
+        <a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/">
+                用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2016-11-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            
+        </div>
+    
+
+</div>
+            
+        </section>
+    </div>
+</div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="" href="/page/2/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2017/06/02/网络请求轮询-初级/">网络请求轮询-(一)</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/05/08/我架构师之路-一-简单工厂模式/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/04/10/Native-react-navigation的使用/">Native--react-navigation的</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/03/17/React-Native-iOS真机调试-新版/">React-Native iOS真机调试(新版)</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

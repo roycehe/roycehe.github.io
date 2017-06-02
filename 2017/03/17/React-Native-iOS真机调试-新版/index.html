@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="她吃_🍅 blog"/>
+        <meta property="og:title" content="React-Native iOS真机调试(新版)"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016/12 - 她吃_🍅 blog</title>
+    <title>React-Native iOS真机调试(新版) - 她吃_🍅 blog</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -119,9 +119,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -129,140 +127,60 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">2016/12</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2017/04/10/Native-react-navigation的使用/">
-        <span class="archive-date">
-            Apr 2017
-        </span>
-        Native--react-navigation的使用
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/03/17/React-Native-iOS真机调试-新版/">
+                React-Native iOS真机调试(新版)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-17</span>
+            
+            <a href="#disqus_thread" class="comments">Kommentare</a>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>React-Native iOS真机调试 看到网上很多以前的文章 找到两种方法</p>
+<h6 id="一"><a href="#一" class="headerlink" title="一"></a>一</h6><p>修改AppDelegate 把URL的替换成电脑ip</p>
+<h6 id="二"><a href="#二" class="headerlink" title="二"></a>二</h6><p>打开RCTWebSocketExecutor.m文件，然后将其中的”localhost”改为你的电脑的IP地址，最后启用开发者菜单中的”Debug JS Remotely”选项(这个是官网说的T_T)</p>
+<p>发现以上全部过时了</p>
+<h1 id="解决方法非常简单"><a href="#解决方法非常简单" class="headerlink" title="解决方法非常简单"></a>解决方法非常简单</h1><p>先说明开发环境</p>
+<ul>
+<li>macOS Sierra 10.12</li>
+<li>Xcode Version 8.3 Beta4</li>
+<li>React Native 0.42 </li>
+</ul>
+<p>在打开Target 在默认生成的Tests 设置开发者证书</p>
+<p><img src="https://static.oschina.net/uploads/img/201703/17113546_tLmZ.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>PS:也不需要手机和电脑在同一网络</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/24/Swift-的Guard/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        Swift 的Guard
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/03/16/MVVM简单使用/">
-        <span class="archive-date">
-            Mar 2017
-        </span>
-        iOS开发-MVVM简单使用(初级①)
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/12/07/iOS-10-的-Speech-框架实现语音识别-详解/">
-        <span class="archive-date">
-            Dec 2016
-        </span>
-        iOS 10 的 Speech 框架实现语音识别 (详解)
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/24/iOS-HTML-自适应大小/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        iOS HTML 自适应大小
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/16/iOS10-LocalNotification/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        iOS10-LocalNotification 封装
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/30/手把手教你-Jenkins构建iOS项目/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        手把手教你, Jenkins构建iOS项目
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/12/02/iOS-Keychain原理和APP之间共享信息/">
-        <span class="archive-date">
-            Dec 2016
-        </span>
-        iOS Keychain原理和APP之间共享信息
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/">
-        <span class="archive-date">
-            Jan 2017
-        </span>
-        Swift3.0 通过 Core Graphics 绘制渐变颜色
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        在xib或者storyboard 利用runtime给layer添加属性的坑
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/03/17/React-Native-iOS真机调试-新版/">
-        <span class="archive-date">
-            Mar 2017
-        </span>
-        React-Native iOS真机调试(新版)
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/05/08/我架构师之路-一-简单工厂模式/">
-        <span class="archive-date">
-            May 2017
-        </span>
-        Untitled
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/06/02/网络请求轮询-初级/">
-        <span class="archive-date">
-            Jun 2017
-        </span>
-        网络请求轮询-(一)
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
 

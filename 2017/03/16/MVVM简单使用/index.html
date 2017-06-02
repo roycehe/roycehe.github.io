@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="talk is cheap, show me the code">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="她吃_🍅">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="iOS开发-MVVM简单使用(初级①)"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="talk is cheap, show me the code" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="她吃_🍅 blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>iOS开发-MVVM简单使用(初级①) - 她吃_🍅 blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/03/16/MVVM简单使用/">
+                iOS开发-MVVM简单使用(初级①)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-16</span>
+            
+            <a href="#disqus_thread" class="comments">Kommentare</a>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><p>任何一个正经开发过一阵子软件的人都熟悉MVC，它意思是Model View Controller, 是一个在复杂应用设计中组织代码的公认模式. 它也被证实在 iOS 开发中有着第二种含义: Massive View Controller(重量级视图控制器)。它让许多程序员绞尽脑汁如何去使代码被解耦和组织地让人满意. 总的来说, iOS 开发者已经得出结论: 他们需要给视图控制器瘦身, 并进一步分离事物;但该怎么做呢?</p>
+<h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><p>Model - model 在 MVVM 中没有真正的变化. 取决于你的偏好, 你的 model 可能会或可能不会封装一些额外的业务逻辑工作. 我更倾向于把它当做一个容纳表现数据-模型对象信息的结构体, 并在一个单独的管理类中维护的创建/管理模型的统一逻辑。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line"></div><div class="line">@interface ShowModel : NSObject</div><div class="line">@property (nonatomic , copy) NSString              * image;</div><div class="line">@property (nonatomic , copy) NSString              * begin_time;</div><div class="line">@property (nonatomic , copy) NSString              * title;</div><div class="line">@property (nonatomic , copy) NSString              * end_time;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>View - view 包含实际 UI 本身(不论是 UIView 代码, storyboard 和 xib), 任何视图特定的逻辑, 和对用户输入的反馈. 在 iOS 中这不仅需要 UIView 代码和那些文件, 还包括很多需由 UIViewController 处理的工作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">@class ShowModel;</div><div class="line">@interface ShowCell : UITableViewCell</div><div class="line">@property (weak, nonatomic) IBOutlet UIImageView *iconImage;</div><div class="line">@property (weak, nonatomic) IBOutlet UILabel *titleLabel;</div><div class="line">@property (weak, nonatomic) IBOutlet UILabel *timeLabel;</div><div class="line">@property (weak, nonatomic) IBOutlet UILabel *addressLabel;</div><div class="line">@property (nonatomic, strong) ShowModel *model;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>View-Model 这个术语本身会带来困惑, 因为它混搭了两个我们已知的术语, 但却是完全不同的东东. 它不是传统数据-模型结构中模型的意思(又来了, 只是我喜欢这个例子). 它的职责之一就是作为一个表现视图显示自身所需数据的静态模型;但它也有收集, 解释和转换那些数据的责任. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line">#import &lt;UIKit/UIKit.h&gt;</div><div class="line">@class ShowModel;</div><div class="line"></div><div class="line">typedef void (^ReturnValueBlock) (id response);</div><div class="line">typedef void (^ErrorBlock) (NSError *error);</div><div class="line">@interface ShowViewModel : NSObject</div><div class="line"></div><div class="line">/**</div><div class="line"> *数据请求</div><div class="line"> */</div><div class="line">- (void)getShowDataWith:(ReturnValueBlock)successBlock failMsg:(ErrorBlock)failBlock;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#import &quot;ShowViewModel.h&quot;</div><div class="line">#import &quot;HttpServer.h&quot;</div><div class="line">@implementation ShowViewModel</div><div class="line"></div><div class="line">-(void)getShowDataWith:(ReturnValueBlock)successBlock failMsg:(ErrorBlock)failBlock&#123;</div><div class="line"></div><div class="line"></div><div class="line">        NSMutableDictionary *params = [NSMutableDictionary dictionary];</div><div class="line">        params[@&quot;cate&quot;] = @&quot;latest&quot;;</div><div class="line">        [Networking enableInterfaceDebug:YES];</div><div class="line">        [Networking getWithUrl:@&quot;https://api.douban.com/v2/onlines&quot; params:params success:^(id response) &#123;</div><div class="line">            </div><div class="line">            successBlock(response);</div><div class="line"></div><div class="line">            NSLog(@&quot;%@&quot;,response);</div><div class="line">        &#125; fail:^(NSError *error) &#123;</div><div class="line">            </div><div class="line">            NSLog(@&quot;%@&quot;,error);</div><div class="line">            failBlock(error);</div><div class="line">        &#125;];</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Controller 一个更加清晰明确的任务: 呈现由 view-model 提供的数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">#import &quot;ViewController.h&quot;</div><div class="line">#import &quot;ShowCell.h&quot;</div><div class="line">#import &quot;ShowViewModel.h&quot;</div><div class="line">#import &quot;ShowModel.h&quot;</div><div class="line">#import &quot;MJExtension.h&quot;</div><div class="line">@interface ViewController ()&lt;UITableViewDataSource,UITableViewDelegate&gt;</div><div class="line">@property (nonatomic,strong) NSMutableArray *showArray;</div><div class="line">@end</div><div class="line"></div><div class="line">@implementation ViewController</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">    [super viewDidLoad];</div><div class="line">    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];</div><div class="line">    tableView.dataSource = self;</div><div class="line">    tableView.delegate = self;</div><div class="line">    tableView.rowHeight = 80;</div><div class="line">    [self.view addSubview:tableView];</div><div class="line">    [tableView registerNib:[UINib nibWithNibName:@&quot;ShowCell&quot; bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@&quot;show&quot;];</div><div class="line">    </div><div class="line">    ShowViewModel *viewModel = [[ShowViewModel alloc]init];</div><div class="line">    [viewModel getShowDataWith:^(id response) &#123;</div><div class="line">         NSDictionary *dic = (NSDictionary *)response;</div><div class="line">        self.showArray = [ShowModel mj_objectArrayWithKeyValuesArray:dic[@&quot;onlines&quot;]];</div><div class="line">        [tableView reloadData];</div><div class="line">    &#125; failMsg:^(NSError *error) &#123;</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">#pragma mark - UITableViewDataSource</div><div class="line">- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section&#123;</div><div class="line">    return self.showArray.count;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath&#123;</div><div class="line">    ShowCell *cell = [tableView dequeueReusableCellWithIdentifier:@&quot;show&quot;];</div><div class="line">    cell.model = _showArray[indexPath.row];</div><div class="line">    return cell;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">- (NSMutableArray *)showArray &#123;</div><div class="line">    if (!_showArray) &#123;</div><div class="line">        _showArray = [[NSMutableArray alloc] init];</div><div class="line">    &#125;</div><div class="line">    return _showArray;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<p><img src="https://github.com/roycehe/MVVM-TableView-Demo/blob/master/WX20170316-102512.png" alt=""></p>
+<p>Github地址:<a href="https://github.com/roycehe/MVVM-TableView-Demo" target="_blank" rel="external">https://github.com/roycehe/MVVM-TableView-Demo</a></p>
+<p>后续更新更多进阶内容</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2017/06/02/网络请求轮询-初级/">网络请求轮询-(一)</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/05/08/我架构师之路-一-简单工厂模式/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/04/10/Native-react-navigation的使用/">Native--react-navigation的</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/03/17/React-Native-iOS真机调试-新版/">React-Native iOS真机调试(新版)</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

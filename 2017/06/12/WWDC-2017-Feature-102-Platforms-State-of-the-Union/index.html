@@ -84,36 +84,33 @@
 
 
 
-<meta name="description" content="React-Native iOS真机调试 看到网上很多以前的文章 找到两种方法
-一修改AppDelegate 把URL的替换成电脑ip
-二打开RCTWebSocketExecutor.m文件，然后将其中的”localhost”改为你的电脑的IP地址，最后启用开发者菜单中的”Debug JS Remotely”选项(这个是官网说的T_T)
-发现以上全部过时了
-解决方法非常简单先说明开发环境
-
-mac">
+<meta name="description" content="2017苹果开发者大会如期举行,发布会演讲的内容通过最近的报道大家应该已经都熟知,但作为一个Developer我们更应该关注后续将会举行的一些列的Session,会持续一周的时间.下面就第一天的内容做一个小结
+MacOS High Sierra将是最后一个版本支持32位应用,此前iOS平台早已给开发者发送通知要求更新至64位 iOS11不在支持32位app,苹果已经在App Store内停止提供3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="React-Native iOS真机调试(新版)">
-<meta property="og:url" content="http://yoursite.com/2017/03/17/React-Native-iOS真机调试-新版/index.html">
+<meta property="og:title" content="WWDC 2017 Feature 102 Platforms State of the Union">
+<meta property="og:url" content="http://yoursite.com/2017/06/12/WWDC-2017-Feature-102-Platforms-State-of-the-Union/index.html">
 <meta property="og:site_name" content="她吃_🍅 blog">
-<meta property="og:description" content="React-Native iOS真机调试 看到网上很多以前的文章 找到两种方法
-一修改AppDelegate 把URL的替换成电脑ip
-二打开RCTWebSocketExecutor.m文件，然后将其中的”localhost”改为你的电脑的IP地址，最后启用开发者菜单中的”Debug JS Remotely”选项(这个是官网说的T_T)
-发现以上全部过时了
-解决方法非常简单先说明开发环境
-
-mac">
-<meta property="og:image" content="https://static.oschina.net/uploads/img/201703/17113546_tLmZ.png">
-<meta property="og:updated_time" content="2017-03-17T03:42:59.000Z">
+<meta property="og:description" content="2017苹果开发者大会如期举行,发布会演讲的内容通过最近的报道大家应该已经都熟知,但作为一个Developer我们更应该关注后续将会举行的一些列的Session,会持续一周的时间.下面就第一天的内容做一个小结
+MacOS High Sierra将是最后一个版本支持32位应用,此前iOS平台早已给开发者发送通知要求更新至64位 iOS11不在支持32位app,苹果已经在App Store内停止提供3">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07155551_FRpE.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07155605_ilA0.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07153558_i1Vt.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07164113_q78R.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07165123_Gmes.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07165142_1PWv.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07160314_Tyzx.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07160238_N7f5.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07160257_HsxC.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07162358_xrFZ.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07162435_SA4E.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07162613_Fbu3.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/07164024_cEy8.png">
+<meta property="og:updated_time" content="2017-06-12T02:55:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="React-Native iOS真机调试(新版)">
-<meta name="twitter:description" content="React-Native iOS真机调试 看到网上很多以前的文章 找到两种方法
-一修改AppDelegate 把URL的替换成电脑ip
-二打开RCTWebSocketExecutor.m文件，然后将其中的”localhost”改为你的电脑的IP地址，最后启用开发者菜单中的”Debug JS Remotely”选项(这个是官网说的T_T)
-发现以上全部过时了
-解决方法非常简单先说明开发环境
-
-mac">
-<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201703/17113546_tLmZ.png">
+<meta name="twitter:title" content="WWDC 2017 Feature 102 Platforms State of the Union">
+<meta name="twitter:description" content="2017苹果开发者大会如期举行,发布会演讲的内容通过最近的报道大家应该已经都熟知,但作为一个Developer我们更应该关注后续将会举行的一些列的Session,会持续一周的时间.下面就第一天的内容做一个小结
+MacOS High Sierra将是最后一个版本支持32位应用,此前iOS平台早已给开发者发送通知要求更新至64位 iOS11不在支持32位app,苹果已经在App Store内停止提供3">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201706/07155551_FRpE.png">
 
 
 
@@ -141,13 +138,13 @@ mac">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/17/React-Native-iOS真机调试-新版/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/12/WWDC-2017-Feature-102-Platforms-State-of-the-Union/"/>
 
 
 
 
 
-  <title> React-Native iOS真机调试(新版) | 她吃_🍅 blog </title>
+  <title> WWDC 2017 Feature 102 Platforms State of the Union | 她吃_🍅 blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -258,7 +255,7 @@ mac">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/17/React-Native-iOS真机调试-新版/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/WWDC-2017-Feature-102-Platforms-State-of-the-Union/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="她吃_🍅">
@@ -282,7 +279,7 @@ mac">
             
             
               
-                React-Native iOS真机调试(新版)
+                WWDC 2017 Feature 102 Platforms State of the Union
               
             
           </h1>
@@ -295,8 +292,8 @@ mac">
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-17T11:22:27+08:00">
-                2017-03-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-12T10:55:05+08:00">
+                2017-06-12
               </time>
             
 
@@ -331,19 +328,42 @@ mac">
       
 
       
-        <p>React-Native iOS真机调试 看到网上很多以前的文章 找到两种方法</p>
-<h6 id="一"><a href="#一" class="headerlink" title="一"></a>一</h6><p>修改AppDelegate 把URL的替换成电脑ip</p>
-<h6 id="二"><a href="#二" class="headerlink" title="二"></a>二</h6><p>打开RCTWebSocketExecutor.m文件，然后将其中的”localhost”改为你的电脑的IP地址，最后启用开发者菜单中的”Debug JS Remotely”选项(这个是官网说的T_T)</p>
-<p>发现以上全部过时了</p>
-<h1 id="解决方法非常简单"><a href="#解决方法非常简单" class="headerlink" title="解决方法非常简单"></a>解决方法非常简单</h1><p>先说明开发环境</p>
+        <p>2017苹果开发者大会如期举行,发布会演讲的内容通过最近的报道大家应该已经都熟知,但作为一个Developer我们更应该关注后续将会举行的一些列的Session,会持续一周的时间.<br>下面就第一天的内容做一个小结</p>
+<p>MacOS High Sierra将是最后一个版本支持32位应用,此前iOS平台早已给开发者发送通知要求更新至64位 iOS11不在支持32位app,苹果已经在App Store内停止提供32位应用程序的搜索结果.</p>
+<h3 id="Playground1-5"><a href="#Playground1-5" class="headerlink" title="Playground1.5"></a>Playground1.5</h3><p><img src="https://static.oschina.net/uploads/img/201706/07155551_FRpE.png" alt="输入图片说明" title="在这里输入图片标题"></p>
 <ul>
-<li>macOS Sierra 10.12</li>
-<li>Xcode Version 8.3 Beta4</li>
-<li>React Native 0.42 </li>
+<li>增强代码高亮</li>
+<li>内容更新通知</li>
+<li>添加一页新的Playground</li>
+<li>增强了报错信息</li>
+<li>增加MapKit支持</li>
+<li>重点对智能机器人的控制进行支持<br><img src="https://static.oschina.net/uploads/img/201706/07155605_ilA0.png" alt="输入图片说明" title="在这里输入图片标题">!</li>
 </ul>
-<p>在打开Target 在默认生成的Tests 设置开发者证书</p>
-<p><img src="https://static.oschina.net/uploads/img/201703/17113546_tLmZ.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>PS:也不需要手机和电脑在同一网络</p>
+<p>Playgrounds 2将在今年秋天发布</p>
+<p>###重点来了Xcode 9</p>
+<p>编辑器更新</p>
+<p>支持Markdown语法</p>
+<ul>
+<li>单词修复</li>
+<li>只能补全例如 if else 同时添加了快捷键 例如 代码定义跳转 : control + command<br><img src="https://static.oschina.net/uploads/img/201706/07153558_i1Vt.png" alt="输入图片说明" title="在这里输入图片标题"></li>
+<li>Protocol 协议方法补全(这个非常实用)</li>
+<li>生成方法实现</li>
+</ul>
+<p>…..<br>更多实用功能等你去发现,<br>ps:这个代码转换器是开源的</p>
+<p>###Swift<br>String<br>做了一些代码简化,比如便利字符串<img src="https://static.oschina.net/uploads/img/201706/07164113_q78R.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p> Codable<br>只要遵循 Codable协议就可以使用对应的序列号方法<br><img src="https://static.oschina.net/uploads/img/201706/07165123_Gmes.png" alt="输入图片说明" title="在这里输入图片标题"><br><img src="https://static.oschina.net/uploads/img/201706/07165142_1PWv.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>##Source Control<br>通过调查发现github三分之二的代码提交来源于Mac 于是xcode集成了github代码管理呵呵哒<img src="https://static.oschina.net/uploads/img/201706/07160314_Tyzx.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>步骤很简单添加github账号,在导航菜单中就可以看到相关分支,贡献者,代码改动非常智能<br><img src="https://static.oschina.net/uploads/img/201706/07160238_N7f5.png" alt="输入图片说明" title="在这里输入图片标题"><br><img src="https://static.oschina.net/uploads/img/201706/07160257_HsxC.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>当然对SVN也做了忽略文件配置</p>
+<h3 id="Runtime-Sanitizers"><a href="#Runtime-Sanitizers" class="headerlink" title="Runtime Sanitizers"></a>Runtime Sanitizers</h3><p>开启选项 </p>
+<p><img src="https://static.oschina.net/uploads/img/201706/07162358_xrFZ.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>越界检查 </p>
+<p><img src="https://static.oschina.net/uploads/img/201706/07162435_SA4E.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>主线程检查 </p>
+<p><img src="https://static.oschina.net/uploads/img/201706/07162613_Fbu3.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>下面这更新个人非常喜欢<br>Wifi真机调试(终于摆脱了数据线,当然手机系统也要更新到iOS11,不知道速度怎么样)<br><img src="https://static.oschina.net/uploads/img/201706/07164024_cEy8.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<p>先到这,更多有关本次大会的Session可以添加关注</p>
+<p><a href="https://developer.apple.com/wwdc/schedule/#/" target="_blank" rel="external">也可点击Schedule直达</a></p>
 
       
     </div>
@@ -370,8 +390,8 @@ mac">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/16/MVVM简单使用/" rel="next" title="iOS开发-MVVM简单使用(初级①)">
-                <i class="fa fa-chevron-left"></i> iOS开发-MVVM简单使用(初级①)
+              <a href="/2017/06/02/网络请求轮询-初级/" rel="next" title="网络请求轮询-(一)">
+                <i class="fa fa-chevron-left"></i> 网络请求轮询-(一)
               </a>
             
           </div>
@@ -380,8 +400,8 @@ mac">
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/08/我架构师之路-一-简单工厂模式/" rel="prev" title="抽象工厂设计模式封装Alert">
-                抽象工厂设计模式封装Alert <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/" rel="prev" title="基于ProtocolBuffer和ysocket的Swift服务器搭建">
+                基于ProtocolBuffer和ysocket的Swift服务器搭建 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -488,7 +508,7 @@ mac">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#一"><span class="nav-number">1.</span> <span class="nav-text">一</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#二"><span class="nav-number">2.</span> <span class="nav-text">二</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法非常简单"><span class="nav-number"></span> <span class="nav-text">解决方法非常简单</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Playground1-5"><span class="nav-number">1.</span> <span class="nav-text">Playground1.5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Runtime-Sanitizers"><span class="nav-number">2.</span> <span class="nav-text">Runtime Sanitizers</span></a></li></ol></div>
             
 
           </div>

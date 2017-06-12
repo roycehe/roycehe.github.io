@@ -1,0 +1,648 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="介绍Protocol Buffers (ProtocolBuffer/ protobuf )是Google公司开发的一种数据描述语言，类似于XML能够将结构化数据序列化,比起XML它更简单,文件更小,传输解析更快,原生支持java、c++、python,如果要在 iOS 上使用，可以直接使用 C++.但是编译过程很麻烦，因此这里使用的是第三方的库.
+Swift : https://github.c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于ProtocolBuffer和ysocket的Swift服务器搭建">
+<meta property="og:url" content="http://yoursite.com/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/index.html">
+<meta property="og:site_name" content="她吃_🍅 blog">
+<meta property="og:description" content="介绍Protocol Buffers (ProtocolBuffer/ protobuf )是Google公司开发的一种数据描述语言，类似于XML能够将结构化数据序列化,比起XML它更简单,文件更小,传输解析更快,原生支持java、c++、python,如果要在 iOS 上使用，可以直接使用 C++.但是编译过程很麻烦，因此这里使用的是第三方的库.
+Swift : https://github.c">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/12131956_bkGB.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/12144335_tZKK.png">
+<meta property="og:updated_time" content="2017-06-12T07:01:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于ProtocolBuffer和ysocket的Swift服务器搭建">
+<meta name="twitter:description" content="介绍Protocol Buffers (ProtocolBuffer/ protobuf )是Google公司开发的一种数据描述语言，类似于XML能够将结构化数据序列化,比起XML它更简单,文件更小,传输解析更快,原生支持java、c++、python,如果要在 iOS 上使用，可以直接使用 C++.但是编译过程很麻烦，因此这里使用的是第三方的库.
+Swift : https://github.c">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201706/12131956_bkGB.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/"/>
+
+
+
+
+
+  <title> 基于ProtocolBuffer和ysocket的Swift服务器搭建 | 她吃_🍅 blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">她吃_🍅 blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Share something about coding</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于ProtocolBuffer和ysocket的Swift服务器搭建
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-12T11:03:47+08:00">
+                2017-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Protocol Buffers (ProtocolBuffer/ protobuf )是Google公司开发的一种数据描述语言，类似于XML能够将结构化数据序列化,比起XML它更简单,文件更小,传输解析更快,原生支持java、c++、python,如果要在 iOS 上使用，可以直接使用 C++.但是编译过程很麻烦，因此这里使用的是第三方的库.</p>
+<p>Swift : <a href="https://github.com/alexeyxo/protobuf-swift" target="_blank" rel="external">https://github.com/alexeyxo/protobuf-swift</a><br>ObjC : <a href="https://github.com/aerofs/protobuf-objc" target="_blank" rel="external">https://github.com/aerofs/protobuf-objc</a><br><a id="more"></a></p>
+<h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><ul>
+<li><p>直接传递C/C++语言中一字节对齐的结构体数据，只要结构体的声明为定长格式，那么该方式对于C/C++程序而言就非常方便了，仅需将接收到的数据按照结构体类型强行转换即可。事实上对于变长结构体也不会非常麻烦。在发送数据时，也只需定义一个结构体变量并设置各个成员变量的值之后，再以char*的方式将该二进制数据发送到远端。反之，该方式对于Java开发者而言就会非常繁琐，首先需要将接收到的数据存于ByteBuffer之中，再根据约定的字节序逐个读取每个字段，并将读取后的值再赋值给另外一个值对象中的域变量，以便于程序中其他代码逻辑的编写。对于该类型程序而言，联调的基准是必须客户端和服务器双方均完成了消息报文构建程序的编写后才能展开，而该设计方式将会直接导致Java程序开发的进度过慢。即便是Debug阶段，也会经常遇到Java程序中出现各种域字段拼接的小错误。</p>
+</li>
+<li><p>使用SOAP协议(WebService)作为消息报文的格式载体，由该方式生成的报文是基于文本格式的，同时还存在大量的XML描述信息，因此将会大大增加网络IO的负担。又由于XML解析的复杂性，这也会大幅降低报文解析的性能。总之，使用该设计方式将会使系统的整体运行性能明显下降。</p>
+</li>
+</ul>
+<h3 id="ProtocolBuffer环境安装"><a href="#ProtocolBuffer环境安装" class="headerlink" title="ProtocolBuffer环境安装"></a>ProtocolBuffer环境安装</h3><p>环境安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</div><div class="line">brew install automake</div><div class="line">brew install libtool</div><div class="line">brew install protobuf</div></pre></td></tr></table></figure>
+<p>客户端集成(通过cocoapods)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">use_frameworks!</div><div class="line">pod &apos;ProtocolBuffers-Swift&apos;</div></pre></td></tr></table></figure></p>
+<p>服务器集成<br>因为服务器使用Mac编写,不能直接使用cocoapods集成<br>因为需要将工程编译为静态库来集成<br>到Git中下载整个库<br>执行脚本: ./scripts/build.sh<br>添加: ProtocolBuffers.xcodeproj到项目中<br>路径protobuf-swift-master/plugin/ProtocolBuffers</p>
+<p><img src="https://static.oschina.net/uploads/img/201706/12131956_bkGB.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+<h3 id="ProtocolBuffer的使用"><a href="#ProtocolBuffer的使用" class="headerlink" title="ProtocolBuffer的使用"></a>ProtocolBuffer的使用</h3><p>创建.proto文件</p>
+<ul>
+<li>在项目中, 创建一个(或多个).proto文件</li>
+<li>之后会通过该文件, 自动帮我们生成需要的源文件(比如C++生成.cpp源文件, 比如java生成.java源文件, Swift就生成.swift源文件)</li>
+</ul>
+<p>源码规范</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">syntax = &quot;proto2&quot;;</div><div class="line"></div><div class="line">message Person &#123;</div><div class="line">    required int64 id = 1;</div><div class="line">    required string name = 2;</div><div class="line">    optional string email = 3;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>具体说明</p>
+<ul>
+<li>syntax = “proto2”; 为定义使用的版本号, 目前常用版本proto2/proto3</li>
+<li>message是消息定义的关键字，等同于C++/Swift中的struct/class，或是Java中的class</li>
+<li>Person为消息的名字，等同于结构体名或类名</li>
+<li>required前缀表示该字段为必要字段，既在序列化和反序列化之前该字段必须已经被赋值</li>
+<li>optional前缀表示该字段为可选字段, 既在序列化和反序列化时可以没有被赋值</li>
+<li>repeated通常被用在数组字段中</li>
+<li>int64和string分别表示整型和字符串型的消息字段</li>
+<li>id和name和email分别表示消息字段名，等同于Swift或是C++中的成员变量名</li>
+<li>标签数字1和2则表示不同的字段在序列化后的二进制数据中的布局位置, 需要注意的是该值在同一message中不能重复</li>
+</ul>
+<p>定义有定义结构体用于生成Model</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">syntax = &quot;proto2&quot;;</div><div class="line"></div><div class="line">message UserInfo &#123;</div><div class="line">    required int32 level = 1;</div><div class="line">    required string name = 2;</div><div class="line">    required string iconURL = 3;</div><div class="line">&#125;</div><div class="line"></div><div class="line">message ChatMessage &#123;</div><div class="line">    required UserInfo user = 1;</div><div class="line">    required string text = 2;</div><div class="line">&#125;</div><div class="line"></div><div class="line">message GiftMessage &#123;</div><div class="line">    required UserInfo user = 1;</div><div class="line">    required string giftname = 2;</div><div class="line">    required string giftURL =3;</div><div class="line">    required int32 giftcount = 4;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码编写完成后, 生成对应语言代码<br>protoc Immessage.proto –swift_out=”./“</p>
+<h3 id="socket"><a href="#socket" class="headerlink" title="socket"></a>socket</h3><p>socket在即时通讯解决方案中是比较常见的,由于Swift与C混编并不那么友好,我们用一个封装好的库<a href="http://" target="_blank" rel="external">ysocket</a>,当然还有<a href="https://github.com/swiftsocket/SwiftSocket" target="_blank" rel="external">SwiftSocket</a></p>
+<p>创建一个服务类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">import Cocoa</div><div class="line"></div><div class="line">class ServerManager: NSObject &#123;</div><div class="line">    fileprivate lazy var serverSocket : TCPServer = TCPServer(addr: &quot;0.0.0.0&quot;, port: 8787)//或者127.0.0.1</div><div class="line">    </div><div class="line">    fileprivate var isServerRunning : Bool = false</div><div class="line">    fileprivate lazy var clientMrgs : [ClientManager] = [ClientManager]()</div><div class="line">&#125;</div><div class="line"></div><div class="line">extension ServerManager &#123;</div><div class="line">    func startRunning() &#123;</div><div class="line">        // 1.开启监听</div><div class="line">        serverSocket.listen()</div><div class="line">        isServerRunning = true</div><div class="line">        </div><div class="line">        // 2.开始接受客户端</div><div class="line">        DispatchQueue.global().async &#123;</div><div class="line">            while self.isServerRunning &#123;</div><div class="line">                if let client = self.serverSocket.accept() &#123;</div><div class="line">                    DispatchQueue.global().async &#123;</div><div class="line">                        self.handlerClient(client)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func stopRunning() &#123;</div><div class="line">        isServerRunning = false</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line">extension ServerManager &#123;</div><div class="line">    fileprivate func handlerClient(_ client : TCPClient) &#123;</div><div class="line">        // 1.用一个ClientManager管理TCPClient</div><div class="line">        let mgr = ClientManager(tcpClient: client)</div><div class="line">        mgr.delegate = self</div><div class="line">        </div><div class="line">        // 2.保存客户端</div><div class="line">        clientMrgs.append(mgr)</div><div class="line">        </div><div class="line">        // 3.用client开始接受消息</div><div class="line">        mgr.startReadMsg()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">extension ServerManager : ClientManagerDelegate &#123;</div><div class="line">    func sendMsgToClient(_ data: Data) &#123;</div><div class="line">        for mgr in clientMrgs &#123;</div><div class="line">            mgr.tcpClient.send(data: data)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func removeClient(_ client: ClientManager) &#123;</div><div class="line">        guard let index = clientMrgs.index(of: client) else &#123; return &#125;</div><div class="line">        clientMrgs.remove(at: index)</div><div class="line">    &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>客户端数据处理类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">import Cocoa</div><div class="line"></div><div class="line">protocol ClientManagerDelegate : class &#123;</div><div class="line">    func sendMsgToClient(_ data : Data)</div><div class="line">    func removeClient(_ client : ClientManager)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class ClientManager: NSObject &#123;</div><div class="line">    var tcpClient : TCPClient</div><div class="line">    </div><div class="line">    weak var delegate : ClientManagerDelegate?</div><div class="line">    </div><div class="line">    fileprivate var isClientConnected : Bool = false</div><div class="line">    fileprivate var heartTimeCount : Int = 0</div><div class="line">    </div><div class="line">    init(tcpClient : TCPClient) &#123;</div><div class="line">        self.tcpClient = tcpClient</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">extension ClientManager &#123;</div><div class="line">    func startReadMsg() &#123;</div><div class="line">        isClientConnected = true</div><div class="line">        </div><div class="line">        let timer = Timer(fireAt: Date(), interval: 1, target: self, selector: #selector(checkHeartBeat), userInfo: nil, repeats: true)</div><div class="line">        RunLoop.current.add(timer, forMode: .commonModes)</div><div class="line">        timer.fire()</div><div class="line">        </div><div class="line">        while isClientConnected &#123;</div><div class="line">            if let lMsg = tcpClient.read(4) &#123;</div><div class="line">                // 1.读取长度的data</div><div class="line">                let headData = Data(bytes: lMsg, count: 4)</div><div class="line">                var length : Int = 0</div><div class="line">                (headData as NSData).getBytes(&amp;length, length: 4)</div><div class="line">                </div><div class="line">                // 2.读取类型</div><div class="line">                guard let typeMsg = tcpClient.read(2) else &#123;</div><div class="line">                    return</div><div class="line">                &#125;</div><div class="line">                let typeData = Data(bytes: typeMsg, count: 2)</div><div class="line">                var type : Int = 0</div><div class="line">                (typeData as NSData).getBytes(&amp;type, length: 2)</div><div class="line">                </div><div class="line">                // 2.根据长度, 读取真实消息</div><div class="line">                guard let msg = tcpClient.read(length) else &#123;</div><div class="line">                    return</div><div class="line">                &#125;</div><div class="line">                let data = Data(bytes: msg, count: length)</div><div class="line">                </div><div class="line">                if type == 1 &#123;</div><div class="line">                    tcpClient.close()</div><div class="line">                    delegate?.removeClient(self)</div><div class="line">                &#125; else if type == 100 &#123;</div><div class="line">                    heartTimeCount = 0</div><div class="line">                     print(&quot;心跳包&quot;)</div><div class="line">                    continue</div><div class="line">                   </div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                let totalData = headData + typeData + data</div><div class="line">                delegate?.sendMsgToClient(totalData)</div><div class="line">            &#125; else &#123;</div><div class="line">                self.removeClient()</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @objc fileprivate func checkHeartBeat() &#123;</div><div class="line">        heartTimeCount += 1</div><div class="line">        if heartTimeCount &gt;= 10 &#123;</div><div class="line">            self.removeClient()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    private func removeClient() &#123;</div><div class="line">        delegate?.removeClient(self)</div><div class="line">        isClientConnected = false</div><div class="line">        print(&quot;客户端断开了连接&quot;)</div><div class="line">        tcpClient.close()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客服端"><a href="#客服端" class="headerlink" title="客服端"></a>客服端</h3><p>由于涉及隐私此处贴出关键代码<br>SocketTool</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div></pre></td><td class="code"><pre><div class="line">fileprivate var tcp : TCPClient</div><div class="line">   //用户model</div><div class="line">   fileprivate var userInfo : UserInfo.Builder = &#123;</div><div class="line">   </div><div class="line">       let userInfo = UserInfo.Builder()</div><div class="line">       userInfo.name = &quot;Royce\(arc4random_uniform(10))&quot;</div><div class="line">       userInfo.level = 20</div><div class="line">       userInfo.iconUrl = &quot;icon\(arc4random_uniform(5))&quot;</div><div class="line">       return userInfo</div><div class="line">   </div><div class="line">   &#125;()</div><div class="line">   </div><div class="line">    init(addr : String, port : Int) &#123;</div><div class="line">       tcp = TCPClient(addr: addr, port: port)</div><div class="line">   &#125;</div><div class="line">   func connectServer() -&gt; Bool &#123;</div><div class="line">       return tcp.connect(timeout: 5).0</div><div class="line">   &#125;</div><div class="line">    //开始读取消息</div><div class="line">   </div><div class="line">   func startReadMsg()&#123;</div><div class="line">       DispatchQueue.global().async &#123;</div><div class="line">           </div><div class="line">           while true &#123;</div><div class="line">               //检查是否有数据</div><div class="line">               guard let MsgLenght = self.tcp.read(4) else &#123; continue &#125;</div><div class="line">               </div><div class="line">           //获取headerdata长度</div><div class="line">               </div><div class="line">               let headData = Data(bytes: MsgLenght, count: 4)</div><div class="line">               var length : Int = 0</div><div class="line">                (headData as NSData).getBytes(&amp;length, length: 4)</div><div class="line">               //读取类型</div><div class="line"></div><div class="line">               guard let typeMsg = self.tcp.read(2) else &#123;</div><div class="line">                   return</div><div class="line">               &#125;</div><div class="line">               let typeData = Data(bytes: typeMsg, count: 2)</div><div class="line">               var type : Int = 0</div><div class="line">               (typeData as NSData).getBytes(&amp;type, length: 2)</div><div class="line">               </div><div class="line">               // 2.根据长度, 读取真实消息</div><div class="line">               guard let msg = self.tcp.read(length) else &#123;</div><div class="line">                   return</div><div class="line">               &#125;</div><div class="line">               let data = Data(bytes: msg, count: length)</div><div class="line">               </div><div class="line">               // 3.处理消息</div><div class="line">               DispatchQueue.main.async &#123;</div><div class="line">                   self.handleMsg(type: type, data: data)</div><div class="line">               &#125;</div><div class="line">           </div><div class="line">           &#125;</div><div class="line">           </div><div class="line">           </div><div class="line">       &#125;</div><div class="line">   </div><div class="line">   &#125;</div><div class="line">   //心跳包</div><div class="line">       func sendHeartBeat() &#123;</div><div class="line">       // 1.获取心跳包中的数据</div><div class="line">       let heartString = &quot;I am is heart beat;&quot;</div><div class="line">       let heartData = heartString.data(using: .utf8)!</div><div class="line">       </div><div class="line">       // 2.发送数据</div><div class="line">       sendMsg(data: heartData, type: 100)</div><div class="line">   &#125;</div><div class="line">   //发送普通消息</div><div class="line">       func sendMsg(data : Data, type : Int) &#123;</div><div class="line">       // 1.将消息长度, 写入到data</div><div class="line">       var length = data.count</div><div class="line">       let headerData = Data(bytes: &amp;length, count: 4)</div><div class="line">       </div><div class="line">       // 2.消息类型</div><div class="line">       var tempType = type</div><div class="line">       let typeData = Data(bytes: &amp;tempType, count: 2)</div><div class="line">       </div><div class="line">       // 3.发送消息</div><div class="line">       let totalData = headerData + typeData + data</div><div class="line">       tcp.send(data: totalData)</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">fileprivate lazy var socket : SocketTool = SocketTool(addr: &quot;192.168.10.159&quot;, port: 8787)</div><div class="line">   fileprivate var heartBeatTimer : Timer?</div><div class="line"></div><div class="line"></div><div class="line">  func startContectSever() -&gt; () &#123;</div><div class="line">       //链接成功</div><div class="line">       if socket.connectServer() &#123;</div><div class="line">           //开始读取消息</div><div class="line">           socket.startReadMsg()</div><div class="line">           //发送心跳包</div><div class="line">           addHeartBeatTimer()</div><div class="line"></div><div class="line">           </div><div class="line">           </div><div class="line">       &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   </div><div class="line">   fileprivate func addHeartBeatTimer() &#123;</div><div class="line">       heartBeatTimer = Timer(fireAt: Date(), interval: 9, target: self, selector: #selector(sendHeartBeat), userInfo: nil, repeats: true)</div><div class="line">       RunLoop.main.add(heartBeatTimer!, forMode: .commonModes)</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   @objc fileprivate func sendHeartBeat() &#123;</div></pre></td></tr></table></figure>
+<p><img src="https://static.oschina.net/uploads/img/201706/12144335_tZKK.png" alt="输入图片说明" title="在这里输入图片标题"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/12/WWDC-2017-Feature-102-Platforms-State-of-the-Union/" rel="next" title="WWDC 2017 Feature 102 Platforms State of the Union">
+                <i class="fa fa-chevron-left"></i> WWDC 2017 Feature 102 Platforms State of the Union
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/IMG.jpg"
+               alt="她吃_🍅" />
+          <p class="site-author-name" itemprop="name">她吃_🍅</p>
+          <p class="site-description motion-element" itemprop="description">talk is cheap, show me the code</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优势"><span class="nav-number">2.</span> <span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ProtocolBuffer环境安装"><span class="nav-number">3.</span> <span class="nav-text">ProtocolBuffer环境安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ProtocolBuffer的使用"><span class="nav-number">4.</span> <span class="nav-text">ProtocolBuffer的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket"><span class="nav-number">5.</span> <span class="nav-text">socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客服端"><span class="nav-number">6.</span> <span class="nav-text">客服端</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">她吃_🍅</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

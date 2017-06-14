@@ -84,16 +84,33 @@
 
 
 
-<meta name="description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。">
+<meta name="description" content="RTMP, HLS当下比较流行的流媒体协议.
+RTMP(Real Time Messaging Protocol)RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范
+RTMP本质上是流协议，主要的优势是：
+
+实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。
+支持加">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift 的Guard">
-<meta property="og:url" content="http://yoursite.com/2016/11/24/Swift-的Guard/index.html">
+<meta property="og:title" content="iOS直播推流--流媒体协议">
+<meta property="og:url" content="http://yoursite.com/2017/06/14/iOS直播推流-流媒体协议/index.html">
 <meta property="og:site_name" content="她吃_🍅 blog">
-<meta property="og:description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。">
-<meta property="og:updated_time" content="2016-12-07T03:33:23.000Z">
+<meta property="og:description" content="RTMP, HLS当下比较流行的流媒体协议.
+RTMP(Real Time Messaging Protocol)RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范
+RTMP本质上是流协议，主要的优势是：
+
+实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。
+支持加">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/14091605_j0VV.png">
+<meta property="og:updated_time" content="2017-06-14T09:48:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 的Guard">
-<meta name="twitter:description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。">
+<meta name="twitter:title" content="iOS直播推流--流媒体协议">
+<meta name="twitter:description" content="RTMP, HLS当下比较流行的流媒体协议.
+RTMP(Real Time Messaging Protocol)RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范
+RTMP本质上是流协议，主要的优势是：
+
+实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。
+支持加">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201706/14091605_j0VV.png">
 
 
 
@@ -121,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/24/Swift-的Guard/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/14/iOS直播推流-流媒体协议/"/>
 
 
 
 
 
-  <title> Swift 的Guard | 她吃_🍅 blog </title>
+  <title> iOS直播推流--流媒体协议 | 她吃_🍅 blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +255,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/24/Swift-的Guard/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/14/iOS直播推流-流媒体协议/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="她吃_🍅">
@@ -262,7 +279,7 @@
             
             
               
-                Swift 的Guard
+                iOS直播推流--流媒体协议
               
             
           </h1>
@@ -275,8 +292,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T16:10:46+08:00">
-                2016-11-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-14T17:46:03+08:00">
+                2017-06-14
               </time>
             
 
@@ -311,38 +328,40 @@
       
 
       
-        <p>if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。<br><a id="more"></a><br>if let</p>
-<pre><code>func doSomething(str: String?) {
-    let v :String! = str
-    if v != nil
-    {
-        // use v to do something
-    }
-}
-</code></pre><p>Swift 中因为有optional, 经常需要判断是否为空。假如没有if let，大致写成上面的样子，有了if let, 可以改写成</p>
-<pre><code>func doSomething(str: String?) {
-    if let v = str
-    {
-        // use v to do something
-    }
-}
-</code></pre><p>上面两段代码的控制流是一样的。对照着，可以看出if let的写法更加简洁方便。</p>
-<p>guard</p>
-<p>假如if中出现的代码很长，我们写代码时可以将错误情况先返回。比如：</p>
-<pre><code>func doSomething(str: String?) {
-    let v:String! = str
-    if v == nil
-    {
-        return
-    }
-    // use v to do something
-}
-</code></pre><p>这样做可以避免过多的嵌套。上面代码实在太常见了，swift也提供一个guard这个语法糖，用guard可以改写成：</p>
-<pre><code>func doSomething(str: String?) {
-    guard let v = str else { return }
-    // use v to do something
-}
-</code></pre><p>上面两段代码的控制流是一样的。也可以看出guard的写法更加简洁方便。<br>至于if let 和 guard 语法中出现的where，只是附加一些条件。相当于逻辑运算 &amp;&amp; 和 ||。SQL中的条件语法也是用where这个关键字。<br>假如还不理解，动手将一段代码，不用if let 和 guard 进行改写。试多几次，就会发觉很自然了。</p>
+        <p>RTMP, HLS当下比较流行的流媒体协议.</p>
+<h6 id="RTMP-Real-Time-Messaging-Protocol"><a href="#RTMP-Real-Time-Messaging-Protocol" class="headerlink" title="RTMP(Real Time Messaging Protocol)"></a>RTMP(Real Time Messaging Protocol)</h6><p>RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范</p>
+<p>RTMP本质上是流协议，主要的优势是：</p>
+<ul>
+<li>实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。</li>
+<li>支持加密：RTMPE和RTMPS为加密协议</li>
+<li>稳定性高：HTTP也很稳定，但HTTP是在协议上稳定稳定性不只是服务端的事情，在CDN分发，服务器管理，客户端的支持上</li>
+</ul>
+<p>######RTMP的使用</p>
+<ul>
+<li>RTMP协议也要客户端和服务器通过“握手”来建立基于传输层链接之上的RTMP Connection链接，在Connection链接上会传输一些控制信息</li>
+<li>TMP协议传输时会对数据做自己的格式化，这种格式的消息我们称之为RTMP Message</li>
+<li>而实际传输的时候为了更好地实现多路复用、分包和信息的公平性，发送端会把Message划分为带有Message ID的Chunk，每个Chunk可能是一个单独的Message，也可能是Message的一部分，在接受端会根据chunk中包含的data的长度，message id和message的长度把chunk还原成完整的Message，从而实现信息的收发。<a id="more"></a>
+</li>
+</ul>
+<p>######HLS(HTTP Live Streaming)<br>HTTP Live Streaming（HLS）是苹果公司实现的基于HTTP的流媒体传输协议，可实现流媒体的直播和点播。原理上是将视频流分片成一系列HTTP下载文件。所以，HLS比RTMP有较高的延迟。HLS基于HTTP协议实现，传输内容包括两部分，一是M3U8描述文件，二是TS媒体文件<br>相对于常见的流媒体直播协议，例如RTMP协议、RTSP协议、MMS协议等，HLS直播最大的不同在于，直播客户端获取到的，并不是一个完整的数据流。HLS协议在服务器端将直播数据流存储为连续的、很短时长的媒体文件（MPEG-TS格式），而客户端则不断的下载并播放这些小文件，因为服务器端总是会将最新的直播数据生成新的小文件，这样客户端只要不停的按顺序播放从服务器获取到的文件，就实现了直播。</p>
+<p>######巨大优势：自适应码率流播（adaptive streaming）<br>效果就是客户端会根据网络状况自动选择不同码率的视频流，条件允许的情况下使用高码率，网络繁忙的时候使用低码率，并且自动在二者 间随意切换。这对移动设备网络状况不稳定的情况下保障流畅播放非常有帮助。实现方法是服务器端提供多码率视频流，并且在列表文件中注明，播放器根据播放进 度和下载速度自动调整。<br>由此可见，基本上可以认为，HLS是以点播的技术方式来实现直播。 </p>
+<p>######工作流程为:</p>
+<ul>
+<li>采集视频源和音频源的数据</li>
+<li>对原始数据进行H264编码和AAC编码</li>
+<li>视频和音频数据封装为MPEG-TS包</li>
+<li>HLS分段生成策略及m3u8索引文件</li>
+<li>HTTP传输协议传输数据<br>以下是官方流程图解<br><img src="https://static.oschina.net/uploads/img/201706/14091605_j0VV.png" alt="输入图片说明" title="在这里输入图片标题"></li>
+</ul>
+<p><strong>m3u8基本上可以认为就是.m3u格式文件，区别在于，m3u8文件使用UTF-8字符编码。</strong></p>
+<ul>
+<li>EXTM3U                     m3u文件头，必须放在第一行 </li>
+<li>EXT-X-MEDIA-SEQUENCE       第一个TS分片的序列号 </li>
+<li>EXT-X-TARGETDURATION       每个分片TS的最大的时长 </li>
+<li>EXT-X-ALLOW-CACHE          是否允许cache </li>
+<li>EXT-X-ENDLIST              m3u8文件结束符 </li>
+<li>EXTINF                     extra info，分片TS的信息，如时长，带宽等</li>
+</ul>
 
       
     </div>
@@ -369,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/" rel="next" title="在xib或者storyboard 利用runtime给layer添加属性的坑">
-                <i class="fa fa-chevron-left"></i> 在xib或者storyboard 利用runtime给layer添加属性的坑
+              <a href="/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/" rel="next" title="基于ProtocolBuffer和ysocket的Swift服务器搭建">
+                <i class="fa fa-chevron-left"></i> 基于ProtocolBuffer和ysocket的Swift服务器搭建
               </a>
             
           </div>
@@ -379,8 +398,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/" rel="prev" title="用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.">
-                用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟. <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/14/iOS直播推流-Nginx服务器搭建和RTMP-HLS推流实现/" rel="prev" title="iOS直播推流--Nginx服务器搭建和RTMP,HLS推流实现">
+                iOS直播推流--Nginx服务器搭建和RTMP,HLS推流实现 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -428,8 +447,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/IMG.jpg"
@@ -468,6 +496,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#RTMP-Real-Time-Messaging-Protocol"><span class="nav-number">1.</span> <span class="nav-text">RTMP(Real Time Messaging Protocol)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>

@@ -84,16 +84,18 @@
 
 
 
-<meta name="description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。">
+<meta name="description" content="ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS.首先下载编译,点这里直接下载我已经编译好的framework (编译步骤)将编译好的库拖到工程中,同时需要导入一下依赖库">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift 的Guard">
-<meta property="og:url" content="http://yoursite.com/2016/11/24/Swift-的Guard/index.html">
+<meta property="og:title" content="iOS直播--集成ijkplayer视频播放框架">
+<meta property="og:url" content="http://yoursite.com/2017/06/20/iOS直播-集成ijkplayer视频播放框架/index.html">
 <meta property="og:site_name" content="她吃_🍅 blog">
-<meta property="og:description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。">
-<meta property="og:updated_time" content="2016-12-07T03:33:23.000Z">
+<meta property="og:description" content="ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS.首先下载编译,点这里直接下载我已经编译好的framework (编译步骤)将编译好的库拖到工程中,同时需要导入一下依赖库">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/20091031_09hK.png">
+<meta property="og:updated_time" content="2017-06-20T02:57:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift 的Guard">
-<meta name="twitter:description" content="if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。">
+<meta name="twitter:title" content="iOS直播--集成ijkplayer视频播放框架">
+<meta name="twitter:description" content="ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS.首先下载编译,点这里直接下载我已经编译好的framework (编译步骤)将编译好的库拖到工程中,同时需要导入一下依赖库">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201706/20091031_09hK.png">
 
 
 
@@ -121,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/11/24/Swift-的Guard/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/20/iOS直播-集成ijkplayer视频播放框架/"/>
 
 
 
 
 
-  <title> Swift 的Guard | 她吃_🍅 blog </title>
+  <title> iOS直播--集成ijkplayer视频播放框架 | 她吃_🍅 blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -238,7 +240,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/11/24/Swift-的Guard/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/iOS直播-集成ijkplayer视频播放框架/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="她吃_🍅">
@@ -262,7 +264,7 @@
             
             
               
-                Swift 的Guard
+                iOS直播--集成ijkplayer视频播放框架
               
             
           </h1>
@@ -275,8 +277,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-24T16:10:46+08:00">
-                2016-11-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T10:56:23+08:00">
+                2017-06-20
               </time>
             
 
@@ -311,38 +313,9 @@
       
 
       
-        <p>if let 和 guard 只是语法糖，没有也可以，但有了可以使得代码更简洁方便。要理解 if let 和 guard，不妨设想假如没有这两者，代码会怎么写。<br><a id="more"></a><br>if let</p>
-<pre><code>func doSomething(str: String?) {
-    let v :String! = str
-    if v != nil
-    {
-        // use v to do something
-    }
-}
-</code></pre><p>Swift 中因为有optional, 经常需要判断是否为空。假如没有if let，大致写成上面的样子，有了if let, 可以改写成</p>
-<pre><code>func doSomething(str: String?) {
-    if let v = str
-    {
-        // use v to do something
-    }
-}
-</code></pre><p>上面两段代码的控制流是一样的。对照着，可以看出if let的写法更加简洁方便。</p>
-<p>guard</p>
-<p>假如if中出现的代码很长，我们写代码时可以将错误情况先返回。比如：</p>
-<pre><code>func doSomething(str: String?) {
-    let v:String! = str
-    if v == nil
-    {
-        return
-    }
-    // use v to do something
-}
-</code></pre><p>这样做可以避免过多的嵌套。上面代码实在太常见了，swift也提供一个guard这个语法糖，用guard可以改写成：</p>
-<pre><code>func doSomething(str: String?) {
-    guard let v = str else { return }
-    // use v to do something
-}
-</code></pre><p>上面两段代码的控制流是一样的。也可以看出guard的写法更加简洁方便。<br>至于if let 和 guard 语法中出现的where，只是附加一些条件。相当于逻辑运算 &amp;&amp; 和 ||。SQL中的条件语法也是用where这个关键字。<br>假如还不理解，动手将一段代码，不用if let 和 guard 进行改写。试多几次，就会发觉很自然了。</p>
+        <p>ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS.首先下载编译,<br><a href="https://share.weiyun.com/96e5d296ac8f6dded594e12aa409d931" target="_blank" rel="external">点这里直接下载我已经编译好的framework</a> (<a href="http://www.jianshu.com/p/1f06b27b3ac0" target="_blank" rel="external">编译步骤</a>)<br>将编译好的库拖到工程中,同时需要导入一下依赖库<br><img src="https://static.oschina.net/uploads/img/201706/20091031_09hK.png" alt="输入图片说明" title="在这里输入图片标题"><br><a id="more"></a></p>
+<h3 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"> // 1配置信息</div><div class="line">        let options = IJKFFOptions.byDefault()</div><div class="line">//开启硬解码</div><div class="line">        options?.setOptionIntValue(1, forKey: &quot;videotoolbox&quot;, of: kIJKFFOptionCategoryPlayer)</div><div class="line">//设置帧数</div><div class="line">        options?.setOptionIntValue(29, forKey: &quot;r&quot;, of: kIJKFFOptionCategoryPlayer)</div><div class="line">//初始化</div><div class="line">        ijkPlayer = IJKFFMoviePlayerController(contentURLString: liveURLString, with: options)</div><div class="line">//设置frame并添加</div><div class="line">ijkPlayer?.view.frame =bgImageView.bounds</div><div class="line">bgImageView.addSubview(ijkPlayer!.view)</div><div class="line"></div><div class="line"> // 填充模式</div><div class="line">ijkPlayer?.scalingMode = .aspectFill</div><div class="line">//2是否开启自动播放</div><div class="line">ijkPlayer?.shouldAutoplay  = true</div><div class="line">//如果不开启自动播放需要手动调用</div><div class="line">ijkPlayer?.play()</div><div class="line">//如果不开启,准备完成后会自动播放</div><div class="line">ijkPlayer?.prepareToPlay()</div><div class="line"></div><div class="line"></div><div class="line">//停止</div><div class="line">public func stop()</div><div class="line">//暂停</div><div class="line">public func pause()</div><div class="line">//关闭 如果页面移除需要调用此方法,否定可能会崩溃</div><div class="line">public func shutdown()</div></pre></td></tr></table></figure>
+<p>完整项目地址<a href="https://github.com/roycehe/RoyceTV,多多给Star哈" target="_blank" rel="external">https://github.com/roycehe/RoyceTV,多多给Star哈</a></p>
 
       
     </div>
@@ -369,8 +342,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/24/在xib或者storyboard-利用runtime给layer添加属性的坑/" rel="next" title="在xib或者storyboard 利用runtime给layer添加属性的坑">
-                <i class="fa fa-chevron-left"></i> 在xib或者storyboard 利用runtime给layer添加属性的坑
+              <a href="/2017/06/20/iOS直播-LFLiveKit视频拍摄及推流/" rel="next" title="iOS直播--LFLiveKit视频拍摄及推流">
+                <i class="fa fa-chevron-left"></i> iOS直播--LFLiveKit视频拍摄及推流
               </a>
             
           </div>
@@ -378,10 +351,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/30/用xcode-archive-导出ipa-然后上传到fir-蒲公英等测试平台-需要花至少10到20分钟-使用Jenkins搭建的持续集成环境只需3分钟/" rel="prev" title="用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟.">
-                用xcode archive 导出ipa 然后上传到fir/蒲公英等测试平台 需要花至少10到20分钟,使用Jenkins搭建的持续集成环境只需3分钟. <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -428,8 +397,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/IMG.jpg"
@@ -468,6 +446,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码部分"><span class="nav-number">1.</span> <span class="nav-text">代码部分</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
     </div>

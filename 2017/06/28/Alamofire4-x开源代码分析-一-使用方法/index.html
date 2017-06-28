@@ -1,0 +1,641 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Alamofire4.x开源代码分析(一)使用方法本着了解框架的实现思路和学习Swift的目的开启本系列的博客.本系列参考Alamofire官方文档和自己的一些理解,欢迎指正和指教.
+配置要求
+iOS 8.0+, macOS 10.10.0+, tvOS 9.0+ and watchOS 2.0+
+Xcode 8.1+
+Swift 3.0+简单使用
+
+1234567891011121314Alam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alamofire4.x开源代码分析(一)使用方法">
+<meta property="og:url" content="http://yoursite.com/2017/06/28/Alamofire4-x开源代码分析-一-使用方法/index.html">
+<meta property="og:site_name" content="她吃_🍅 blog">
+<meta property="og:description" content="Alamofire4.x开源代码分析(一)使用方法本着了解框架的实现思路和学习Swift的目的开启本系列的博客.本系列参考Alamofire官方文档和自己的一些理解,欢迎指正和指教.
+配置要求
+iOS 8.0+, macOS 10.10.0+, tvOS 9.0+ and watchOS 2.0+
+Xcode 8.1+
+Swift 3.0+简单使用
+
+1234567891011121314Alam">
+<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/28090437_aIT1.png">
+<meta property="og:updated_time" content="2017-06-28T01:10:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Alamofire4.x开源代码分析(一)使用方法">
+<meta name="twitter:description" content="Alamofire4.x开源代码分析(一)使用方法本着了解框架的实现思路和学习Swift的目的开启本系列的博客.本系列参考Alamofire官方文档和自己的一些理解,欢迎指正和指教.
+配置要求
+iOS 8.0+, macOS 10.10.0+, tvOS 9.0+ and watchOS 2.0+
+Xcode 8.1+
+Swift 3.0+简单使用
+
+1234567891011121314Alam">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201706/28090437_aIT1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/28/Alamofire4-x开源代码分析-一-使用方法/"/>
+
+
+
+
+
+  <title> Alamofire4.x开源代码分析(一)使用方法 | 她吃_🍅 blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">她吃_🍅 blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Share something about coding</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/Alamofire4-x开源代码分析-一-使用方法/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Alamofire4.x开源代码分析(一)使用方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-28T09:08:57+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Alamofire4-x开源代码分析-一-使用方法"><a href="#Alamofire4-x开源代码分析-一-使用方法" class="headerlink" title="Alamofire4.x开源代码分析(一)使用方法"></a>Alamofire4.x开源代码分析(一)使用方法</h1><p><img src="https://static.oschina.net/uploads/img/201706/28090437_aIT1.png" alt="输入图片说明" title="在这里输入图片标题"><br>本着了解框架的实现思路和学习Swift的目的开启本系列的博客.本系列参考<a href="https://github.com/Alamofire/Alamofire/blob/master/Documentation/Alamofire%204.0%20Migration%20Guide.md" target="_blank" rel="external">Alamofire</a>官方文档和自己的一些理解,欢迎指正和指教.</p>
+<h3 id="配置要求"><a href="#配置要求" class="headerlink" title="配置要求"></a>配置要求</h3><ul>
+<li>iOS 8.0+, macOS 10.10.0+, tvOS 9.0+ and watchOS 2.0+</li>
+<li>Xcode 8.1+</li>
+<li>Swift 3.0+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;).responseJSON &#123; response in</div><div class="line">            print(&quot;Request: \(String(describing: response.request))&quot;)   // // 原始的请求</div><div class="line"></div><div class="line">            print(&quot;Response: \(String(describing: response.response))&quot;) // http 请求响应</div><div class="line">            print(&quot;Result: \(response.result)&quot;)                         // 响应结果标识</div><div class="line">            </div><div class="line">            if let json = response.result.value &#123;</div><div class="line">                print(&quot;JSON: \(json)&quot;) // JSON序列化的数据</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) &#123;</div><div class="line">                print(&quot;Data: \(utf8Text)&quot;) // 经过UTF-8编码的数据</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>不难看出alamofire用了链式编程的思想.</p>
+<h3 id="响应数据类型"><a href="#响应数据类型" class="headerlink" title="响应数据类型"></a>响应数据类型</h3><p>请求返回五种response</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">// Response Handler -直接返回URL session delegate的数据</div><div class="line">        func response(</div><div class="line">        queue: DispatchQueue?,</div><div class="line">        completionHandler: @escaping (DefaultDataResponse) -&gt; Void)</div><div class="line">        -&gt; Self</div><div class="line">        </div><div class="line">        // Response Data Handler - 序列化为Data</div><div class="line">        func responseData(</div><div class="line">        queue: DispatchQueue?,</div><div class="line">        completionHandler: @escaping (DataResponse&lt;Data&gt;) -&gt; Void)</div><div class="line">        -&gt; Self</div><div class="line">        </div><div class="line">        // Response String Handler - 序列化成String字符串</div><div class="line">        func responseString(</div><div class="line">        queue: DispatchQueue?,</div><div class="line">        encoding: String.Encoding?,</div><div class="line">        completionHandler: @escaping (DataResponse&lt;String&gt;) -&gt; Void)</div><div class="line">        -&gt; Self</div><div class="line">        </div><div class="line">        // Response JSON Handler - 序列化成JSON</div><div class="line">        func responseJSON(</div><div class="line">        queue: DispatchQueue?,</div><div class="line">        completionHandler: @escaping (DataResponse&lt;Any&gt;) -&gt; Void)</div><div class="line">        -&gt; Self</div><div class="line">        </div><div class="line">        // Response PropertyList (plist) Handler - 序列化成plist</div><div class="line">        func responsePropertyList(</div><div class="line">        queue: DispatchQueue?,</div><div class="line">        completionHandler: @escaping (DataResponse&lt;Any&gt;) -&gt; Void))</div><div class="line">        -&gt; Self</div></pre></td></tr></table></figure>
+<p>被序列化的数据可以用通过resonse中的result.value来获取数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//也可以同时使用,内部通过线程队列实现</div><div class="line">       Alamofire.request(&quot;https://httpbin.org/get&quot;)</div><div class="line">           .responseString &#123; response in</div><div class="line">               print(&quot;Response String: \(response.result.value)&quot;)</div><div class="line">           &#125;</div><div class="line">           .responseJSON &#123; response in</div><div class="line">               print(&quot;Response JSON: \(response.result.value)&quot;)</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+<p>Response是默认在主线程队列执行异步回调,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">(queue ?? DispatchQueue.main).async</div></pre></td></tr></table></figure>
+<p>这里的队列也是可以自定义的,<br>例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let utilityQueue = DispatchQueue.global(qos: .utility)</div><div class="line"></div><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;).responseJSON(queue: utilityQueue) &#123; response in</div><div class="line">    print(&quot;Executing response handler on utility queue&quot;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="响应验证"><a href="#响应验证" class="headerlink" title="响应验证"></a>响应验证</h3><p>validate可以在结果返回之前验证响应状态或类型是否正确,也可以使用默认方式验证.validate()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;)</div><div class="line">    .validate(statusCode: 200..&lt;300)</div><div class="line">    .validate(contentType: [&quot;application/json&quot;])</div><div class="line">    .responseData &#123; response in</div><div class="line">        switch response.result &#123;</div><div class="line">        case .success:</div><div class="line">            print(&quot;Validation Successful&quot;)</div><div class="line">        case .failure(let error):</div><div class="line">            print(error)</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="Response缓存"><a href="#Response缓存" class="headerlink" title="Response缓存"></a>Response缓存</h3><p>Response缓存基于系统的URLCache,如果需要自定义参数在后面 Session Manager Configurations章节中会讲到</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/20/iOS直播-集成ijkplayer视频播放框架/" rel="next" title="iOS直播--集成ijkplayer视频播放框架">
+                <i class="fa fa-chevron-left"></i> iOS直播--集成ijkplayer视频播放框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/28/Alamofire4-x开源代码分析-二-请求参数和编码/" rel="prev" title="Alamofire4.x开源代码分析(二)请求参数和编码">
+                Alamofire4.x开源代码分析(二)请求参数和编码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/IMG.jpg"
+               alt="她吃_🍅" />
+          <p class="site-author-name" itemprop="name">她吃_🍅</p>
+          <p class="site-description motion-element" itemprop="description">talk is cheap, show me the code</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Alamofire4-x开源代码分析-一-使用方法"><span class="nav-number">1.</span> <span class="nav-text">Alamofire4.x开源代码分析(一)使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置要求"><span class="nav-number">1.0.1.</span> <span class="nav-text">配置要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单使用"><span class="nav-number">1.0.2.</span> <span class="nav-text">简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应数据类型"><span class="nav-number">1.0.3.</span> <span class="nav-text">响应数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应验证"><span class="nav-number">1.0.4.</span> <span class="nav-text">响应验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response缓存"><span class="nav-number">1.0.5.</span> <span class="nav-text">Response缓存</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">她吃_🍅</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

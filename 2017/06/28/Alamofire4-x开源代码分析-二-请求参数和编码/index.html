@@ -1,0 +1,633 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="请求方法框架提供了9种方法
+options = &quot;OPTIONS&quot;123456789case get     = &amp;quot;GET&amp;quot;case head    = &amp;quot;HEAD&amp;quot;case post    = &amp;quot;POST&amp;quot;case put     = &amp;quot;PUT&amp;quot;case patch   = &amp;quot;PATCH&amp;quot;case">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Alamofire4.x开源代码分析(二)请求参数和编码">
+<meta property="og:url" content="http://yoursite.com/2017/06/28/Alamofire4-x开源代码分析-二-请求参数和编码/index.html">
+<meta property="og:site_name" content="她吃_🍅 blog">
+<meta property="og:description" content="请求方法框架提供了9种方法
+options = &quot;OPTIONS&quot;123456789case get     = &amp;quot;GET&amp;quot;case head    = &amp;quot;HEAD&amp;quot;case post    = &amp;quot;POST&amp;quot;case put     = &amp;quot;PUT&amp;quot;case patch   = &amp;quot;PATCH&amp;quot;case">
+<meta property="og:updated_time" content="2017-06-28T03:31:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Alamofire4.x开源代码分析(二)请求参数和编码">
+<meta name="twitter:description" content="请求方法框架提供了9种方法
+options = &quot;OPTIONS&quot;123456789case get     = &amp;quot;GET&amp;quot;case head    = &amp;quot;HEAD&amp;quot;case post    = &amp;quot;POST&amp;quot;case put     = &amp;quot;PUT&amp;quot;case patch   = &amp;quot;PATCH&amp;quot;case">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/28/Alamofire4-x开源代码分析-二-请求参数和编码/"/>
+
+
+
+
+
+  <title> Alamofire4.x开源代码分析(二)请求参数和编码 | 她吃_🍅 blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">她吃_🍅 blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Share something about coding</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/Alamofire4-x开源代码分析-二-请求参数和编码/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Alamofire4.x开源代码分析(二)请求参数和编码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-28T11:30:13+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h3><p>框架提供了9种方法</p>
+<figure class="highlight plain"><figcaption><span>options = "OPTIONS"</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">case get     = &quot;GET&quot;</div><div class="line">case head    = &quot;HEAD&quot;</div><div class="line">case post    = &quot;POST&quot;</div><div class="line">case put     = &quot;PUT&quot;</div><div class="line">case patch   = &quot;PATCH&quot;</div><div class="line">case delete  = &quot;DELETE&quot;</div><div class="line">case trace   = &quot;TRACE&quot;</div><div class="line">case connect = &quot;CONNECT&quot;</div><div class="line">Alamofire.request(&quot;https://httpbin.org/post&quot;, method: .post)</div></pre></td></tr></table></figure>
+<p>如果不指定默认使用GET方法</p>
+<h3 id="参数编码"><a href="#参数编码" class="headerlink" title="参数编码"></a>参数编码</h3><p>Alamofire提供了三种类型的参数编码:URL, JSON 和 PropertyList.也可以遵守ParameterEncoding协议来自定义.<br><a id="more"></a></p>
+<h4 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a>URL编码</h4><ul>
+<li>.methodDependent//默认方法 根据请求方法判断(GET直接拼接到URL中,HEAD and DELETE放到HTTP body中)</li>
+<li>.queryString//直接拼接到URL中</li>
+<li>.httpBody//放到HTTP body中</li>
+</ul>
+<h5 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h5><figure class="highlight plain"><figcaption><span>parameters: Parameters = ["foo": "bar"]</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">//  以下三个写法等价</div><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;, parameters: parameters) // encoding defaults to `URLEncoding.default`</div><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;, parameters: parameters, encoding: URLEncoding.default)</div><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;, parameters: parameters, encoding: URLEncoding(destination: .methodDependent))</div><div class="line"></div><div class="line">// https://httpbin.org/get?foo=bar</div></pre></td></tr></table></figure>
+<h5 id="POST请求"><a href="#POST请求" class="headerlink" title="POST请求"></a>POST请求</h5><figure class="highlight plain"><figcaption><span>parameters: Parameters = [</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    &quot;foo&quot;: &quot;bar&quot;,</div><div class="line">    &quot;baz&quot;: [&quot;a&quot;, 1],</div><div class="line">    &quot;qux&quot;: [</div><div class="line">        &quot;x&quot;: 1,</div><div class="line">        &quot;y&quot;: 2,</div><div class="line">        &quot;z&quot;: 3</div><div class="line">    ]</div><div class="line">]</div><div class="line"></div><div class="line">// 以下三个写法等价</div><div class="line">Alamofire.request(&quot;https://httpbin.org/post&quot;, method: .post, parameters: parameters)</div><div class="line">Alamofire.request(&quot;https://httpbin.org/post&quot;, method: .post, parameters: parameters, encoding: URLEncoding.default)</div><div class="line">Alamofire.request(&quot;https://httpbin.org/post&quot;, method: .post, parameters: parameters, encoding: URLEncoding.httpBody)</div><div class="line"></div><div class="line">// HTTP body: foo=bar&amp;baz[]=a&amp;baz[]=1&amp;qux[x]=1&amp;qux[y]=2&amp;qux[z]=3</div></pre></td></tr></table></figure>
+<h4 id="JSON编码"><a href="#JSON编码" class="headerlink" title="JSON编码"></a>JSON编码</h4><p>以前我们需要把NSDictionary转为NSData然后用NSJSONSerialization转成JSON string<br>JSON编码给简化了我们操作,它会创建一个JSON作为参数放在HTTP body中,对应的Content-Type 为application/json</p>
+<p>例子</p>
+<figure class="highlight plain"><figcaption><span>parameters: Parameters = [</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">    &quot;foo&quot;: [1,2,3],</div><div class="line">    &quot;bar&quot;: [</div><div class="line">        &quot;baz&quot;: &quot;qux&quot;</div><div class="line">    ]</div><div class="line">]</div><div class="line">// Both calls are equivalent</div><div class="line">Alamofire.request(&quot;https://httpbin.org/post&quot;, method: .post, parameters: parameters, encoding: JSONEncoding.default)</div><div class="line">Alamofire.request(&quot;https://httpbin.org/post&quot;, method: .post, parameters: parameters, encoding: JSONEncoding(options: []))</div><div class="line"></div><div class="line">// HTTP body: &#123;&quot;foo&quot;: [1, 2, 3], &quot;bar&quot;: &#123;&quot;baz&quot;: &quot;qux&quot;&#125;&#125;</div></pre></td></tr></table></figure>
+<h4 id="Property-List-编码"><a href="#Property-List-编码" class="headerlink" title="Property List 编码"></a>Property List 编码</h4><p>Property List编码会创建一个plist作为参数放在HTTP body中,对应的Content-Type 为application/x-plist</p>
+<h4 id="自定义-Encoding"><a href="#自定义-Encoding" class="headerlink" title="自定义 Encoding"></a>自定义 Encoding</h4><p>如果框架提供的参数编码方式不能满足需求,可以自定义编码方式,下面是一个自定义JSONStringArrayEncoding转JSON string array 的例子</p>
+<figure class="highlight plain"><figcaption><span>JSONStringArrayEncoding: ParameterEncoding &#123;</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">	private let array: [String]</div><div class="line"></div><div class="line">    init(array: [String]) &#123;</div><div class="line">        self.array = array</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -&gt; URLRequest &#123;</div><div class="line">        var urlRequest = try urlRequest.asURLRequest()</div><div class="line"></div><div class="line">        let data = try JSONSerialization.data(withJSONObject: array, options: [])</div><div class="line"></div><div class="line">        if urlRequest.value(forHTTPHeaderField: &quot;Content-Type&quot;) == nil &#123;</div><div class="line">            urlRequest.setValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        urlRequest.httpBody = data</div><div class="line"></div><div class="line">        return urlRequest</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>也可手动对请求进行编码</p>
+<figure class="highlight plain"><figcaption><span>url = URL(string: "https://httpbin.org/get")!</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var urlRequest = URLRequest(url: url)</div><div class="line"></div><div class="line">let parameters: Parameters = [&quot;foo&quot;: &quot;bar&quot;]</div><div class="line">let encodedURLRequest = try URLEncoding.queryString.encode(urlRequest, with: parameters)</div></pre></td></tr></table></figure>
+<h3 id="HTTP-Headers"><a href="#HTTP-Headers" class="headerlink" title="HTTP Headers"></a>HTTP Headers</h3><p>设置会直接改吧全局请求,可以满足请求头不断改吧的需求</p>
+<figure class="highlight plain"><figcaption><span>headers: HTTPHeaders = [</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">    &quot;Authorization&quot;: &quot;Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==&quot;,</div><div class="line">    &quot;Accept&quot;: &quot;application/json&quot;</div><div class="line">]</div><div class="line"></div><div class="line">Alamofire.request(&quot;https://httpbin.org/headers&quot;, headers: headers).responseJSON &#123; response in</div><div class="line">    debugPrint(response)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在SessionManager中提供了所有请求的默认的请求头设置,Session Manager Configurations章节中细说<br>下面列举一些默认的参数</p>
+<figure class="highlight plain"><figcaption><span>compress;q=0.5</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Accept-Language:en;q=1.0</div><div class="line">User-Agent:iOS Example/1.0 (com.alamofire.iOS-Example; build:1; iOS 10.0.0) Alamofire/4.0.0</div></pre></td></tr></table></figure>
+<h4 id="Authentication验证"><a href="#Authentication验证" class="headerlink" title="Authentication验证"></a>Authentication验证</h4><p>Authentication验证基于系统 URLCredential and URLAuthenticationChallenge框架,授权验证通常需要与后台服务器沟通来形成.<br>支持一下验证方案</p>
+<ul>
+<li>HTTP Basic</li>
+<li>HTTP Digest</li>
+<li>Kerberos</li>
+<li>NTLM<br>例子</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>user = "user"</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">let password = &quot;password&quot;</div><div class="line"></div><div class="line">Alamofire.request(&quot;https://httpbin.org/basic-auth/\(user)/\(password)&quot;)</div><div class="line">    .authenticate(user: user, password: password)</div><div class="line">    .responseJSON &#123; response in</div><div class="line">        debugPrint(response)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">let user = &quot;user&quot;</div><div class="line">let password = &quot;password&quot;</div><div class="line"></div><div class="line">var headers: HTTPHeaders = [:]</div><div class="line"></div><div class="line">if let authorizationHeader = Request.authorizationHeader(user: user, password: password) &#123;</div><div class="line">    headers[authorizationHeader.key] = authorizationHeader.value</div><div class="line">&#125;</div><div class="line"></div><div class="line">Alamofire.request(&quot;https://httpbin.org/basic-auth/user/password&quot;, headers: headers)</div><div class="line">    .responseJSON &#123; response in</div><div class="line">        debugPrint(response)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">let user = &quot;user&quot;</div><div class="line">let password = &quot;password&quot;</div><div class="line"></div><div class="line">let credential = URLCredential(user: user, password: password, persistence: .forSession)</div><div class="line"></div><div class="line">Alamofire.request(&quot;https://httpbin.org/basic-auth/\(user)/\(password)&quot;)</div><div class="line">    .authenticate(usingCredential: credential)</div><div class="line">    .responseJSON &#123; response in</div><div class="line">        debugPrint(response)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/28/Alamofire4-x开源代码分析-一-使用方法/" rel="next" title="Alamofire4.x开源代码分析(一)使用方法">
+                <i class="fa fa-chevron-left"></i> Alamofire4.x开源代码分析(一)使用方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/IMG.jpg"
+               alt="她吃_🍅" />
+          <p class="site-author-name" itemprop="name">她吃_🍅</p>
+          <p class="site-description motion-element" itemprop="description">talk is cheap, show me the code</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求方法"><span class="nav-number">1.</span> <span class="nav-text">请求方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数编码"><span class="nav-number">2.</span> <span class="nav-text">参数编码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL编码"><span class="nav-number">2.1.</span> <span class="nav-text">URL编码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GET请求"><span class="nav-number">2.1.1.</span> <span class="nav-text">GET请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POST请求"><span class="nav-number">2.1.2.</span> <span class="nav-text">POST请求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON编码"><span class="nav-number">2.2.</span> <span class="nav-text">JSON编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Property-List-编码"><span class="nav-number">2.3.</span> <span class="nav-text">Property List 编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义-Encoding"><span class="nav-number">2.4.</span> <span class="nav-text">自定义 Encoding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-Headers"><span class="nav-number">3.</span> <span class="nav-text">HTTP Headers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Authentication验证"><span class="nav-number">3.1.</span> <span class="nav-text">Authentication验证</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">她吃_🍅</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

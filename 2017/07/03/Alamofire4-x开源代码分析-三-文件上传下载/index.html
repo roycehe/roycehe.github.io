@@ -93,7 +93,7 @@
 <meta property="og:description" content="Alamofire支持下载图片到内存或者磁盘,Alamofire.request开头的请求会把数据加载进内存,适用于小文件,如果文件比较大,可能会造成内存溢出.因此如果文件比较大,应该是Alamofire.download方法,把数据临时的保存在磁盘中,该方法同时还支持后台下载.例如
 12345Alamofire.download(&amp;quot;https://httpbin.org/image/p">
 <meta property="og:image" content="http://www.onetomato.online/images/testdownload.png">
-<meta property="og:updated_time" content="2017-07-03T07:22:40.000Z">
+<meta property="og:updated_time" content="2017-07-03T07:24:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Alamofire4.x开源代码分析(三)文件上传下载">
 <meta name="twitter:description" content="Alamofire支持下载图片到内存或者磁盘,Alamofire.request开头的请求会把数据加载进内存,适用于小文件,如果文件比较大,可能会造成内存溢出.因此如果文件比较大,应该是Alamofire.download方法,把数据临时的保存在磁盘中,该方法同时还支持后台下载.例如
@@ -318,6 +318,7 @@
       
         <p>Alamofire支持下载图片到内存或者磁盘,Alamofire.request开头的请求会把数据加载进内存,适用于小文件,如果文件比较大,可能会造成内存溢出.因此如果文件比较大,应该是Alamofire.download方法,把数据临时的保存在磁盘中,该方法同时还支持后台下载.<br>例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Alamofire.download(&quot;https://httpbin.org/image/png&quot;).responseData &#123; response in</div><div class="line">    if let data = response.result.value &#123;</div><div class="line">        let image = UIImage(data: data)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>框架提供了DownloadFileDestination,来允许自定义destinationURL,DownloadOptions这两个属性,如果不指定Destination,文件将被下载到temporaryURL.我们来看看这个闭包的结构</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public typealias DownloadFileDestination = (</div><div class="line">    _ temporaryURL: URL,</div><div class="line">    _ response: HTTPURLResponse)</div><div class="line">    -&gt; (destinationURL: URL, options: DownloadOptions)</div><div class="line">    //options包含的枚举</div><div class="line">    .createIntermediateDirectories//根据路径来创建文件夹</div><div class="line">    .removePreviousFile//移除当前路径的旧文件</div></pre></td></tr></table></figure>
 <p>通过例子来试一下</p>
@@ -378,6 +379,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/" rel="prev" title="Alamofire4.x开源代码分析(四)Timeline和cURL Command Output">
+                Alamofire4.x开源代码分析(四)Timeline和cURL Command Output <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -445,7 +450,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

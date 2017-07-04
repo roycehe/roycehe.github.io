@@ -84,18 +84,19 @@
 
 
 
-<meta name="description" content="需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止轮询的方法很多比如起一个Thread,设置一个Timer,或者使用GCD的Timer;">
+<meta name="description" content="Timeline(时间统计)Timeline是Alamofire提供的贯穿整个request生命周期的时间统计方案,可以通过response.timeline来访问.
+123Alamofire.request(&amp;quot;https://httpbin.org/get&amp;quot;).responseJSON &amp;#123; response in    print(response.timeline">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络请求轮询-(一)">
-<meta property="og:url" content="http://yoursite.com/2017/06/02/网络请求轮询-初级/index.html">
+<meta property="og:title" content="Alamofire4.x开源代码分析(四)Timeline和cURL Command Output">
+<meta property="og:url" content="http://yoursite.com/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/index.html">
 <meta property="og:site_name" content="她吃_🍅 blog">
-<meta property="og:description" content="需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止轮询的方法很多比如起一个Thread,设置一个Timer,或者使用GCD的Timer;">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/4135766-16d707d8342499f0.png?imageMogr2/auto-orient/strip">
-<meta property="og:updated_time" content="2017-06-02T08:01:00.000Z">
+<meta property="og:description" content="Timeline(时间统计)Timeline是Alamofire提供的贯穿整个request生命周期的时间统计方案,可以通过response.timeline来访问.
+123Alamofire.request(&amp;quot;https://httpbin.org/get&amp;quot;).responseJSON &amp;#123; response in    print(response.timeline">
+<meta property="og:updated_time" content="2017-07-04T00:57:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网络请求轮询-(一)">
-<meta name="twitter:description" content="需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止轮询的方法很多比如起一个Thread,设置一个Timer,或者使用GCD的Timer;">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/4135766-16d707d8342499f0.png?imageMogr2/auto-orient/strip">
+<meta name="twitter:title" content="Alamofire4.x开源代码分析(四)Timeline和cURL Command Output">
+<meta name="twitter:description" content="Timeline(时间统计)Timeline是Alamofire提供的贯穿整个request生命周期的时间统计方案,可以通过response.timeline来访问.
+123Alamofire.request(&amp;quot;https://httpbin.org/get&amp;quot;).responseJSON &amp;#123; response in    print(response.timeline">
 
 
 
@@ -123,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/02/网络请求轮询-初级/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/"/>
 
 
 
 
 
-  <title> 网络请求轮询-(一) | 她吃_🍅 blog </title>
+  <title> Alamofire4.x开源代码分析(四)Timeline和cURL Command Output | 她吃_🍅 blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -240,7 +241,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/02/网络请求轮询-初级/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="她吃_🍅">
@@ -264,7 +265,7 @@
             
             
               
-                网络请求轮询-(一)
+                Alamofire4.x开源代码分析(四)Timeline和cURL Command Output
               
             
           </h1>
@@ -277,8 +278,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-02T15:06:39+08:00">
-                2017-06-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T08:56:59+08:00">
+                2017-07-04
               </time>
             
 
@@ -313,11 +314,17 @@
       
 
       
-        <h6 id="需求-实现一个请求轮询-每隔3秒发送一个请求-返回成功后停止"><a href="#需求-实现一个请求轮询-每隔3秒发送一个请求-返回成功后停止" class="headerlink" title="需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止"></a>需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止</h6><p>轮询的方法很多比如起一个Thread,设置一个Timer,或者使用GCD的Timer;</p>
+        <h3 id="Timeline-时间统计"><a href="#Timeline-时间统计" class="headerlink" title="Timeline(时间统计)"></a>Timeline(时间统计)</h3><p>Timeline是Alamofire提供的贯穿整个request生命周期的时间统计方案,可以通过response.timeline来访问.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;).responseJSON &#123; response in</div><div class="line">    print(response.timeline)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如下打印<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Timeline: </div><div class="line">    &#123; </div><div class="line">    &quot;Latency&quot;: 1.474 secs, //请求到服务器响应</div><div class="line">    &quot;Request Duration&quot;: 1.478 secs,//请求开始到完成</div><div class="line">    &quot;Serialization Duration&quot;: 0.013 secs,//序列化时间</div><div class="line">    &quot;Total Duration&quot;: 1.491 secs //总时间</div><div class="line">      &#125;</div></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<h4 id="Thread写法"><a href="#Thread写法" class="headerlink" title="Thread写法"></a>Thread写法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">class ViewController: UIViewController &#123;</div><div class="line">    //停止标记</div><div class="line">    fileprivate var flag : Int = 0</div><div class="line">    //懒加载线程对象 创建一个子线程</div><div class="line">    lazy var myThread : Thread = &#123;</div><div class="line">        let myThread = Thread &#123;</div><div class="line">            let timer = Timer(timeInterval: 2, target: self, selector: #selector(self.requestTask), userInfo: nil, repeats: true)</div><div class="line">            //创建当前线程runloop</div><div class="line">            let runloop = RunLoop.current</div><div class="line">            runloop.add(timer, forMode: .commonModes)</div><div class="line">            runloop.run()</div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">    </div><div class="line">    return myThread</div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    override func viewDidLoad() &#123;</div><div class="line">        super.viewDidLoad()</div><div class="line">        //开启线程</div><div class="line">         myThread.start()</div><div class="line">        </div><div class="line">  nib.</div><div class="line">    &#125;</div><div class="line">    //轮询请求</div><div class="line">    func requestTask()&#123;</div><div class="line">         print(flag);</div><div class="line">        flag += 1</div><div class="line">        //退出线程</div><div class="line">        if flag == 10 &#123;</div><div class="line">            Thread.exit()</div><div class="line">        &#125;</div><div class="line">       </div><div class="line">    </div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="GCD写法"><a href="#GCD写法" class="headerlink" title="GCD写法"></a>GCD写法</h4><p>Swift3.0之后GCD写法发生了改变,例如dispatch_source_create -&gt; DispatchSource 更加符合Swift语法<br><img src="http://upload-images.jianshu.io/upload_images/4135766-16d707d8342499f0.png?imageMogr2/auto-orient/strip" alt=""></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line">//创建timer</div><div class="line">lazy var gcdTimer : DispatchSourceTimer = &#123;</div><div class="line">    let gcdTimer = DispatchSource.makeTimerSource(flags: [], queue: DispatchQueue.global())</div><div class="line">    </div><div class="line">    gcdTimer.setEventHandler(handler: &#123;</div><div class="line">        </div><div class="line">        self.requestTask()</div><div class="line">        </div><div class="line">    &#125;)</div><div class="line">    //设置触发时间 和间隔</div><div class="line">    gcdTimer.scheduleRepeating(deadline: .now(), interval: 1)</div><div class="line">    </div><div class="line">    return gcdTimer</div><div class="line">&#125;()</div><div class="line"></div><div class="line"></div><div class="line"> </div><div class="line">override func viewDidLoad() &#123;</div><div class="line">    super.viewDidLoad()</div><div class="line">    </div><div class="line">  //GCD Timer</div><div class="line">    gcdTimer.resume()</div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div><div class="line">//轮询请求</div><div class="line">func requestTask()&#123;</div><div class="line">    print(flag);</div><div class="line">    flag += 1</div><div class="line">    if flag == 10 &#123;</div><div class="line">       gcdTimer.cancel()</div><div class="line">        print(&quot;结束任务&quot;)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="URL-Session-Task-Metrics"><a href="#URL-Session-Task-Metrics" class="headerlink" title="URL Session Task Metrics"></a>URL Session Task Metrics</h3><p>在iOS10中,苹果提供了<a href="https://developer.apple.com/documentation/foundation/urlsessiontaskmetrics" target="_blank" rel="external">URLSessionTaskMetrics</a>的API,和timeline非常相似,它支持更多的统计数据,并支持任何类型的响应.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;).responseJSON &#123; response in</div><div class="line">    //版本限定</div><div class="line">    if #available(iOS 10.0, *) &#123;</div><div class="line">        print(response.metrics)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">Request) &lt;NSURLRequest: 0x60000001f9a0&gt; &#123; URL: https://httpbin.org/get &#125;</div><div class="line">(Response) &lt;NSHTTPURLResponse: 0x600000223f60&gt; &#123; URL: https://httpbin.org/get &#125; &#123; status code: 200, headers &#123;</div><div class="line">    &quot;Access-Control-Allow-Credentials&quot; = true;</div><div class="line">    &quot;Access-Control-Allow-Origin&quot; = &quot;*&quot;;</div><div class="line">    Connection = &quot;keep-alive&quot;;</div><div class="line">    &quot;Content-Length&quot; = 375;</div><div class="line">    &quot;Content-Type&quot; = &quot;application/json&quot;;</div><div class="line">    Date = &quot;Tue, 04 Jul 2017 00:43:51 GMT&quot;;</div><div class="line">    Server = &quot;meinheld/0.6.1&quot;;</div><div class="line">    Via = &quot;1.1 vegur&quot;;</div><div class="line">    &quot;X-Powered-By&quot; = Flask;</div><div class="line">    &quot;X-Processed-Time&quot; = &quot;0.00100803375244&quot;;</div><div class="line">&#125; &#125;</div><div class="line">(Fetch Start) 2017-07-04 00:43:54 +0000</div><div class="line">(Domain Lookup Start) 2017-07-04 00:43:54 +0000</div><div class="line">(Domain Lookup End) 2017-07-04 00:43:54 +0000</div><div class="line">(Connect Start) 2017-07-04 00:43:54 +0000</div><div class="line">(Secure Connection Start) 2017-07-04 00:43:55 +0000</div><div class="line">(Secure Connection End) 2017-07-04 00:43:55 +0000</div><div class="line">(Connect End) 2017-07-04 00:43:55 +0000</div><div class="line">(Request Start) 2017-07-04 00:43:55 +0000</div><div class="line">(Request End) 2017-07-04 00:43:55 +0000</div><div class="line">(Response Start) 2017-07-04 00:43:55 +0000</div><div class="line">(Response End) 2017-07-04 00:43:55 +0000</div><div class="line">(Protocol Name) http/1.1</div><div class="line">(Proxy Connection) NO</div><div class="line">(Reused Connection) NO</div><div class="line">(Fetch Type) Network Load</div></pre></td></tr></table></figure>
+<h3 id="cURL-Command-Output-输出请求url"><a href="#cURL-Command-Output-输出请求url" class="headerlink" title="cURL Command Output(输出请求url)"></a>cURL Command Output(输出请求url)</h3><p>开发过程中我们都有自己拼接参数到url的经历,幸运的是Alamofire实现调试过程中直接输出请求url和参数,方便了我们在xcode以外做接口调试,比如浏览器,postman等工具.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let request = Alamofire.request(&quot;https://httpbin.org/get&quot;, parameters: [&quot;foo&quot;: &quot;bar&quot;])</div><div class="line">debugPrint(request)</div></pre></td></tr></table></figure>
+<p>输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ curl -i \</div><div class="line">    -H &quot;User-Agent: Alamofire/4.0.0&quot; \</div><div class="line">    -H &quot;Accept-Encoding: gzip;q=1.0, compress;q=0.5&quot; \</div><div class="line">    -H &quot;Accept-Language: en;q=1.0,fr;q=0.9,de;q=0.8,zh-Hans;q=0.7,zh-Hant;q=0.6,ja;q=0.5&quot; \</div><div class="line">    &quot;https://httpbin.org/get?foo=bar&quot;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -344,8 +351,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/08/我架构师之路-一-简单工厂模式/" rel="next" title="抽象工厂设计模式封装Alert">
-                <i class="fa fa-chevron-left"></i> 抽象工厂设计模式封装Alert
+              <a href="/2017/07/03/Alamofire4-x开源代码分析-三-文件上传下载/" rel="next" title="Alamofire4.x开源代码分析(三)文件上传下载">
+                <i class="fa fa-chevron-left"></i> Alamofire4.x开源代码分析(三)文件上传下载
               </a>
             
           </div>
@@ -353,10 +360,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/12/WWDC-2017-Feature-102-Platforms-State-of-the-Union/" rel="prev" title="WWDC 2017 Feature 102 Platforms State of the Union">
-                WWDC 2017 Feature 102 Platforms State of the Union <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -462,7 +465,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#需求-实现一个请求轮询-每隔3秒发送一个请求-返回成功后停止"><span class="nav-number">1.</span> <span class="nav-text">需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Thread写法"><span class="nav-number"></span> <span class="nav-text">Thread写法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GCD写法"><span class="nav-number"></span> <span class="nav-text">GCD写法</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Timeline-时间统计"><span class="nav-number">1.</span> <span class="nav-text">Timeline(时间统计)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL-Session-Task-Metrics"><span class="nav-number">2.</span> <span class="nav-text">URL Session Task Metrics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cURL-Command-Output-输出请求url"><span class="nav-number">3.</span> <span class="nav-text">cURL Command Output(输出请求url)</span></a></li></ol></div>
             
 
           </div>

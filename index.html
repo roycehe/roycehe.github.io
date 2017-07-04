@@ -239,6 +239,129 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/" itemprop="url">
+                  Alamofire4.x开源代码分析(四)Timeline和cURL Command Output
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-04T08:56:59+08:00">
+                2017-07-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Timeline-时间统计"><a href="#Timeline-时间统计" class="headerlink" title="Timeline(时间统计)"></a>Timeline(时间统计)</h3><p>Timeline是Alamofire提供的贯穿整个request生命周期的时间统计方案,可以通过response.timeline来访问.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Alamofire.request(&quot;https://httpbin.org/get&quot;).responseJSON &#123; response in</div><div class="line">    print(response.timeline)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如下打印<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Timeline: </div><div class="line">    &#123; </div><div class="line">    &quot;Latency&quot;: 1.474 secs, //请求到服务器响应</div><div class="line">    &quot;Request Duration&quot;: 1.478 secs,//请求开始到完成</div><div class="line">    &quot;Serialization Duration&quot;: 0.013 secs,//序列化时间</div><div class="line">    &quot;Total Duration&quot;: 1.491 secs //总时间</div><div class="line">      &#125;</div></pre></td></tr></table></figure></p>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/03/Alamofire4-x开源代码分析-三-文件上传下载/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -316,36 +439,15 @@
 
       
         
-          
-            <p>Alamofire支持下载图片到内存或者磁盘,Alamofire.request开头的请求会把数据加载进内存,适用于小文件,如果文件比较大,可能会造成内存溢出.因此如果文件比较大,应该是Alamofire.download方法,把数据临时的保存在磁盘中,该方法同时还支持后台下载.<br>例如</p>
+          <p>Alamofire支持下载图片到内存或者磁盘,Alamofire.request开头的请求会把数据加载进内存,适用于小文件,如果文件比较大,可能会造成内存溢出.因此如果文件比较大,应该是Alamofire.download方法,把数据临时的保存在磁盘中,该方法同时还支持后台下载.<br>例如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Alamofire.download(&quot;https://httpbin.org/image/png&quot;).responseData &#123; response in</div><div class="line">    if let data = response.result.value &#123;</div><div class="line">        let image = UIImage(data: data)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>框架提供了DownloadFileDestination,来允许自定义destinationURL,DownloadOptions这两个属性,如果不指定Destination,文件将被下载到temporaryURL.我们来看看这个闭包的结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public typealias DownloadFileDestination = (</div><div class="line">    _ temporaryURL: URL,</div><div class="line">    _ response: HTTPURLResponse)</div><div class="line">    -&gt; (destinationURL: URL, options: DownloadOptions)</div><div class="line">    //options包含的枚举</div><div class="line">    .createIntermediateDirectories//根据路径来创建文件夹</div><div class="line">    .removePreviousFile//移除当前路径的旧文件</div></pre></td></tr></table></figure>
-<p>通过例子来试一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">let destination: DownloadRequest.DownloadFileDestination = &#123; _, _ in</div><div class="line">          let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]</div><div class="line">          let fileURL = documentsURL.appendingPathComponent(&quot;pig.png&quot;)</div><div class="line">          </div><div class="line">          return (fileURL, [.removePreviousFile, .createIntermediateDirectories])</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      Alamofire.download(&quot;https://httpbin.org/image/png&quot;, to: destination).response &#123; response in</div><div class="line">          print(response)</div><div class="line">          </div><div class="line">          if response.error == nil, let imagePath = response.destinationURL?.path &#123;</div><div class="line">              let image = UIImage(contentsOfFile: imagePath)</div><div class="line">          &#125;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
-<p>在制定路径下顺利拿到图片<br><img src="http://www.onetomato.online/images/testdownload.png" alt=""></p>
-<p>Alamofire也提供了建议的destination设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)</div><div class="line">Alamofire.download(&quot;https://httpbin.org/image/png&quot;, to: destination)</div></pre></td></tr></table></figure>
-<h3 id="下载进度"><a href="#下载进度" class="headerlink" title="下载进度"></a>下载进度</h3><p>任何Alamofire.download方法都可以通过downloadProgress获取下载进度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Alamofire.download(&quot;https://cdn.pixabay.com/photo/2017/06/26/12/49/red-wine-2443699_1280.jpg&quot;)</div><div class="line">          .downloadProgress &#123; progress in</div><div class="line">              print(&quot;Download Progress: \(progress.fractionCompleted)&quot;)</div><div class="line">          &#125;</div><div class="line">          .responseData &#123; response in</div><div class="line">              if let data = response.result.value &#123;</div><div class="line">                  let image = UIImage(data: data)</div><div class="line">              &#125;</div><div class="line">      &#125;</div></pre></td></tr></table></figure>
-<p>downloadProgress支持自定义queue</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let utilityQueue = DispatchQueue.global(qos: .utility)</div><div class="line"></div><div class="line">Alamofire.download(&quot;https://httpbin.org/image/png&quot;)</div><div class="line">    .downloadProgress(queue: utilityQueue) &#123; progress in</div><div class="line">        print(&quot;Download Progress: \(progress.fractionCompleted)&quot;)</div><div class="line">    &#125;</div><div class="line">    .responseData &#123; response in</div><div class="line">        if let data = response.result.value &#123;</div><div class="line">            let image = UIImage(data: data)</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>如果DownloadRequest被取消或者被中断,response会包含一个resumeData,可以用来重新发起请求.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">class ImageRequestor &#123;</div><div class="line">    private var resumeData: Data?</div><div class="line">    private var image: UIImage?</div><div class="line"></div><div class="line">    func fetchImage(completion: (UIImage?) -&gt; Void) &#123;</div><div class="line">        guard image == nil else &#123; completion(image) ; return &#125;</div><div class="line"></div><div class="line">        let destination: DownloadRequest.DownloadFileDestination = &#123; _, _ in</div><div class="line">            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]</div><div class="line">            let fileURL = documentsURL.appendingPathComponent(&quot;pig.png&quot;)</div><div class="line"></div><div class="line">            return (fileURL, [.removePreviousFile, .createIntermediateDirectories])</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        let request: DownloadRequest</div><div class="line"></div><div class="line">        if let resumeData = resumeData &#123;</div><div class="line">            request = Alamofire.download(resumingWith: resumeData)</div><div class="line">        &#125; else &#123;</div><div class="line">            request = Alamofire.download(&quot;https://httpbin.org/image/png&quot;)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        request.responseData &#123; response in</div><div class="line">            switch response.result &#123;</div><div class="line">            case .success(let data):</div><div class="line">                self.image = UIImage(data: data)</div><div class="line">            case .failure:</div><div class="line">                self.resumeData = response.resumeData</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="上传数据"><a href="#上传数据" class="headerlink" title="上传数据"></a>上传数据</h3><ul>
-<li>Alamofire.request//上传小数据(JSON,URL编码参数)</li>
-<li>Alamofire.upload //上传大数据或者数据流(支持后台上传)<br>Alamofire可以通过下列方式上传数据</li>
-<li>Data</li>
-<li>fileURL</li>
-<li>inputStream</li>
-<li>MultipartFormData</li>
-</ul>
-<h4 id="Data上传"><a href="#Data上传" class="headerlink" title="Data上传"></a>Data上传</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">let imageData = UIPNGRepresentation(image)!</div><div class="line"></div><div class="line">Alamofire.upload(imageData, to: &quot;https://httpbin.org/post&quot;).responseJSON &#123; response in</div><div class="line">    debugPrint(response)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="通过路径上传"><a href="#通过路径上传" class="headerlink" title="通过路径上传"></a>通过路径上传</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let imageData = UIPNGRepresentation(image)!</div><div class="line">        Alamofire.upload(imageData, to: &quot;https://httpbin.org/post&quot;).responseJSON &#123; response in</div><div class="line">            debugPrint(response)</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<h4 id="Multipart-Form-Data"><a href="#Multipart-Form-Data" class="headerlink" title="Multipart Form Data"></a>Multipart Form Data</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Alamofire.upload(</div><div class="line">//通过 multipartFormData.append拼接,参数是获取数据的方式和数据名称</div><div class="line">    multipartFormData: &#123; multipartFormData in</div><div class="line">        multipartFormData.append(unicornImageURL, withName: &quot;unicorn&quot;)</div><div class="line">        multipartFormData.append(rainbowImageURL, withName: &quot;rainbow&quot;)</div><div class="line">    &#125;,</div><div class="line">    to: &quot;https://httpbin.org/post&quot;,</div><div class="line">    //要上传的数据编码后的回调</div><div class="line">    encodingCompletion: &#123; encodingResult in</div><div class="line">    	switch encodingResult &#123;</div><div class="line">    	case .success(let upload, _, _):</div><div class="line">    	//如果是成功的，那么它会返回一个UploadRequest</div><div class="line">            upload.responseJSON &#123; response in</div><div class="line">                debugPrint(response)</div><div class="line">            &#125;</div><div class="line">    	case .failure(let encodingError):</div><div class="line">    	    print(encodingError)</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">)</div></pre></td></tr></table></figure>
-<h4 id="上传进度"><a href="#上传进度" class="headerlink" title="上传进度"></a>上传进度</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">let fileURL = Bundle.main.url(forResource: &quot;video&quot;, withExtension: &quot;mov&quot;)</div><div class="line"></div><div class="line">Alamofire.upload(fileURL, to: &quot;https://httpbin.org/post&quot;)</div><div class="line">    .uploadProgress &#123; progress in // main queue by default</div><div class="line">        print(&quot;Upload Progress: \(progress.fractionCompleted)&quot;)</div><div class="line">    &#125;</div><div class="line">    .downloadProgress &#123; progress in // main queue by default</div><div class="line">        print(&quot;Download Progress: \(progress.fractionCompleted)&quot;)</div><div class="line">    &#125;</div><div class="line">    .responseJSON &#123; response in</div><div class="line">        debugPrint(response)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/03/Alamofire4-x开源代码分析-三-文件上传下载/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1399,127 +1501,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/02/网络请求轮询-初级/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="她吃_🍅">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/IMG.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="她吃_🍅 blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/02/网络请求轮询-初级/" itemprop="url">
-                  网络请求轮询-(一)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-02T15:06:39+08:00">
-                2017-06-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h6 id="需求-实现一个请求轮询-每隔3秒发送一个请求-返回成功后停止"><a href="#需求-实现一个请求轮询-每隔3秒发送一个请求-返回成功后停止" class="headerlink" title="需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止"></a>需求:实现一个请求轮询,每隔3秒发送一个请求,返回成功后停止</h6><p>轮询的方法很多比如起一个Thread,设置一个Timer,或者使用GCD的Timer;</p>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/02/网络请求轮询-初级/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1565,7 +1546,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

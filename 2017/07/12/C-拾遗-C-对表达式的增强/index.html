@@ -92,7 +92,7 @@
 <meta property="og:site_name" content="她吃_🍅 blog">
 <meta property="og:description" content="先看以下代码在C中的效果
 123456789101112int main(int argc, const char * argv[]) &amp;#123;    int a = 10;    int b = 20;        //返回一个最小数 并且给最小数赋值成30    //该行报错 ，原因是C语言中表达式不可能做左值    (a &amp;lt; b ? a : b ) = 30;        pr">
-<meta property="og:updated_time" content="2017-07-13T00:32:15.000Z">
+<meta property="og:updated_time" content="2017-07-13T03:22:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++拾遗-C++对表达式的增强">
 <meta name="twitter:description" content="先看以下代码在C中的效果
@@ -316,6 +316,7 @@
       
         <p>先看以下代码在C中的效果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    int a = 10;</div><div class="line">    int b = 20;</div><div class="line">    </div><div class="line">    //返回一个最小数 并且给最小数赋值成30</div><div class="line">    //该行报错 ，原因是C语言中表达式不可能做左值</div><div class="line">    (a &lt; b ? a : b ) = 30;</div><div class="line">    </div><div class="line">    printf(&quot;a = %d, b = %d\n&quot;, a, b);</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>而在C++中者编译通过,打印出结果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a = 30, b = 20</div><div class="line">Program ended with exit code: 0</div></pre></td></tr></table></figure>
 <p>总结<br>C语言返回的是变量的值,不能作为左值使用<br>C++返回的是变量本身,可以出现在任何地方</p>

@@ -316,23 +316,15 @@
 
       
         
-          
-            <h3 id="C语言-const"><a href="#C语言-const" class="headerlink" title="C语言 const"></a>C语言 const</h3><p>一看到const大家都印象是定义了一个常量,只读.比如</p>
+          <h3 id="C语言-const"><a href="#C语言-const" class="headerlink" title="C语言 const"></a>C语言 const</h3><p>一看到const大家都印象是定义了一个常量,只读.比如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const int a;//a的值不能被改变</div><div class="line">const int *c;//指针c指向的内存空间的值不能被改变</div><div class="line">int * const c;//指针c的指向不能被改变</div></pre></td></tr></table></figure>
-<p>但是真的是这样么,看看以下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *c = (int*)&amp;a;</div><div class="line">*c = 11;</div><div class="line">printf(&quot;%d\n&quot;,a);</div></pre></td></tr></table></figure>
-<p>顺利执行a的值被间接改变为11;</p>
-<h3 id="C-语言-const"><a href="#C-语言-const" class="headerlink" title="C++语言 const"></a>C++语言 const</h3><p>再看看在C++中<br>C++编译器编译器将声明const的变量key-value键值对的形式放到符号表中,编译过程中若发现使用常量则直接以符号表中的值替换.<br>如果我们尝试间接赋值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *p = NULL;</div><div class="line">p = (int *)&amp;a;</div><div class="line">*p = 20;</div><div class="line">printf(&quot;a:%d \n&quot;, a);//a =10</div><div class="line">printf(&quot;*p:%d \n&quot;, *p);//*p 20</div></pre></td></tr></table></figure>
-<p>C++中如果对其进行取地址操作,会对其进行地址分配.</p>
-<h3 id="const-与-define"><a href="#const-与-define" class="headerlink" title="const 与#define"></a>const 与#define</h3><ul>
-<li>const常量是由编译器处理的，提供类型检查和作用域检查</li>
-<li>宏定义由预处理器处理，单纯的文本替换</li>
-</ul>
-<p>来看看他们的作用域</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void fun1()</div><div class="line">&#123;</div><div class="line">    #define a 10</div><div class="line">    const int b = 20;//只能在该函数内使用</div><div class="line">    # undef//卸载后无法再其他函数内使用</div><div class="line">&#125;</div><div class="line">void fun2()</div><div class="line">&#123;</div><div class="line">    printf(&quot;a = %d\n&quot;, a);//可以使用</div><div class="line">    //printf(&quot;b = %d\n&quot;, b);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/13/C-拾遗-const的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -446,14 +438,15 @@
 
       
         
-          
-            <p>先看以下代码在C中的效果</p>
+          <p>先看以下代码在C中的效果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    int a = 10;</div><div class="line">    int b = 20;</div><div class="line">    </div><div class="line">    //返回一个最小数 并且给最小数赋值成30</div><div class="line">    //该行报错 ，原因是C语言中表达式不可能做左值</div><div class="line">    (a &lt; b ? a : b ) = 30;</div><div class="line">    </div><div class="line">    printf(&quot;a = %d, b = %d\n&quot;, a, b);</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>而在C++中者编译通过,打印出结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a = 30, b = 20</div><div class="line">Program ended with exit code: 0</div></pre></td></tr></table></figure>
-<p>总结<br>C语言返回的是变量的值,不能作为左值使用<br>C++返回的是变量本身,可以出现在任何地方</p>
-
-          
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/12/C-拾遗-C-对表达式的增强/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -567,11 +560,14 @@
 
       
         
-          
-            <h2 id="求圆的周长和面积"><a href="#求圆的周长和面积" class="headerlink" title="求圆的周长和面积"></a>求圆的周长和面积</h2><h3 id="用结构化方法编程"><a href="#用结构化方法编程" class="headerlink" title="用结构化方法编程"></a>用结构化方法编程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">double r = 0;</div><div class="line">double s = 0;</div><div class="line">cout &lt;&lt; &quot;请输入半径&quot; &lt;&lt;endl;</div><div class="line"></div><div class="line">cin &gt;&gt; r;</div><div class="line"></div><div class="line">s = M_PI * r * r;</div><div class="line"></div><div class="line">cout &lt;&lt; &quot;面积s:&quot; &lt;&lt; s&lt;&lt; endl;</div></pre></td></tr></table></figure>
-<h3 id="用面向对象方法编程"><a href="#用面向对象方法编程" class="headerlink" title="用面向对象方法编程"></a>用面向对象方法编程</h3><p><img src="http://www.onetomato.online/images/0712/1.png" alt=""><br><img src="http://www.onetomato.online/images/0712/2.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream.h&gt; </div><div class="line">using name std;</div><div class="line">class Circle</div><div class="line">&#123;  double radius ; //成员变量</div><div class="line">  public : //类的访问控制</div><div class="line">    void Set_Radius( double r ) &#123; radius = r ; &#125; //成员函数</div><div class="line">    double Get_Radius()  &#123; return  radius ; &#125; //通过成员函数设置成员变量</div><div class="line">    double Get_Girth()     &#123; return  2 * 3.14f * radius ; &#125; //通过成员函数获取成员变量</div><div class="line">    double Get_Area()     &#123; return  3.14f * radius * radius ; &#125;</div><div class="line">&#125; ;</div><div class="line">void main()</div><div class="line">&#123; </div><div class="line">Circle A, B ; //用类定义对象</div><div class="line">   A.Set_Radius( 6.23 ) ; //类的调用</div><div class="line">   cout &lt;&lt; &quot;A.Radius = &quot; &lt;&lt; A.Get_Radius() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;A.Girth = &quot; &lt;&lt; A.Get_Girth() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;A.Area = &quot; &lt;&lt; A.Get_Area() &lt;&lt; endl ;</div><div class="line">   B.Set_Radius( 10.5 ) ;</div><div class="line">   cout &lt;&lt; &quot;B.radius = &quot; &lt;&lt; B.Get_Radius() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;B.Girth=&quot; &lt;&lt; B.Get_Girth() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;B.Area = &quot; &lt;&lt; B.Get_Area() &lt;&lt; endl ; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-          
+          <h2 id="求圆的周长和面积"><a href="#求圆的周长和面积" class="headerlink" title="求圆的周长和面积"></a>求圆的周长和面积</h2><h3 id="用结构化方法编程"><a href="#用结构化方法编程" class="headerlink" title="用结构化方法编程"></a>用结构化方法编程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">double r = 0;</div><div class="line">double s = 0;</div><div class="line">cout &lt;&lt; &quot;请输入半径&quot; &lt;&lt;endl;</div><div class="line"></div><div class="line">cin &gt;&gt; r;</div><div class="line"></div><div class="line">s = M_PI * r * r;</div><div class="line"></div><div class="line">cout &lt;&lt; &quot;面积s:&quot; &lt;&lt; s&lt;&lt; endl;</div></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/12/C-拾遗-面向过程到面向对象/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

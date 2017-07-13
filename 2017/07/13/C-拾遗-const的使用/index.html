@@ -85,24 +85,18 @@
 
 
 <meta name="description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
-123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变
-但是真的是这样么,看看以下代码
-1234const int a = 10;int *c = (int*)&amp;amp;a;*c = 11;printf(&amp;quo">
+123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++拾遗-const的使用">
 <meta property="og:url" content="http://yoursite.com/2017/07/13/C-拾遗-const的使用/index.html">
 <meta property="og:site_name" content="她吃_🍅 blog">
 <meta property="og:description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
-123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变
-但是真的是这样么,看看以下代码
-1234const int a = 10;int *c = (int*)&amp;amp;a;*c = 11;printf(&amp;quo">
-<meta property="og:updated_time" content="2017-07-13T03:13:38.000Z">
+123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变">
+<meta property="og:updated_time" content="2017-07-13T03:23:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++拾遗-const的使用">
 <meta name="twitter:description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
-123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变
-但是真的是这样么,看看以下代码
-1234const int a = 10;int *c = (int*)&amp;amp;a;*c = 11;printf(&amp;quo">
+123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变">
 
 
 
@@ -322,6 +316,7 @@
       
         <h3 id="C语言-const"><a href="#C语言-const" class="headerlink" title="C语言 const"></a>C语言 const</h3><p>一看到const大家都印象是定义了一个常量,只读.比如</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const int a;//a的值不能被改变</div><div class="line">const int *c;//指针c指向的内存空间的值不能被改变</div><div class="line">int * const c;//指针c的指向不能被改变</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>但是真的是这样么,看看以下代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *c = (int*)&amp;a;</div><div class="line">*c = 11;</div><div class="line">printf(&quot;%d\n&quot;,a);</div></pre></td></tr></table></figure>
 <p>顺利执行a的值被间接改变为11;</p>

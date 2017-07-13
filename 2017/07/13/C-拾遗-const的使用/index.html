@@ -84,33 +84,25 @@
 
 
 
-<meta name="description" content="RTMP, HLS当下比较流行的流媒体协议.
-RTMP(Real Time Messaging Protocol)RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范
-RTMP本质上是流协议，主要的优势是：
-
-实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。
-支持加">
+<meta name="description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
+123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变
+但是真的是这样么,看看以下代码
+1234const int a = 10;int *c = (int*)&amp;amp;a;*c = 11;printf(&amp;quo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS直播推流--流媒体协议">
-<meta property="og:url" content="http://yoursite.com/2017/06/14/iOS直播推流-流媒体协议/index.html">
+<meta property="og:title" content="C++拾遗-const的使用">
+<meta property="og:url" content="http://yoursite.com/2017/07/13/C-拾遗-const的使用/index.html">
 <meta property="og:site_name" content="她吃_🍅 blog">
-<meta property="og:description" content="RTMP, HLS当下比较流行的流媒体协议.
-RTMP(Real Time Messaging Protocol)RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范
-RTMP本质上是流协议，主要的优势是：
-
-实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。
-支持加">
-<meta property="og:image" content="https://static.oschina.net/uploads/img/201706/14091605_j0VV.png">
-<meta property="og:updated_time" content="2017-06-14T09:48:03.000Z">
+<meta property="og:description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
+123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变
+但是真的是这样么,看看以下代码
+1234const int a = 10;int *c = (int*)&amp;amp;a;*c = 11;printf(&amp;quo">
+<meta property="og:updated_time" content="2017-07-13T03:13:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS直播推流--流媒体协议">
-<meta name="twitter:description" content="RTMP, HLS当下比较流行的流媒体协议.
-RTMP(Real Time Messaging Protocol)RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范
-RTMP本质上是流协议，主要的优势是：
-
-实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。
-支持加">
-<meta name="twitter:image" content="https://static.oschina.net/uploads/img/201706/14091605_j0VV.png">
+<meta name="twitter:title" content="C++拾遗-const的使用">
+<meta name="twitter:description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
+123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变
+但是真的是这样么,看看以下代码
+1234const int a = 10;int *c = (int*)&amp;amp;a;*c = 11;printf(&amp;quo">
 
 
 
@@ -138,13 +130,13 @@ RTMP本质上是流协议，主要的优势是：
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/14/iOS直播推流-流媒体协议/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/13/C-拾遗-const的使用/"/>
 
 
 
 
 
-  <title> iOS直播推流--流媒体协议 | 她吃_🍅 blog </title>
+  <title> C++拾遗-const的使用 | 她吃_🍅 blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -255,7 +247,7 @@ RTMP本质上是流协议，主要的优势是：
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/14/iOS直播推流-流媒体协议/">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/13/C-拾遗-const的使用/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="她吃_🍅">
@@ -279,7 +271,7 @@ RTMP本质上是流协议，主要的优势是：
             
             
               
-                iOS直播推流--流媒体协议
+                C++拾遗-const的使用
               
             
           </h1>
@@ -292,8 +284,8 @@ RTMP本质上是流协议，主要的优势是：
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-14T17:46:03+08:00">
-                2017-06-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-13T08:34:00+08:00">
+                2017-07-13
               </time>
             
 
@@ -328,40 +320,20 @@ RTMP本质上是流协议，主要的优势是：
       
 
       
-        <p>RTMP, HLS当下比较流行的流媒体协议.</p>
-<h6 id="RTMP-Real-Time-Messaging-Protocol"><a href="#RTMP-Real-Time-Messaging-Protocol" class="headerlink" title="RTMP(Real Time Messaging Protocol)"></a>RTMP(Real Time Messaging Protocol)</h6><p>RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范</p>
-<p>RTMP本质上是流协议，主要的优势是：</p>
-<ul>
-<li>实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。</li>
-<li>支持加密：RTMPE和RTMPS为加密协议</li>
-<li>稳定性高：HTTP也很稳定，但HTTP是在协议上稳定稳定性不只是服务端的事情，在CDN分发，服务器管理，客户端的支持上</li>
+        <h3 id="C语言-const"><a href="#C语言-const" class="headerlink" title="C语言 const"></a>C语言 const</h3><p>一看到const大家都印象是定义了一个常量,只读.比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const int a;//a的值不能被改变</div><div class="line">const int *c;//指针c指向的内存空间的值不能被改变</div><div class="line">int * const c;//指针c的指向不能被改变</div></pre></td></tr></table></figure>
+<p>但是真的是这样么,看看以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *c = (int*)&amp;a;</div><div class="line">*c = 11;</div><div class="line">printf(&quot;%d\n&quot;,a);</div></pre></td></tr></table></figure>
+<p>顺利执行a的值被间接改变为11;</p>
+<h3 id="C-语言-const"><a href="#C-语言-const" class="headerlink" title="C++语言 const"></a>C++语言 const</h3><p>再看看在C++中<br>C++编译器编译器将声明const的变量key-value键值对的形式放到符号表中,编译过程中若发现使用常量则直接以符号表中的值替换.<br>如果我们尝试间接赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *p = NULL;</div><div class="line">p = (int *)&amp;a;</div><div class="line">*p = 20;</div><div class="line">printf(&quot;a:%d \n&quot;, a);//a =10</div><div class="line">printf(&quot;*p:%d \n&quot;, *p);//*p 20</div></pre></td></tr></table></figure>
+<p>C++中如果对其进行取地址操作,会对其进行地址分配.</p>
+<h3 id="const-与-define"><a href="#const-与-define" class="headerlink" title="const 与#define"></a>const 与#define</h3><ul>
+<li>const常量是由编译器处理的，提供类型检查和作用域检查</li>
+<li>宏定义由预处理器处理，单纯的文本替换</li>
 </ul>
-<p>######RTMP的使用</p>
-<ul>
-<li>RTMP协议也要客户端和服务器通过“握手”来建立基于传输层链接之上的RTMP Connection链接，在Connection链接上会传输一些控制信息</li>
-<li>TMP协议传输时会对数据做自己的格式化，这种格式的消息我们称之为RTMP Message</li>
-<li>而实际传输的时候为了更好地实现多路复用、分包和信息的公平性，发送端会把Message划分为带有Message ID的Chunk，每个Chunk可能是一个单独的Message，也可能是Message的一部分，在接受端会根据chunk中包含的data的长度，message id和message的长度把chunk还原成完整的Message，从而实现信息的收发。<a id="more"></a>
-</li>
-</ul>
-<p>######HLS(HTTP Live Streaming)<br>HTTP Live Streaming（HLS）是苹果公司实现的基于HTTP的流媒体传输协议，可实现流媒体的直播和点播。原理上是将视频流分片成一系列HTTP下载文件。所以，HLS比RTMP有较高的延迟。HLS基于HTTP协议实现，传输内容包括两部分，一是M3U8描述文件，二是TS媒体文件<br>相对于常见的流媒体直播协议，例如RTMP协议、RTSP协议、MMS协议等，HLS直播最大的不同在于，直播客户端获取到的，并不是一个完整的数据流。HLS协议在服务器端将直播数据流存储为连续的、很短时长的媒体文件（MPEG-TS格式），而客户端则不断的下载并播放这些小文件，因为服务器端总是会将最新的直播数据生成新的小文件，这样客户端只要不停的按顺序播放从服务器获取到的文件，就实现了直播。</p>
-<p>######巨大优势：自适应码率流播（adaptive streaming）<br>效果就是客户端会根据网络状况自动选择不同码率的视频流，条件允许的情况下使用高码率，网络繁忙的时候使用低码率，并且自动在二者 间随意切换。这对移动设备网络状况不稳定的情况下保障流畅播放非常有帮助。实现方法是服务器端提供多码率视频流，并且在列表文件中注明，播放器根据播放进 度和下载速度自动调整。<br>由此可见，基本上可以认为，HLS是以点播的技术方式来实现直播。 </p>
-<p>######工作流程为:</p>
-<ul>
-<li>采集视频源和音频源的数据</li>
-<li>对原始数据进行H264编码和AAC编码</li>
-<li>视频和音频数据封装为MPEG-TS包</li>
-<li>HLS分段生成策略及m3u8索引文件</li>
-<li>HTTP传输协议传输数据<br>以下是官方流程图解<br><img src="https://static.oschina.net/uploads/img/201706/14091605_j0VV.png" alt="输入图片说明" title="在这里输入图片标题"></li>
-</ul>
-<p><strong>m3u8基本上可以认为就是.m3u格式文件，区别在于，m3u8文件使用UTF-8字符编码。</strong></p>
-<ul>
-<li>EXTM3U                     m3u文件头，必须放在第一行 </li>
-<li>EXT-X-MEDIA-SEQUENCE       第一个TS分片的序列号 </li>
-<li>EXT-X-TARGETDURATION       每个分片TS的最大的时长 </li>
-<li>EXT-X-ALLOW-CACHE          是否允许cache </li>
-<li>EXT-X-ENDLIST              m3u8文件结束符 </li>
-<li>EXTINF                     extra info，分片TS的信息，如时长，带宽等</li>
-</ul>
+<p>来看看他们的作用域</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void fun1()</div><div class="line">&#123;</div><div class="line">    #define a 10</div><div class="line">    const int b = 20;//只能在该函数内使用</div><div class="line">    # undef//卸载后无法再其他函数内使用</div><div class="line">&#125;</div><div class="line">void fun2()</div><div class="line">&#123;</div><div class="line">    printf(&quot;a = %d\n&quot;, a);//可以使用</div><div class="line">    //printf(&quot;b = %d\n&quot;, b);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -388,8 +360,8 @@ RTMP本质上是流协议，主要的优势是：
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/" rel="next" title="基于ProtocolBuffer和ysocket的Swift服务器搭建">
-                <i class="fa fa-chevron-left"></i> 基于ProtocolBuffer和ysocket的Swift服务器搭建
+              <a href="/2017/07/12/C-拾遗-C-对表达式的增强/" rel="next" title="C++拾遗-C++对表达式的增强">
+                <i class="fa fa-chevron-left"></i> C++拾遗-C++对表达式的增强
               </a>
             
           </div>
@@ -397,10 +369,6 @@ RTMP本质上是流协议，主要的优势是：
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/14/iOS直播推流-Nginx服务器搭建和RTMP-HLS推流实现/" rel="prev" title="iOS直播推流--Nginx服务器搭建和RTMP,HLS推流实现">
-                iOS直播推流--Nginx服务器搭建和RTMP,HLS推流实现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -506,7 +474,7 @@ RTMP本质上是流协议，主要的优势是：
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#RTMP-Real-Time-Messaging-Protocol"><span class="nav-number">1.</span> <span class="nav-text">RTMP(Real Time Messaging Protocol)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#C语言-const"><span class="nav-number">1.</span> <span class="nav-text">C语言 const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-语言-const"><span class="nav-number">2.</span> <span class="nav-text">C++语言 const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const-与-define"><span class="nav-number">3.</span> <span class="nav-text">const 与#define</span></a></li></ol></div>
             
 
           </div>

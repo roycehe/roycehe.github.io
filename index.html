@@ -239,6 +239,375 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/13/C-拾遗-const的使用/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/13/C-拾遗-const的使用/" itemprop="url">
+                  C++拾遗-const的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-13T08:34:00+08:00">
+                2017-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="C语言-const"><a href="#C语言-const" class="headerlink" title="C语言 const"></a>C语言 const</h3><p>一看到const大家都印象是定义了一个常量,只读.比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const int a;//a的值不能被改变</div><div class="line">const int *c;//指针c指向的内存空间的值不能被改变</div><div class="line">int * const c;//指针c的指向不能被改变</div></pre></td></tr></table></figure>
+<p>但是真的是这样么,看看以下代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *c = (int*)&amp;a;</div><div class="line">*c = 11;</div><div class="line">printf(&quot;%d\n&quot;,a);</div></pre></td></tr></table></figure>
+<p>顺利执行a的值被间接改变为11;</p>
+<h3 id="C-语言-const"><a href="#C-语言-const" class="headerlink" title="C++语言 const"></a>C++语言 const</h3><p>再看看在C++中<br>C++编译器编译器将声明const的变量key-value键值对的形式放到符号表中,编译过程中若发现使用常量则直接以符号表中的值替换.<br>如果我们尝试间接赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *p = NULL;</div><div class="line">p = (int *)&amp;a;</div><div class="line">*p = 20;</div><div class="line">printf(&quot;a:%d \n&quot;, a);//a =10</div><div class="line">printf(&quot;*p:%d \n&quot;, *p);//*p 20</div></pre></td></tr></table></figure>
+<p>C++中如果对其进行取地址操作,会对其进行地址分配.</p>
+<h3 id="const-与-define"><a href="#const-与-define" class="headerlink" title="const 与#define"></a>const 与#define</h3><ul>
+<li>const常量是由编译器处理的，提供类型检查和作用域检查</li>
+<li>宏定义由预处理器处理，单纯的文本替换</li>
+</ul>
+<p>来看看他们的作用域</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void fun1()</div><div class="line">&#123;</div><div class="line">    #define a 10</div><div class="line">    const int b = 20;//只能在该函数内使用</div><div class="line">    # undef//卸载后无法再其他函数内使用</div><div class="line">&#125;</div><div class="line">void fun2()</div><div class="line">&#123;</div><div class="line">    printf(&quot;a = %d\n&quot;, a);//可以使用</div><div class="line">    //printf(&quot;b = %d\n&quot;, b);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/12/C-拾遗-C-对表达式的增强/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/12/C-拾遗-C-对表达式的增强/" itemprop="url">
+                  C++拾遗-C++对表达式的增强
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T17:52:13+08:00">
+                2017-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>先看以下代码在C中的效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    int a = 10;</div><div class="line">    int b = 20;</div><div class="line">    </div><div class="line">    //返回一个最小数 并且给最小数赋值成30</div><div class="line">    //该行报错 ，原因是C语言中表达式不可能做左值</div><div class="line">    (a &lt; b ? a : b ) = 30;</div><div class="line">    </div><div class="line">    printf(&quot;a = %d, b = %d\n&quot;, a, b);</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而在C++中者编译通过,打印出结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a = 30, b = 20</div><div class="line">Program ended with exit code: 0</div></pre></td></tr></table></figure>
+<p>总结<br>C语言返回的是变量的值,不能作为左值使用<br>C++返回的是变量本身,可以出现在任何地方</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/12/C-拾遗-面向过程到面向对象/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/12/C-拾遗-面向过程到面向对象/" itemprop="url">
+                  C++拾遗-面向过程到面向对象
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T17:40:12+08:00">
+                2017-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="求圆的周长和面积"><a href="#求圆的周长和面积" class="headerlink" title="求圆的周长和面积"></a>求圆的周长和面积</h2><h3 id="用结构化方法编程"><a href="#用结构化方法编程" class="headerlink" title="用结构化方法编程"></a>用结构化方法编程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">double r = 0;</div><div class="line">double s = 0;</div><div class="line">cout &lt;&lt; &quot;请输入半径&quot; &lt;&lt;endl;</div><div class="line"></div><div class="line">cin &gt;&gt; r;</div><div class="line"></div><div class="line">s = M_PI * r * r;</div><div class="line"></div><div class="line">cout &lt;&lt; &quot;面积s:&quot; &lt;&lt; s&lt;&lt; endl;</div></pre></td></tr></table></figure>
+<h3 id="用面向对象方法编程"><a href="#用面向对象方法编程" class="headerlink" title="用面向对象方法编程"></a>用面向对象方法编程</h3><p><img src="http://www.onetomato.online/images/0712/1.png" alt=""><br><img src="http://www.onetomato.online/images/0712/2.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">#include&lt;iostream.h&gt; </div><div class="line">using name std;</div><div class="line">class Circle</div><div class="line">&#123;  double radius ; //成员变量</div><div class="line">  public : //类的访问控制</div><div class="line">    void Set_Radius( double r ) &#123; radius = r ; &#125; //成员函数</div><div class="line">    double Get_Radius()  &#123; return  radius ; &#125; //通过成员函数设置成员变量</div><div class="line">    double Get_Girth()     &#123; return  2 * 3.14f * radius ; &#125; //通过成员函数获取成员变量</div><div class="line">    double Get_Area()     &#123; return  3.14f * radius * radius ; &#125;</div><div class="line">&#125; ;</div><div class="line">void main()</div><div class="line">&#123; </div><div class="line">Circle A, B ; //用类定义对象</div><div class="line">   A.Set_Radius( 6.23 ) ; //类的调用</div><div class="line">   cout &lt;&lt; &quot;A.Radius = &quot; &lt;&lt; A.Get_Radius() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;A.Girth = &quot; &lt;&lt; A.Get_Girth() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;A.Area = &quot; &lt;&lt; A.Get_Area() &lt;&lt; endl ;</div><div class="line">   B.Set_Radius( 10.5 ) ;</div><div class="line">   cout &lt;&lt; &quot;B.radius = &quot; &lt;&lt; B.Get_Radius() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;B.Girth=&quot; &lt;&lt; B.Get_Girth() &lt;&lt; endl ;</div><div class="line">   cout &lt;&lt; &quot;B.Area = &quot; &lt;&lt; B.Get_Area() &lt;&lt; endl ; </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/04/Alamofire4-x开源代码分析-四-Timeline和cURL-Command-Output/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1094,413 +1463,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/14/iOS直播推流-流媒体协议/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="她吃_🍅">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/IMG.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="她吃_🍅 blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/14/iOS直播推流-流媒体协议/" itemprop="url">
-                  iOS直播推流--流媒体协议
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-14T17:46:03+08:00">
-                2017-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>RTMP, HLS当下比较流行的流媒体协议.</p>
-<h6 id="RTMP-Real-Time-Messaging-Protocol"><a href="#RTMP-Real-Time-Messaging-Protocol" class="headerlink" title="RTMP(Real Time Messaging Protocol)"></a>RTMP(Real Time Messaging Protocol)</h6><p>RTMP协议是 Adobe 公司开发的一个基于TCP的应用层协议，Adobe 公司也公布了关于RTMP的规范</p>
-<p>RTMP本质上是流协议，主要的优势是：</p>
-<ul>
-<li>实时性高：RTMP的实时性在3秒之内，经过多层CDN节点分发后，实时性也在3秒左右,在一些实时性有要求的应用中以RTMP为主。</li>
-<li>支持加密：RTMPE和RTMPS为加密协议</li>
-<li>稳定性高：HTTP也很稳定，但HTTP是在协议上稳定稳定性不只是服务端的事情，在CDN分发，服务器管理，客户端的支持上</li>
-</ul>
-<p>######RTMP的使用</p>
-<ul>
-<li>RTMP协议也要客户端和服务器通过“握手”来建立基于传输层链接之上的RTMP Connection链接，在Connection链接上会传输一些控制信息</li>
-<li>TMP协议传输时会对数据做自己的格式化，这种格式的消息我们称之为RTMP Message</li>
-<li>而实际传输的时候为了更好地实现多路复用、分包和信息的公平性，发送端会把Message划分为带有Message ID的Chunk，每个Chunk可能是一个单独的Message，也可能是Message的一部分，在接受端会根据chunk中包含的data的长度，message id和message的长度把chunk还原成完整的Message，从而实现信息的收发。
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/14/iOS直播推流-流媒体协议/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="她吃_🍅">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/IMG.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="她吃_🍅 blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/" itemprop="url">
-                  基于ProtocolBuffer和ysocket的Swift服务器搭建
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-12T11:03:47+08:00">
-                2017-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Protocol Buffers (ProtocolBuffer/ protobuf )是Google公司开发的一种数据描述语言，类似于XML能够将结构化数据序列化,比起XML它更简单,文件更小,传输解析更快,原生支持java、c++、python,如果要在 iOS 上使用，可以直接使用 C++.但是编译过程很麻烦，因此这里使用的是第三方的库.</p>
-<p>Swift : <a href="https://github.com/alexeyxo/protobuf-swift">https://github.com/alexeyxo/protobuf-swift</a><br>ObjC : <a href="https://github.com/aerofs/protobuf-objc">https://github.com/aerofs/protobuf-objc</a><br>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/12/基于ProtocolBuffer和ysocket的Swift服务器搭建/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/12/WWDC-2017-Feature-102-Platforms-State-of-the-Union/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="她吃_🍅">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/IMG.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="她吃_🍅 blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/12/WWDC-2017-Feature-102-Platforms-State-of-the-Union/" itemprop="url">
-                  WWDC 2017 Feature 102 Platforms State of the Union
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-12T10:55:05+08:00">
-                2017-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>2017苹果开发者大会如期举行,发布会演讲的内容通过最近的报道大家应该已经都熟知,但作为一个Developer我们更应该关注后续将会举行的一些列的Session,会持续一周的时间.<br>下面就第一天的内容做一个小结</p>
-<p>MacOS High Sierra将是最后一个版本支持32位应用,此前iOS平台早已给开发者发送通知要求更新至64位 iOS11不在支持32位app,苹果已经在App Store内停止提供32位应用程序的搜索结果.</p>
-<h3 id="Playground1-5"><a href="#Playground1-5" class="headerlink" title="Playground1.5"></a>Playground1.5</h3><p><img src="https://static.oschina.net/uploads/img/201706/07155551_FRpE.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<ul>
-<li>增强代码高亮</li>
-<li>内容更新通知</li>
-<li>添加一页新的Playground</li>
-<li>增强了报错信息</li>
-<li>增加MapKit支持</li>
-<li>重点对智能机器人的控制进行支持<br><img src="https://static.oschina.net/uploads/img/201706/07155605_ilA0.png" alt="输入图片说明" title="在这里输入图片标题">!</li>
-</ul>
-<p>Playgrounds 2将在今年秋天发布</p>
-<p>###重点来了Xcode 9</p>
-<p>编辑器更新</p>
-<p>支持Markdown语法</p>
-<ul>
-<li>单词修复</li>
-<li>只能补全例如 if else 同时添加了快捷键 例如 代码定义跳转 : control + command<br><img src="https://static.oschina.net/uploads/img/201706/07153558_i1Vt.png" alt="输入图片说明" title="在这里输入图片标题"></li>
-<li>Protocol 协议方法补全(这个非常实用)</li>
-<li>生成方法实现</li>
-</ul>
-<p>…..<br>更多实用功能等你去发现,<br>ps:这个代码转换器是开源的</p>
-<p>###Swift<br>String<br>做了一些代码简化,比如便利字符串<img src="https://static.oschina.net/uploads/img/201706/07164113_q78R.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p> Codable<br>只要遵循 Codable协议就可以使用对应的序列号方法<br><img src="https://static.oschina.net/uploads/img/201706/07165123_Gmes.png" alt="输入图片说明" title="在这里输入图片标题"><br><img src="https://static.oschina.net/uploads/img/201706/07165142_1PWv.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>##Source Control<br>通过调查发现github三分之二的代码提交来源于Mac 于是xcode集成了github代码管理呵呵哒<img src="https://static.oschina.net/uploads/img/201706/07160314_Tyzx.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>步骤很简单添加github账号,在导航菜单中就可以看到相关分支,贡献者,代码改动非常智能<br><img src="https://static.oschina.net/uploads/img/201706/07160238_N7f5.png" alt="输入图片说明" title="在这里输入图片标题"><br><img src="https://static.oschina.net/uploads/img/201706/07160257_HsxC.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>当然对SVN也做了忽略文件配置</p>
-<h3 id="Runtime-Sanitizers"><a href="#Runtime-Sanitizers" class="headerlink" title="Runtime Sanitizers"></a>Runtime Sanitizers</h3><p>开启选项 </p>
-<p><img src="https://static.oschina.net/uploads/img/201706/07162358_xrFZ.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>越界检查 </p>
-<p><img src="https://static.oschina.net/uploads/img/201706/07162435_SA4E.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>主线程检查 </p>
-<p><img src="https://static.oschina.net/uploads/img/201706/07162613_Fbu3.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>下面这更新个人非常喜欢<br>Wifi真机调试(终于摆脱了数据线,当然手机系统也要更新到iOS11,不知道速度怎么样)<br><img src="https://static.oschina.net/uploads/img/201706/07164024_cEy8.png" alt="输入图片说明" title="在这里输入图片标题"></p>
-<p>先到这,更多有关本次大会的Session可以添加关注</p>
-<p><a href="https://developer.apple.com/wwdc/schedule/#/" target="_blank" rel="external">也可点击Schedule直达</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1546,7 +1508,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

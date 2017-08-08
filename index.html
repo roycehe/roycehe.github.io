@@ -239,6 +239,135 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/08/macOS自带Python2-7删除之后的悲剧-Loading-a-plug-in-failed/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/08/macOS自带Python2-7删除之后的悲剧-Loading-a-plug-in-failed/" itemprop="url">
+                  macOS自带Python2.7删除之后的悲剧(Loading a plug-in failed)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-08T14:10:05+08:00">
+                2017-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>今天打开xcode想要开始继续写项目的时候悲剧了.<br><img src="https://ws2.sinaimg.cn/large/006tKfTcgy1fic8rbeuv0j30n607q758.jpg" alt=""><br>Loading a plug-in failed.<br>The plug-in or one of its prerequisite plug-ins may be missing or damaged and may need to be reinstalled.</p>
+<p>尝试用终端打开看看报错信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open /Applications/Xcode.app/Contents/MacOS/Xcode</div></pre></td></tr></table></figure>
+<p>报错详情</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/Applications/Xcode8.app/Contents/PlugIns/DebuggerLLDB.ideplugin), error = Error Domain=NSCocoaErrorDomain Code=3587 &quot;dlopen_preflight(/Applications/Xcode8b.app/Contents/PlugIns/DebuggerLLDB.ideplugin/Contents/MacOS/DebuggerLLDB): Library not loaded: /System/Library/Frameworks/Python.framework/Versions/2.7/Python</div><div class="line">Referenced from: /Applications/Xcode8.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB Reason: no suitable image found. Did find: </div><div class="line">/System/Library/Frameworks/Python.framework/Versions/2.7/Python: code signing blocked mmap</div></pre></td></tr></table></figure>
+<h3 id="尝试"><a href="#尝试" class="headerlink" title="尝试"></a>尝试</h3><p>想都没想,肯定是昨晚在升级python的时候 删掉了旧版的python2.7导致的.<br>于是去python官网下载了python2.7.13,安装配置之后还是没用.查了一下macOS10.12原始版本是2.7.10,下载安装之后还是没用.</p>
+<h3 id="探索"><a href="#探索" class="headerlink" title="探索"></a>探索</h3><p>然后google一下</p>
+<p>在<a href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=2&amp;ved=0ahUKEwj8mZqG6cbVAhUBgrwKHUP1BwYQFgguMAE&amp;url=http%3A%2F%2Fstackoverflow.com%2Fa%2F39593701&amp;usg=AFQjCNF67pLeIoiChMDOxYjxMRAGmOFHyw" target="_blank" rel="external">StackOverflow</a>找到也有个哥们遇到相同问题.<br><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fic8wnuvt7j30ym0aun0z.jpg" alt=""></p>
+<p>于是用他说的方法下在系统镜像去里面找找原版.当时在/system/library/Framework/文件夹下自由系统相关的库,到是有一个installation文件夹,里面有一些安装包,由于安装包太大(4G),他也没说在系统那个目录下,放弃尝试.<br>我陷入了沉思,问下了技术交流群,有人说重装xcode,我觉得不行,这并不是xcode本身的为题,而是扩展库出错.</p>
+<h3 id="醒悟"><a href="#醒悟" class="headerlink" title="醒悟"></a>醒悟</h3><p>难道apple提供的python和python官网下载的不一样?带着这个疑问查看了一下目录结构果然.<br><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fic9pngg7lj30kc0ewjsx.jpg" alt=""><br><img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fic9pj5wytj30wa0dydhu.jpg" alt=""><br>macOS自带多了几个文件夹:_CodeSignature,Extras等猜测应该是用来打包签名用的,这也就解释了报错code signing blocked mmap的原因</p>
+<h3 id="成功恢复"><a href="#成功恢复" class="headerlink" title="成功恢复"></a>成功恢复</h3><p>现在要去哪里找原版呢,之前是直接rm -f删掉的没有后悔药,还好有做TimeMachine备份,终于在备份盘中找到原版python2.7,成功恢复.</p>
+<p>总结:假如你需要修改系统库或者环境变量是一定要做好备份,笔记记好还原步骤.突然有一种想法:apple在macOS中内置python,可能是因为其他软件会依赖他,那ruby呢会不会也有一些功能是依赖它实现的呢,可以研究一下.</p>
+<p>应同学要求贴出楼主的科学上网工具,最近还有活动性价比高<br><a href="http://t.cn/R9Igif0" target="_blank" rel="external">easysocks</a>+<a href="http://easysocks.net/software/mac-shadowsocksx-ng.zip" target="_blank" rel="external">shadowsocksx-ng)</a><br><a href="http://t.cn/R9Igif0" target="_blank" rel="external"><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1ficdmgtz8sj31jy0pgjya.jpg" alt=""></a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/26/记一次后台定位上传项目经历/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -316,30 +445,19 @@
 
       
         
-          
-            <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>现在做的是一个物流项目,其中用户端需要获取到车辆的定位信息,结束后绘制成行车轨迹.后台实时上传也就成了一个重要的技术点.</p>
+          <h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>现在做的是一个物流项目,其中用户端需要获取到车辆的定位信息,结束后绘制成行车轨迹.后台实时上传也就成了一个重要的技术点.</p>
 <h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><ol>
 <li>如果车辆行驶过程中,每隔一段时间上报一次.</li>
 <li>如果车辆速度缓慢,根据移动距离上报</li>
 <li>如果车辆在某地停留,或者送达后停止上报</li>
-<li>APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报</li>
-</ol>
-<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>在target的Capabilities选项中打开Background Modes 并勾选Location updates<br>然后在plist中添加Always Usage Description的键 在value中随便键入任何内容<br>requestAlwaysAuthorization支持Region Monitoring和Significant Location Changes<br>定位工具类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">class RCLocationManger: NSObject &#123;</div><div class="line">   </div><div class="line">    fileprivate var minSpeed : Double = 3</div><div class="line">    </div><div class="line">    fileprivate var minFilter : Double = 50</div><div class="line">    </div><div class="line">    fileprivate var minInteval : Double = 10</div><div class="line">    </div><div class="line">    </div><div class="line">    static let rcLocationManger = RCLocationManger()</div><div class="line">    fileprivate var manager : CLLocationManager = &#123;</div><div class="line">    </div><div class="line">        let manager = CLLocationManager()</div><div class="line">        manager.requestAlwaysAuthorization()</div><div class="line">        manager.desiredAccuracy = kCLLocationAccuracyBest</div><div class="line">        return manager</div><div class="line">    </div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">    func start()&#123;</div><div class="line">        </div><div class="line">        manager.distanceFilter = 10</div><div class="line">        manager.delegate = self</div><div class="line">        manager.startUpdatingLocation()</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">    func startMonitoring() -&gt; () &#123;</div><div class="line">        manager.startMonitoringSignificantLocationChanges()</div><div class="line">    &#125;</div><div class="line">    func stop() &#123;</div><div class="line">        manager.stopUpdatingLocation()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>扩展</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">// MARK: - *** 扩展 ***</div><div class="line"></div><div class="line">extension RCLocationManger &#123;</div><div class="line"></div><div class="line"></div><div class="line">    //计算上报条件</div><div class="line">    func caculateFilter(location : CLLocation) -&gt; () &#123;</div><div class="line">        //慢速</div><div class="line">        if location.speed &lt; self.minSpeed &#123;</div><div class="line">            </div><div class="line">            //距离</div><div class="line">            if fabs(self.manager.distanceFilter - self.minFilter) &gt; 0.1 &#123;</div><div class="line">                </div><div class="line">                self.manager.distanceFilter = minFilter</div><div class="line">                </div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            </div><div class="line">        &#125; else &#123;</div><div class="line">            let lastSpeed = self.minFilter / self.minFilter</div><div class="line">            </div><div class="line">            if fabs(lastSpeed - location.speed) / lastSpeed &gt; 0.1 || lastSpeed &lt; 0 &#123;</div><div class="line">                </div><div class="line">                let newSpeed = location.speed + 0.5</div><div class="line">                let newFilter = newSpeed * self.minInteval</div><div class="line">                </div><div class="line">                self.manager.distanceFilter = newFilter</div><div class="line">                </div><div class="line">                </div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        </div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    // 可在此处上传定位</div><div class="line">    func saveLocation(location : CLLocation)&#123;</div><div class="line">        //使用realm数据库保存</div><div class="line">        let realm = try! Realm()</div><div class="line">        let loc = LocationModel(value: [location.coordinate.latitude,  location.coordinate.longitude, location.timestamp])</div><div class="line">        </div><div class="line">        try! realm.write &#123;</div><div class="line">            realm.add(loc)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> 为了能够正确的在被杀掉的情况下被唤醒 我们还要做最后一步操作 在AppDelegate的didFinishLaunchingWithOptions中加入下面的代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">extension AppDelegate &#123;</div><div class="line"></div><div class="line">    func configLocation(launchOptions: [UIApplicationLaunchOptionsKey: Any]?)&#123;</div><div class="line">    </div><div class="line">       </div><div class="line">        if (launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem]) != nil &#123;</div><div class="line">            </div><div class="line">            RCLocationManger.rcLocationManger.startMonitoring()</div><div class="line">            </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        </div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="Realm数据库集成"><a href="#Realm数据库集成" class="headerlink" title="Realm数据库集成"></a>Realm数据库集成</h3><p>步骤</p>
-<ol>
-<li>拷贝Realm 和RealmSwift两个Framework到工程</li>
-<li>添加libc++库</li>
-<li>点击build Phases左上角+号 选择new copy file phases 把destination 改成 framework</li>
-<li>最后把两个Framework拷贝进去<br><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fhxfcfxin4j31740w6grj.jpg" alt=""><br>不然可能会报这个错如果报这个错Reason: image not found</li>
-</ol>
-<p>测试结果<br><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fhxmjowrfzj31dc0lugr0.jpg" alt=""></p>
-
-          
+<li>APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/26/记一次后台定位上传项目经历/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -701,6 +819,129 @@
           <!--noindex-->
           <div class="post-more-link text-center">
             <a class="btn" href="/2017/07/12/C-拾遗-面向过程到面向对象/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/12/C:C++拾遗(一)递归和栈逆序字符串/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="她吃_🍅">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/IMG.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="她吃_🍅 blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/12/C:C++拾遗(一)递归和栈逆序字符串/" itemprop="url">
+                  C/C++拾遗(一)递归和栈逆序字符串
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T15:22:04+08:00">
+                2017-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>#C/C++拾遗(一)递归和栈逆序字符串</p>
+<pre><code>###递归函数调用模型
+</code></pre><p><img src="https://static.oschina.net/uploads/img/201707/18085003_CVrn.png" alt="输入图片说明" title="在这里输入图片标题"><br>
+          <!--noindex-->
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/07/12/C:C++拾遗(一)递归和栈逆序字符串/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1228,248 +1469,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/iOS直播-集成ijkplayer视频播放框架/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="她吃_🍅">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/IMG.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="她吃_🍅 blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/20/iOS直播-集成ijkplayer视频播放框架/" itemprop="url">
-                  iOS直播--集成ijkplayer视频播放框架
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T10:56:23+08:00">
-                2017-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>ijkplayer 是一款做视频直播的框架, 基于ffmpeg, 支持 Android 和 iOS.首先下载编译,<br><a href="https://share.weiyun.com/96e5d296ac8f6dded594e12aa409d931">点这里直接下载我已经编译好的framework</a> (<a href="http://www.jianshu.com/p/1f06b27b3ac0">编译步骤</a>)<br>将编译好的库拖到工程中,同时需要导入一下依赖库<br><img src="https://static.oschina.net/uploads/img/201706/20091031_09hK.png" alt="输入图片说明" title="在这里输入图片标题"><br>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/20/iOS直播-集成ijkplayer视频播放框架/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/iOS直播-LFLiveKit视频拍摄及推流/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="她吃_🍅">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/IMG.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="她吃_🍅 blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="她吃_🍅 blog" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/20/iOS直播-LFLiveKit视频拍摄及推流/" itemprop="url">
-                  iOS直播--LFLiveKit视频拍摄及推流
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-20T10:53:51+08:00">
-                2017-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>LFLiveKit是一个集成了视频采集-美颜-编码-推流为一体的框架,并且使用起来非常的简单, 我们可以在iOS中直接使用该框架进行推流.<br>
-          <!--noindex-->
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/20/iOS直播-LFLiveKit视频拍摄及推流/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1515,7 +1514,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

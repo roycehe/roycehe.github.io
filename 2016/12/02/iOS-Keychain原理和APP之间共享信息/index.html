@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201612/02110610_w8pY.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201612/02111137_MbnO.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/img/201612/02111211_v1lj.png">
-<meta property="og:updated_time" content="2016-12-07T03:32:34.000Z">
+<meta property="og:updated_time" content="2017-08-08T08:21:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS Keychain原理和APP之间共享信息">
 <meta name="twitter:description" content="Keychain 介绍Keychain Services 是 MacOS 和 iOS 都提供一种安全地存储敏感信息的工具，比如,网络密码:用于保存访问服务器或者网站,通用密码:用来保存应用程序或者数据库密码.与此同时,用于认证的证书,密钥,和身份信息,也可以存储在Keychain中.Keychain Services 的安全机制保证了存储这些敏感信息不会被窃取。简单说来，Keychain 就是一个">
@@ -340,7 +340,6 @@
 <p>(AppIdentifierPrefix)可以是开发者的代号需要登录才会有，也就是开发者证书后小括号的内的英文数字组合。使用$(AppIdentifierPrefix)只能被同一个开发者账号的app来存取，以防被有心人盜取。<br><img src="https://static.oschina.net/uploads/img/201612/02111211_v1lj.png" alt="输入图片说明" title="在这里输入图片标题"></p>
 <p>若其他的App也要存取当前Keychain的数据，就必需在Keychain开启后，新增相同的Keychain Group (Access Group会根据Keychain Group自动新增)。<br><em>PS: 需要Info.plist新增一对键值<br>Key: AppIdentifierPrefix<br>Value: $(AppIdentifierPrefix)<br>方便取得 Identifier Prefix</em></p>
 <p><a href="https://developer.apple.com/library/prerelease/content/samplecode/GenericKeychain/Introduction/Intro.html#//apple_ref/doc/uid/DTS40007797" target="_blank" rel="external">官方sampleCode</a></p>
-<p>如有疑问可以加我QQ451912132</p>
 
       
     </div>
@@ -447,7 +446,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

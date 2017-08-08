@@ -89,9 +89,7 @@
 如果车辆行驶过程中,每隔一段时间上报一次.
 如果车辆速度缓慢,根据移动距离上报
 如果车辆在某地停留,或者送达后停止上报
-APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报
-
-准备工作在target的Capabilities选项中打开Backgro">
+APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次iOS后台定位上传项目经历(Swift)">
 <meta property="og:url" content="http://yoursite.com/2017/07/26/记一次后台定位上传项目经历/index.html">
@@ -101,12 +99,10 @@ APP被用户退出或者被系统kill需要继续上报,应用重新打开后重
 如果车辆行驶过程中,每隔一段时间上报一次.
 如果车辆速度缓慢,根据移动距离上报
 如果车辆在某地停留,或者送达后停止上报
-APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报
-
-准备工作在target的Capabilities选项中打开Backgro">
+APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fhxfcfxin4j31740w6grj.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNc79gy1fhxmjowrfzj31dc0lugr0.jpg">
-<meta property="og:updated_time" content="2017-07-26T13:51:16.000Z">
+<meta property="og:updated_time" content="2017-07-26T13:54:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次iOS后台定位上传项目经历(Swift)">
 <meta name="twitter:description" content="需求现在做的是一个物流项目,其中用户端需要获取到车辆的定位信息,结束后绘制成行车轨迹.后台实时上传也就成了一个重要的技术点.
@@ -114,9 +110,7 @@ APP被用户退出或者被系统kill需要继续上报,应用重新打开后重
 如果车辆行驶过程中,每隔一段时间上报一次.
 如果车辆速度缓慢,根据移动距离上报
 如果车辆在某地停留,或者送达后停止上报
-APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报
-
-准备工作在target的Capabilities选项中打开Backgro">
+APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报">
 <meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNc79gy1fhxfcfxin4j31740w6grj.jpg">
 
 
@@ -340,7 +334,8 @@ APP被用户退出或者被系统kill需要继续上报,应用重新打开后重
 <li>如果车辆行驶过程中,每隔一段时间上报一次.</li>
 <li>如果车辆速度缓慢,根据移动距离上报</li>
 <li>如果车辆在某地停留,或者送达后停止上报</li>
-<li>APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报</li>
+<li>APP被用户退出或者被系统kill需要继续上报,应用重新打开后重新上报<a id="more"></a>
+</li>
 </ol>
 <h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>在target的Capabilities选项中打开Background Modes 并勾选Location updates<br>然后在plist中添加Always Usage Description的键 在value中随便键入任何内容<br>requestAlwaysAuthorization支持Region Monitoring和Significant Location Changes<br>定位工具类</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">class RCLocationManger: NSObject &#123;</div><div class="line">   </div><div class="line">    fileprivate var minSpeed : Double = 3</div><div class="line">    </div><div class="line">    fileprivate var minFilter : Double = 50</div><div class="line">    </div><div class="line">    fileprivate var minInteval : Double = 10</div><div class="line">    </div><div class="line">    </div><div class="line">    static let rcLocationManger = RCLocationManger()</div><div class="line">    fileprivate var manager : CLLocationManager = &#123;</div><div class="line">    </div><div class="line">        let manager = CLLocationManager()</div><div class="line">        manager.requestAlwaysAuthorization()</div><div class="line">        manager.desiredAccuracy = kCLLocationAccuracyBest</div><div class="line">        return manager</div><div class="line">    </div><div class="line">    &#125;()</div><div class="line">    </div><div class="line">    </div><div class="line">    </div><div class="line">    func start()&#123;</div><div class="line">        </div><div class="line">        manager.distanceFilter = 10</div><div class="line">        manager.delegate = self</div><div class="line">        manager.startUpdatingLocation()</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">    func startMonitoring() -&gt; () &#123;</div><div class="line">        manager.startMonitoringSignificantLocationChanges()</div><div class="line">    &#125;</div><div class="line">    func stop() &#123;</div><div class="line">        manager.stopUpdatingLocation()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line"> </div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -391,6 +386,10 @@ APP被用户退出或者被系统kill需要继续上报,应用重新打开后重
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/08/macOS自带Python2-7删除之后的悲剧-Loading-a-plug-in-failed/" rel="prev" title="macOS自带Python2.7删除之后的悲剧(Loading a plug-in failed)">
+                macOS自带Python2.7删除之后的悲剧(Loading a plug-in failed) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -458,7 +457,7 @@ APP被用户退出或者被系统kill需要继续上报,应用重新打开后重
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

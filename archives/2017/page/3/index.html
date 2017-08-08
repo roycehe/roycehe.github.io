@@ -84,19 +84,15 @@
 
 
 
-<meta name="description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
-123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变">
+<meta name="description" content="talk is cheap, show me the code">
 <meta property="og:type" content="website">
-<meta property="og:title" content="C++拾遗-const的使用">
-<meta property="og:url" content="http://yoursite.com/C-拾遗-const的使用.html">
+<meta property="og:title" content="她吃_🍅 blog">
+<meta property="og:url" content="http://yoursite.com/archives/2017/page/3/index.html">
 <meta property="og:site_name" content="她吃_🍅 blog">
-<meta property="og:description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
-123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变">
-<meta property="og:updated_time" content="2017-07-13T03:23:03.000Z">
+<meta property="og:description" content="talk is cheap, show me the code">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++拾遗-const的使用">
-<meta name="twitter:description" content="C语言 const一看到const大家都印象是定义了一个常量,只读.比如
-123const int a;//a的值不能被改变const int *c;//指针c指向的内存空间的值不能被改变int * const c;//指针c的指向不能被改变">
+<meta name="twitter:title" content="她吃_🍅 blog">
+<meta name="twitter:description" content="talk is cheap, show me the code">
 
 
 
@@ -124,19 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/C-拾遗-const的使用.html"/>
+  <link rel="canonical" href="http://yoursite.com/archives/2017/page/3/"/>
 
 
 
 
 
-  <title>
-  
-
-  
-    C++拾遗-const的使用 | 她吃_🍅 blog
-  
-</title>
+  <title> 归档 | 她吃_🍅 blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -157,7 +147,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,35 +227,70 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-  <header class="post-header">
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-	<h2 class="post-title" itemprop="name headline">C++拾遗-const的使用</h2>
-
-
-
-</header>
-
-    
-    
-      <h3 id="C语言-const"><a href="#C语言-const" class="headerlink" title="C语言 const"></a>C语言 const</h3><p>一看到const大家都印象是定义了一个常量,只读.比如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">const int a;//a的值不能被改变</div><div class="line">const int *c;//指针c指向的内存空间的值不能被改变</div><div class="line">int * const c;//指针c的指向不能被改变</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>但是真的是这样么,看看以下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *c = (int*)&amp;a;</div><div class="line">*c = 11;</div><div class="line">printf(&quot;%d\n&quot;,a);</div></pre></td></tr></table></figure>
-<p>顺利执行a的值被间接改变为11;</p>
-<h3 id="C-语言-const"><a href="#C-语言-const" class="headerlink" title="C++语言 const"></a>C++语言 const</h3><p>再看看在C++中<br>C++编译器编译器将声明const的变量key-value键值对的形式放到符号表中,编译过程中若发现使用常量则直接以符号表中的值替换.<br>如果我们尝试间接赋值</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const int a = 10;</div><div class="line">int *p = NULL;</div><div class="line">p = (int *)&amp;a;</div><div class="line">*p = 20;</div><div class="line">printf(&quot;a:%d \n&quot;, a);//a =10</div><div class="line">printf(&quot;*p:%d \n&quot;, *p);//*p 20</div></pre></td></tr></table></figure>
-<p>C++中如果对其进行取地址操作,会对其进行地址分配.</p>
-<h3 id="const-与-define"><a href="#const-与-define" class="headerlink" title="const 与#define"></a>const 与#define</h3><ul>
-<li>const常量是由编译器处理的，提供类型检查和作用域检查</li>
-<li>宏定义由预处理器处理，单纯的文本替换</li>
-</ul>
-<p>来看看他们的作用域</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">void fun1()</div><div class="line">&#123;</div><div class="line">    #define a 10</div><div class="line">    const int b = 20;//只能在该函数内使用</div><div class="line">    # undef//卸载后无法再其他函数内使用</div><div class="line">&#125;</div><div class="line">void fun2()</div><div class="line">&#123;</div><div class="line">    printf(&quot;a = %d\n&quot;, a);//可以使用</div><div class="line">    //printf(&quot;b = %d\n&quot;, b);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 29 篇日志。 继续努力。
+    </span>
 
     
-  </div>
+
+      
+      
+      
+
+      
+        
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+        </div>
+      
+      
+
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
+        
+            <a class="post-title-link" href="/2017/01/06/通过-Core-Graphics-绘制渐变颜色/" itemprop="url">
+              
+                <span itemprop="name">Swift3.0 通过 Core Graphics 绘制渐变颜色</span>
+              
+            </a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2017-01-06T08:46:11+08:00"
+              content="2017-01-06" >
+          01-06
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+
+    
+
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/archives/2017/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/">1</a><a class="page-number" href="/archives/2017/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
+
 
 
           </div>
@@ -273,10 +298,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -308,7 +329,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -434,6 +455,12 @@
   
 
   
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
+
 
   
 
